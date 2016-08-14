@@ -185,11 +185,14 @@
 									<div style="margin: 0px;padding: 0px;">&nbsp;</div>
 									<p class="info" style="margin: 0px 0px 0px 10px;padding: 0px;">
 										月售 ${m.musale} 份
-										<c:if test="${m.haoping != 0}">
+										<c:if test="${m.haoping >= 0.8}">
 											<small class="text-mute"> 好评率 <fmt:formatNumber
 													value="${m.haoping * 100}" pattern="0.00" />% </small>
 										</c:if>
-										<c:if test="${m.haoping == 0}">
+										<c:if test="${m.haoping >=0 and m.haoping < 0.8}">
+											<small class="text-mute"> 好评率低于同类均值</small>
+										</c:if>
+										<c:if test="${m.haoping == -1}">
 											<small> 暂无评价</small>
 										</c:if>
 									</p>
@@ -221,7 +224,6 @@
 		</div>
 		<%--菜单结束 --%>
 		
-		
 		<div class="hidden-xs col-md-3 col-md-push-1" id="restaurant" style="margin-top: 14px;">
 			<div class="border4Circle">
 				<table class="table">
@@ -243,7 +245,7 @@
 					</tbody>
 				</table>
 			</div>
-		<div class="clearfix visible-xs" style="margin-bottom: 70px;"></div>
+			<div class="clearfix visible-xs" style="margin-bottom: 70px;"></div>
 		</div>
 		<%--店铺信息结束 --%>
 
@@ -445,9 +447,9 @@
 					<li><a href="#" id="clearCart2"><span
 							class="glyphicon glyphicon-remove-circle" style="color:#dab074;">&nbsp;</span>清空
 					</a>
+					</li>
+				</ul>
 			</div>
-			</li>
-			</ul>
 		</div>
 		<%--商品详细列表 --%>
 		<div id="cartbar" class="navbar-collapse collapse sr-only">

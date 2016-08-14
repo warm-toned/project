@@ -72,7 +72,9 @@
 			<result name="orderPay">/pages/xiong/jump.jsp</result>
 			<result name="payPage">/pages/xiong/orderPay.jsp</result>
 		</action>
-		<action name="pay" class="zx.ffts.web.action.xiongli.PayAction">
+		<action name="pay" class="zx.ffts.web.action.xiongli.PayAction"/>
+		<action name="assess" class="zx.ffts.web.action.xiongli.AssessAction">
+			<result name=""></result>
 		</action>
 	</package>
 	<package name="yyq" extends="struts-default">

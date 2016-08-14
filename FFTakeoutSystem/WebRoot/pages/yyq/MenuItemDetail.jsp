@@ -67,7 +67,7 @@
 					在线订餐系统</a>
 				<!-- 返回按键 -->
 				<a class="navbar-brand visible-xs pull-right"
-					href="shop!MenuList.action?rtid=${rtid}" style="width: 80px;"><span
+					href="shop!MenuList.action?rtid=${rtid}" style="width: 60px;"><span
 					class="glyphicon glyphicon-circle-arrow-left text-danger"></span> </a>
 			</div>
 			<!--导航条实际内容 -->
@@ -216,13 +216,18 @@
 						<th>
 							<h3 style="padding: 5px;margin: 0px;">
 								商品评价
-								<c:if test="${menuItem.haoping != 0}">
+								<c:if test="${menuItem.haoping >= 0.8}">
 									<small class="pull-right" style="margin-top: 10px;"><label
 										class="label label-success">${menuMess.info.sumnum
 											}个评价</label> 好评率 <fmt:formatNumber value="${menuItem.haoping * 100}"
 											pattern="0.0" />% </small>
 								</c:if>
-								<c:if test="${menuItem.haoping == 0}">
+								<c:if test="${menuItem.haoping >=0 and menuItem.haoping < 0.8}">
+									<small class="pull-right" style="margin-top: 10px;"><label
+										class="label label-success">${menuMess.info.sumnum
+											}个评价</label> 好评率低于同类均值</small>
+								</c:if>
+								<c:if test="${menuItem.haoping == -1}">
 									<small class="pull-right" style="margin-top: 10px;">
 										暂无评价</small>
 								</c:if>
@@ -261,9 +266,9 @@
 								<c:when
 									test="${not empty menuMess.info.sumpage and menuMess.info.sumpage != 0}">
 									<c:choose>
-										<c:when test="${menuMess.info.sumpage > 7}">
-											<c:set var="begin" value="${menuMess.info.nowpage - 3}" />
-											<c:set var="end" value="${menuMess.info.nowpage + 3}" />
+										<c:when test="${menuMess.info.sumpage > 5}">
+											<c:set var="begin" value="${menuMess.info.nowpage - 2}" />
+											<c:set var="end" value="${menuMess.info.nowpage + 2}" />
 										</c:when>
 										<c:otherwise>
 											<c:set var="begin" value="1" />
@@ -272,10 +277,10 @@
 									</c:choose>
 									<c:if test="${begin < 1}">
 										<c:set var="begin" value="1" />
-										<c:set var="end" value="7" />
+										<c:set var="end" value="5" />
 									</c:if>
 									<c:if test="${end > menuMess.info.sumpage}">
-										<c:set var="begin" value="${menuMess.info.sumpage - 6}" />
+										<c:set var="begin" value="${menuMess.info.sumpage - 4}" />
 										<c:set var="end" value="${menuMess.info.sumpage}" />
 									</c:if>
 									<div class="portfolio-pagination">
@@ -346,9 +351,9 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="" style="margin-bottom: 80px;"></div>
 		</div>
 	</div>
-	<div class="" style="margin-bottom: 70px;"></div>
 	<%--底部 --%>
 	<nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom">
 		<div class="container">
@@ -395,17 +400,15 @@
 							class="glyphicon glyphicon-shopping-cart">&nbsp;</span>我的购物车</a></li>
 					<li><a href="#" id="clearCart2"><span
 							class="glyphicon glyphicon-remove-circle" style="color:#dab074;">&nbsp;</span>清空
-					</a>
+					</a></li>
+				</ul>
 			</div>
-			</li>
-			</ul>
-		</div>
-		<%--商品详细列表 --%>
-		<div id="cartbar" class="navbar-collapse collapse sr-only">
-			<ul id="cartList" class="nav navbar-nav navbar-left">
+			<%--商品详细列表 --%>
+			<div id="cartbar" class="navbar-collapse collapse sr-only">
+				<ul id="cartList" class="nav navbar-nav navbar-left">
 
-			</ul>
-		</div>
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<%--模态框(小) --%>

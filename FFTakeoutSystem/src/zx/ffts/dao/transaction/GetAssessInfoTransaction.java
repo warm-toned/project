@@ -6,7 +6,7 @@ import java.util.Map;
 
 import zx.ffts.dao.SQLExecutor;
 
-public class AssessTransaction implements Transactable {
+public class GetAssessInfoTransaction implements Transactable {
 
 	@Override
 	public Object transact(SQLExecutor executor, Object... params)

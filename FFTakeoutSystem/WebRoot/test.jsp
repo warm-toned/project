@@ -50,6 +50,7 @@
 		        size     : 44,
 		        click: function(score, evt) {
 		            //alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
+		            alert(score);
 		        }
 		    });
 		});

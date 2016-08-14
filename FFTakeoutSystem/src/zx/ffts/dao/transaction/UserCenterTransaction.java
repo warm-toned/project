@@ -20,7 +20,7 @@ public class UserCenterTransaction implements Transactable {
 		sql = "delete from ts_order where ouserid=? and ouuid is null or ocount=0";
 		executor.executeUpdate(sql, params[0]);
 		// b.获取全部订单列表
-		sql = "select * from(select ouuid,ortid,rtname,rtpic,to_char(odate,'yyyy-mm-dd hh24:mi:ss') orderdate,ostatus,oassess,floor((odate+?-sysdate)) timestatus,row_number()over(order by ostatus-floor((odate+?-sysdate)),odate desc) rm from ts_order o,ts_restaurant r where o.ortid=r.rtid and ouserid=? group by ouuid,ortid,rtname,rtpic,odate,oassess,ostatus) where rm between ? and ?";
+		sql = "select * from(select ouuid,ortid,rtname,rtpic,to_char(odate,'yyyy-mm-dd hh24:mi:ss') orderdate,ostatus,oassess,floor((odate+?-sysdate)) timestatus,row_number()over(order by sign(power(10,(abs(floor(odate+?-sysdate))+ostatus-1))-ostatus),odate desc) rm from ts_order o,ts_restaurant r where o.ortid=r.rtid and ouserid=? group by ouuid,ortid,rtname,rtpic,odate,oassess,ostatus) where rm between ? and ?";
 		// (每个订单已包含了7条信息:ouuid,ortid,rtname,rtpic,odate,ostatus,timestatus)
 		List<Map<String, Object>> list = executor.getMapList(sql, true,
 				params[1],params[1], params[0], params[2], params[3]);

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import zx.ffts.dao.DataAccessObject;
-import zx.ffts.dao.transaction.AssessTransaction;
+import zx.ffts.dao.transaction.GetAssessInfoTransaction;
 import zx.ffts.dao.xiong.OrderFunctionDao;
 import zx.ffts.dao.yyq.ts_restaurant_dao;
 import zx.ffts.domain.User;
@@ -19,8 +19,6 @@ public class XiongLiAction extends BaseAction {
 	YYQAction yyq = new YYQAction();
 	ts_restaurant_dao rt = new ts_restaurant_dao();
 
-	
-	
 	public String addCar() {
 		Integer rtid = Integer.parseInt(request.getParameter("shopid"));
 		Integer menuid = Integer.parseInt(request.getParameter("menuid"));
@@ -160,24 +158,11 @@ public class XiongLiAction extends BaseAction {
 		return "getShop";
 	}
 
-	/**
-	 * 点击确认支付
-	 * 
-	 * @return
-	 */
-	public String account() {
-		Integer userid = 1; // 指定当前用户为1 当前用户的余额为100000000
-		Integer shopid = Integer.parseInt(request.getParameter("sid")); // 商店id
-		Integer menuid = Integer.parseInt(request.getParameter("meuid")); // 菜的id
-		return "";
-	}
-	
-	//评论
-	public String getAssess(){
-		User user=(User) session.getAttribute("user");
-		Integer userid=user.getUserid();
-//		Integer rtid=Integer.parseInt(request.getParameter("rtid"));
-		Map<String, Object> map=(Map<String, Object>) new OrderFunctionDao().doTransaction(new AssessTransaction(),userid,uuid);
+	// 评论
+	public String getAssess() {
+		Integer userid = ((User) session.getAttribute("user")).getUserid();
+		Map<String, Object> map = (Map<String, Object>) new OrderFunctionDao()
+				.doTransaction(new GetAssessInfoTransaction(), userid, uuid);
 		request.setAttribute("mapshop", map);
 		return "getAssess";
 	}

@@ -107,7 +107,6 @@
 	<div class="clearfix" style="margin-top: 60px;"></div>
 	<%--主体内容 --%>
 	<div class="container">
-
 		<div class="row clearfix">
 			<div class="panel panel-default borderCircle"
 				style="margin: 0px 10px 0px 10px;">

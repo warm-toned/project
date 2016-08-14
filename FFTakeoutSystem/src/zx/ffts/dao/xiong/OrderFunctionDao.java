@@ -81,7 +81,7 @@ public class OrderFunctionDao extends DataAccessObject {
 			sql = "select (select count(*) from ts_menumsg where mmmuid=? and mmscore>=4)/(select count(*) from ts_menumsg where mmmuid=?) from dual";
 			return executeScalarDouble(sql, muid, muid);
 		} else {
-			return 0.00;
+			return -1.00;
 		}
 	}
 
