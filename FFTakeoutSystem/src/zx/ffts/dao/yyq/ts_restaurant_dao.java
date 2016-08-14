@@ -62,7 +62,7 @@ public class ts_restaurant_dao extends DataDao {
 
 	@Test
 	public void test() {
-		System.out.println(new OrderFunctionDao().getRestaurantScore(3));
+		System.out.println();
 	}
 
 	// 根据菜单id查看商店现象信息

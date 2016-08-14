@@ -68,11 +68,11 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 	 * @throws FileNotFoundException
 	 */
 	public String upload() throws FileNotFoundException, IOException {
-		String photoPath = "image/users";
-		String name = photoFileName;
+		String photoPath = "image/users";//数据库
+		String name = photoFileName;//文件名
+		String realPath = application.getRealPath("/image/users");//目录真实路径
 		int code = photoFileName.hashCode();
 		String hex = Integer.toHexString(code);
-		String realPath = application.getRealPath("/image/users");
 		realPath += "\\" + hex.charAt(0) + "\\" + hex.charAt(1);
 		File path = new File(realPath);
 		path.mkdirs();
