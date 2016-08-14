@@ -16,12 +16,64 @@
 //}
 
 
+
+
+//	 document.getElementsByName("u.abc").addEventListener("change",function(e){
+//	     //1获取	文件对象
+//		 alert("sss")
+//		 var file=e.target.files[0];
+//	     //2、创建FIleReader对象
+//		 var fileReader=new FileReader();
+//		 //3、文件读取成功
+//		 fileReader.onload=function(e){
+//			//4、把读取结果(URL)设置给图片
+//			 document.getElementsByName("image").src=e.target.result;
+//		 }
+//		 fileReader.readAsDataURL(file);
+//		 
+//	 })
+	 
+
+
+ 
+
+function CheckImg(FileUpload){
+	 
+
+	 
+	 
+//	 document.getElementsByName("u.abc").addEventListener
+//	
+//	alert(FileUpload.value);
+//	var mime=FileUpload.value;
+//    
+//    mime=mime.toLowerCase().substr(mime.lastIndexOf("."));
+//      alert(mime);
+//    if(mime!=".jpg" && mime!=".gif" && mime!=".png")
+//    {
+//        alert("仅支持JPG,GIF,PNG格式的图片");
+//        document.getElementsByName("u.abc").value="";
+//        return;
+//    }
+//    document.getElementsByName("image").value=FileUpload.value;
+//    document.getElementsByName("image").src=document.getElementsByName("u.abc").value;	
+	
+}
+
+
+function caidanguanli(){
+	$('#myTable').datagrid('clearData');
+}
+
+
+
 /**
  * 我的菜单
  * 
  * @return
  */
 function ts_menu(){
+	
 	$("#myTable").html("");
 	
 	$('#searchDiv').panel('open');
@@ -77,27 +129,40 @@ function ts_menu(){
 				    	$("#mydiv").dialog("open");//打开添加窗口
 				    	$(document).ready(function(){  $("input[name=muname]").focus();});
 				    	$("#addBtn").click(function(){
+				    		var name=$("input[name=muname]").val();
+				    		var price=$("input[name=muprice]").val();			    		
+				    					if(name=="" || price==""){
+							    			  $.messager.alert("添加提示","请填写完整的名称和金额","info")
+							    		}else{
+							    			 $("#myfrm").attr("action", "cs!AddMenu.action").submit();
+							    			  $.messager.alert("添加提示","添加成功","info");
+							    			  $("#mydiv").dialog("close");//关闭			    		
+				    				}
+				    		
+				    		
+				    		
+				    		
 				    		 
-				            $.post("cs!AddMenu.action?v="+Math.random(),$("#myfrm").serialize(),function(data){
-				            	  var o = eval("("+data+")");
-				                  if(o.addfiag){   //判断是否是否有null值
-				                
-				    		    	  $.messager.alert("添加提示","添加成功","info")
-				    		    	  $("#mydiv").dialog("close");//关闭
-				    	    				$("#myTable").datagrid("reload");  //从当前页加载
-				                 }else{
-				                	  $.messager.alert("添加提示","请填写完整信息","info")
-				                	 
-				                 }
-				            	
-				                  $('#mydiv').dialog({ 
-				                	  onClose: function () { 
-				                	  //解决弹出窗口关闭后，验证消息还显示在最上面 
-				                	  $('.tooltip.tooltip-right').hide(); 
-				                	  } 
-				                	  });
-				            })
-				      
+//				            $.post("cs!AddMenu.action?v="+Math.random(),$("#myfrm").serialize(),function(data){
+//				            	  var o = eval("("+data+")");
+//				                  if(o.addfiag){   //判断是否是否有null值
+//				                
+//				    		    	
+//				    		    	
+//				    	    			
+//				                 }else{
+//				                	  $.messager.alert("添加提示","请填写完整信息","info")
+//				                	 
+//				                 }
+//				            	
+//				                  $('#mydiv').dialog({ 
+//				                	  onClose: function () { 
+//				                	  //解决弹出窗口关闭后，验证消息还显示在最上面 
+//				                	  $('.tooltip.tooltip-right').hide(); 
+//				                	  } 
+//				                	  });
+//				            })
+//				      
 				    		
 				    	})
 				    	 $("#quxiao").click(function(){         //单机取消时
@@ -107,12 +172,12 @@ function ts_menu(){
 		        	
 		        	
 		         }},
-		         {text:"删除",iconCls:"icon-remove",handler:function(){
+		         {text:"下架",iconCls:"icon-remove",handler:function(){
 		        	  // 获取用户选中的一行，返回值是数组方式
 				    	
 			    	  var rows = $("#myTable").datagrid("getSelections");  // 取得所有选中的数据（数据类型是ListMap>）
 			    	  if(rows.length==0){   // 如果用户没有选择
-			    		  $.messager.alert('删除提示','请选择要删除的数据...','question'); 
+			    		  $.messager.alert('下架提示','请选择一条或多条下架的菜单...','question'); 
 			    	}else{
 			          var ids="";
 			          $.each(rows,function(index,m){
@@ -123,10 +188,10 @@ function ts_menu(){
 			        	var fiag=eval("("+data+")");
 			             alert(fiag.deletefiag)
 			          if(fiag.deletefiag>0){
-			        	  $.messager.alert("删除提示",'删除成功','warning'); 
+			        	  $.messager.alert("下架提示",'下架成功','warning'); 
 			        	  $("#myTable").datagrid("reload");  // 重新加载数据，但是数据会停留在当前页
 			          }else{
-			        	  $.messager.alert("删除提示",'删除失败','warning'); 
+			        	  $.messager.alert("下架提示",'未知错误,下架失败......','warning'); 
 			        	   
 			          }
 			           	        	
@@ -151,26 +216,22 @@ function ts_menu(){
 						  
 							var r=rows[0]//通过下标取到选中的行
 							           
-					    $("#myfrm").form("load",{"muname":r.MUNAME,"muprice":r.MUPRICE,"mutype":r.MUTYPE,"mudesc":r.DESC,"mustatus":r.MUSTATUS,"mudesc":r.MUDESC});
+					    $("#myfrm").form("load",{"muname":r.MUNAME,"muprice":r.MUPRICE,"mutype":r.MUTYPE,"mudesc":r.DESC,"mustatus":r.MUSTATUS,"mudesc":r.MUDESC,"muid":r.MUID});
 							   $("img[name=image]").attr("src",r.MUPIC);
 							  
-							$("#mydiv").dialog("open");
-							
-							$("#addBtn").click(function(){   //执行修改操作
-							    $.post("cs!UpdateMenu.action?v="+Math.random()+"&muid="+r.MUID,$("#myfrm").serialize(),function(data){
-							    $("#mydiv").dialog("close");//关闭对话框
-							    $("#myfrm")[0].reset(); //重置表单数据 
-							    $("#myTable").datagrid("reload");//重新加载数据	
-							    var fiag=eval("("+data+")");
-							    if(fiag.updatefiag){
-							         $.messager.alert("修改提示","修改成功","info");
-					
-							         checkOnSelect =true;
-						             $("#myfrm").datagrid("selectRow", rowIndex);
-							    }else{
-							    	  $.messager.alert("修改提示","修改成失败","info");
-							    }
-							    })
+								$("#mydiv").dialog("open");//打开添加窗口
+						    	$(document).ready(function(){  $("input[name=muname]").focus();});
+						    	$("#addBtn").click(function(){
+						    		var name=$("input[name=muname]").val();
+						    		var price=$("input[name=muprice]").val();			    		
+						    					if(name=="" || price==""){
+									    			  $.messager.alert("修改提示","请填写完整的名称和金额","info")
+									    		}else{
+									    			 $("#myfrm").attr("action", "cs!UpdateMenu.action").submit();
+									    			  $.messager.alert("修改提示","修改成功","info");
+									    			  $("#mydiv").dialog("close");//关闭			    		
+						    				}
+						    		
 							    
 								
 							})
@@ -221,7 +282,7 @@ function ts_menu(){
 			singleSelect:false,// 只允许中一行
 			
 			columns:[[	    
-			      {field:'R',title:'编号',width:300,align:'center',checkbox:true},
+			      {field:'MUID',title:'编号',width:300,align:'center',checkbox:true},
 			      {field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true,
 			    	  editor:{   // 编辑状态
 			    	    type:"validatebox",
@@ -393,7 +454,7 @@ function ts_order(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-		
+			singleSelect:false,
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -522,10 +583,7 @@ function ts_order_yes(){
 		         {text:"刷新",iconCls:"icon-reload",handler:function(){
 		        	 $("#myTable").datagrid("reload"); 	        	
 			         }},
-			         
-			   
-		           
-		         
+	         
 		         ],
 		
 		 // 加载数据 
@@ -533,7 +591,7 @@ function ts_order_yes(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-			checkOnSelect:false,
+			
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -624,7 +682,7 @@ function ts_order_no(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-		
+			checkOnSelect:false,
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -735,11 +793,7 @@ function xiangqing(uuid){
         	
         	  var o = eval("("+data+")");
         	  var list= o.XiangQing;
-        
-        	  
-        	
-        	
-        	
+
         	var s="<h3  align='center'>**********欢迎光临:"+o.rtname+"*********</h3>";
         	s+="<table align='center' style='margin-left:-30px;'>";
   		  s+="<th>列表</th><th>数量</th><th>金额</th>" 			

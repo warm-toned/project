@@ -1,14 +1,14 @@
 package zx.ffts.web.action.chenshun;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
+
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +30,8 @@ import org.apache.struts2.ServletActionContext;
 import zx.ffts.dao.chenshun.ChenShunDao;
 import zx.ffts.domain.User;
 import zx.ffts.domain.chenshun.ts_menu;
-import zx.ffts.domain.chenshun.ts_user;
+import zx.ffts.utils.DbUtils;
+
 
 import net.sf.json.JSONObject;
 
@@ -98,7 +99,7 @@ public class ChenShunAction extends ChenShunBase {
 	}
 
 	/**
-	 * 删除一道菜
+	 * 下架一道菜
 	 * 
 	 * @return
 	 * @throws IOException
@@ -125,27 +126,54 @@ public class ChenShunAction extends ChenShunBase {
 	 * 
 	 * @throws IOException
 	 */
-	public void AddMenu() throws IOException {
+	public String AddMenu() throws IOException {
 		System.out.println(">>>>>>>>>>>>>");
     
 		String muname = request.getParameter("muname");
 		String muprice = request.getParameter("muprice");
-        String status=request.getParameter("mustatus");  //菜状态
+        String mustatus=request.getParameter("mustatus");  //菜状态
 		String mutype = request.getParameter("mutype");
 		String mudesc = request.getParameter("mudesc");
       
 		      
-		String filelength="";  //文件长度
-     
-      String path = ServletActionContext.getServletContext().getRealPath(
-	    "upload");
-      System.out.println(path);
-   	 System.out.println(up.getAbcFileName());
-		File newFile = new File(path, up.getAbcFileName());
-		FileUtils.copyFile(up.getAbc(), newFile);
+		  System.out.println("文件名称"+u.getAbcFileName());
+        String path = ServletActionContext.getServletContext().getRealPath("/image/chenshun"); //物理文件名称
+		File newFile = new File(path, u.getAbcFileName());
+		FileUtils.copyFile(u.getAbc(), newFile);
+	   
+		/*****************************************************************/
+		String photoPath = "image/chenshun";     //数据库的路径
+		String name = u.getAbcFileName();     //文件名称
+		int code = u.getAbcFileName().hashCode();   //获取当前文件的hashCode
+		String hex = Integer.toHexString(code);   //转为字符串
+		String realPath = path;  //文件的路径
+		realPath += "\\" + hex.charAt(0) + "\\" + hex.charAt(1);     //获取hashcode第一位和第二位字符
+		File paths = new File(realPath);    // 创建一个新路径
+		paths.mkdirs();   //创建路径
+		name = DbUtils.getUUID() + name.substring(name.lastIndexOf("."));  // uuid+文件名称         
+		photoPath += "/" + hex.charAt(0) + "/" + hex.charAt(1) + "/" + name;   // 数据库路径+hashcode第一位字符+hashcode第二位字符 +文件名称
+		File file = new File(realPath, name);            //  在新目录下创建目录名称
+		FileInputStream fi = new FileInputStream(u.getAbc());     //获取该文件
+		FileOutputStream fo = new FileOutputStream(file);       //写入到新的路径
+		byte[] data = new byte[1024];        //写入
+		int len = 0;
+		while ((len = fi.read(data)) != -1) {
+			fo.write(data, 0, len);
+			fo.flush();
+		}
+		fo.close();
+	//	System.out.println("数据库名称  "+photoPath);
+		//System.out.println("uuid加文件名称  "+name);
+		/*****************************************************************/
+		
+		
+		
+		
+		
+		
+		
 	
-	
-		String mupic = up.getAbcFileName();
+		String mupic = photoPath;
 		ts_menu ts = new ts_menu();
 		ts.setMurtid(1); // 手动添加数据，纯为测试
 		ts.setMuname(muname);
@@ -153,12 +181,10 @@ public class ChenShunAction extends ChenShunBase {
 		ts.setMupic(mupic);
 		ts.setMutype(mutype);
 		ts.setMudesc(mudesc);
-		PrintWriter out = response.getWriter();
-		json.put("addfiag", cs.AddMenu(ts));
-		out.write(json.toString());
-		out.flush();
-		out.close();
-
+		ts.setMustatus(Integer.parseInt(mustatus));
+	    cs.AddMenu(ts);
+	    return "addok";
+         
 	}
 
 	/**
@@ -166,18 +192,42 @@ public class ChenShunAction extends ChenShunBase {
 	 * 
 	 * @throws IOException
 	 */
-	public void UpdateMenu() throws IOException {
+	public String UpdateMenu() throws IOException {
 		String muid = request.getParameter("muid");
 		String muname = request.getParameter("muname");
 		String muprice = request.getParameter("muprice");
-	
 		String mutype = request.getParameter("mutype");
 		String mudesc = request.getParameter("mudesc");
 		String mustatus = request.getParameter("mustatus");
-		
-		
-		String mupic = request.getParameter("MUPIC"); //图片暂未做
-		
+
+		 System.out.println("文件名称"+u.getAbcFileName());
+	        String path = ServletActionContext.getServletContext().getRealPath("/image/chenshun"); //物理文件名称
+			File newFile = new File(path, u.getAbcFileName());
+			FileUtils.copyFile(u.getAbc(), newFile);
+		   
+			/*****************************************************************/
+			String photoPath = "image/chenshun";     //数据库的路径
+			String name = u.getAbcFileName();     //文件名称
+			int code = u.getAbcFileName().hashCode();   //获取当前文件的hashCode
+			String hex = Integer.toHexString(code);   //转为字符串
+			String realPath = path;  //文件的路径
+			realPath += "\\" + hex.charAt(0) + "\\" + hex.charAt(1);     //获取hashcode第一位和第二位字符
+			File paths = new File(realPath);    // 创建一个新路径
+			paths.mkdirs();   //创建路径
+			name = DbUtils.getUUID() + name.substring(name.lastIndexOf("."));  // uuid+文件名称         
+			photoPath += "/" + hex.charAt(0) + "/" + hex.charAt(1) + "/" + name;   // 数据库路径+hashcode第一位字符+hashcode第二位字符 +文件名称
+			File file = new File(realPath, name);            //  在新目录下创建目录名称
+			FileInputStream fi = new FileInputStream(u.getAbc());     //获取该文件
+			FileOutputStream fo = new FileOutputStream(file);       //写入到新的路径
+			byte[] data = new byte[1024];        //写入
+			int len = 0;
+			while ((len = fi.read(data)) != -1) {
+				fo.write(data, 0, len);
+				fo.flush();
+				
+			}	
+			fo.close();
+		String mupic =photoPath ; 	
 		ts_menu ts = new ts_menu();
 		ts.setMuid(Integer.parseInt(muid));
 		ts.setMuname(muname);
@@ -186,13 +236,9 @@ public class ChenShunAction extends ChenShunBase {
 		ts.setMutype(mutype);
 		ts.setMudesc(mudesc);
 		ts.setMustatus(Integer.parseInt(mustatus));
-
-		PrintWriter out = response.getWriter();
-		json.put("updatefiag", cs.UpdateMenu(ts));
-		out.write(json.toString());
-		out.flush();
-		out.close();
-
+		 cs.UpdateMenu(ts);
+	
+		return "updateok";
 	}
 
 	/********************************************** 对订单的操作 ********************************************/

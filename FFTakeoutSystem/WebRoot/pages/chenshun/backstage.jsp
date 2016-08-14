@@ -49,8 +49,7 @@ span{
 
 </style>
 	</head>
-	<body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
-  
+	<body class="easyui-layout" style="overflow-y:hidden"  scroll="no" onload="ts_menu()">
      <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
       background:  #87cefa repeat-x center 50%;
         line-height: 20px;color: #red; font-family: Verdana, 微软雅黑,黑体">
@@ -74,7 +73,7 @@ span{
 
 
 				<div title="菜单管理" iconCls="icon-reload" selected="true"
-					style="padding: 10px; width: 300px; height: 50px;">
+					style="padding: 10px; width: 300px; height: 50px;" onclick="caidanguanli()">
 					<ul style="list-style-type: none">
 						<li >
 							<span onclick='ts_menu()' onmouseover="this.style.textDecoration='underline'; this.style.cursor='hand' ;this.style.color='red' " onmouseout="this.style.textDecoration='none' ;this.style.color='blue'" >[我的菜单]</span>
@@ -86,7 +85,7 @@ span{
 
 
 				<div title="订单管理" iconCls="icon-reload" selected="true"
-					style="padding: 10px; width: 300px; height: 50px;">
+					style="padding: 10px; width: 300px; height: 50px;" onclick="caidanguanli()">
 					<ul style="list-style-type: none">
 						<li>
 							<span onclick='ts_order()' onmouseover="this.style.textDecoration='underline' ; this.style.cursor='hand'  ;this.style.color='red'" onmouseout="this.style.textDecoration='none' ;this.style.color='blue'" >[全部订单]</span>
@@ -125,7 +124,7 @@ span{
 			<table id="myTable"></table> 
 			
 			
-			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px">
+			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px;>
          <s:form id="myfrm"  action=""  method="post" enctype="multipart/form-data">
 				<Table align="center" width="100%" style="padding-left: 50px">
 				<tr>
@@ -141,14 +140,10 @@ span{
 						</Td>
 					</Tr>
 					<Tr>
-						<Td>
-					  
+						<Td>				  
                      
                              <img  src="" name="image" width="50" height="50">
-				             <s:file name="u.abc" label="上传文件"></s:file>
-				      	    
-      	    
-      	    
+				             <s:file name="u.abc" label="上传文件"  accept="image/*" />
       	
 						</Td>
 					</Tr>
@@ -185,10 +180,11 @@ span{
 					</Tr>
 					<Tr>
 						<Td colspan="3">
-							&nbsp;&nbsp;<a class="easyui-linkbutton" id="addBtn" iconCls="icon-ok" title="保存">保存</a>
+							&nbsp;&nbsp;<a class="easyui-linkbutton" id="addBtn" iconCls="icon-ok" title="保存"/>保存</a>
 							&nbsp;&nbsp;<a class="easyui-linkbutton" id="quxiao" iconCls="icon-cancel" title="取消">取消</a>
 						</Td>
 					</Tr>
+					 <tr><td><input type="hidden" name="muid"></td></tr>
 				</Table>
 		  </s:form>
    </div>
@@ -198,7 +194,7 @@ span{
 		</div>
 		
 			<!-- 订单详情 -------------------------------- -->	
-		<div id="myorder" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:400px;height:500px;margin:50px;background: silver;overflow: auto; background-color:#20b2aa">
+		<div id="myorder" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:400px;height:500px;margin:50px;background: silver;overflow: auto;">
 		       <!--   <table align="center" width="60%">
 		          <th>列表</th><th>数量</th><th>金额</th>
 		           -------------------------------------
@@ -210,7 +206,7 @@ span{
 		</div>
 		
 		<!-- 修改密码 -->
-		<div id="alterpassword" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:280px;height:120px;margin:0px;>
+		<div id="alterpassword" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:280px;height:120px;margin:0px; ">
 		             <table align="center">
 		             <tr>
 		              <td style="font-size:12px; color:#9ED7E8">请输入新密码：<input type="password" name="password"/></td>

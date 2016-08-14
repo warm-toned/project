@@ -42,7 +42,12 @@ public class ChenShunDao extends DataDao {
 		sql+="  ) k where k.r>?";
 		 if(sort!=null&&!sort.equals("")){
          	 sql+="   order by  "+sort+"  "+order; 	 
-          }	return getMapList(sql,pagesize*pageindex,id,(pageindex-1)*pagesize);
+          }else{
+        	   sql+=" order by mustatus asc";
+        	  
+          }
+		 
+		 return getMapList(sql,pagesize*pageindex,id,(pageindex-1)*pagesize);
 
 	}
 	/**
@@ -81,20 +86,23 @@ public class ChenShunDao extends DataDao {
  * @return
  */
 	public int AddMenu(ts_menu t) {
-		String sql = "insert into  ts_menu values(ts_menu_seq.nextval,?,?,?,?,?,'正宗"+t.getMutype()+"',0,0)";
-		return update(sql, t.getMurtid(), t.getMuname(), t.getMuprice(), t
-				.getMupic(), t.getMutype());
+		String sql = "insert into  ts_menu values(ts_menu_seq.nextval,?,?,?,?,?,?,0,?)";
+		return update(sql, t.getMurtid(), t.getMuname(), t.getMuprice(),t.getMupic(),t.getMutype(),t.getMudesc(),t.getMustatus());
     
 	}
 	/**
-	 * 为某个商店删除某道菜
+	 * 下架某道菜
 	 * @param muid
 	 * @param murtid
 	 * @return
 	 */
 	public int DeleteMenu(Integer muid){
-		String sql="delete from ts_menu where muid=?";
-		return update(sql, muid);
+		String sql="update ts_menu  set mustatus=1  where muid=?";
+		try {
+			return update(sql, muid);
+		} catch (Exception e) {
+		    throw new RuntimeException();
+		}
 		
 	}
 	/**
@@ -235,8 +243,11 @@ public class ChenShunDao extends DataDao {
 		 String sql="select * from(select username,ouuid,ortid,rtname,rtpic,odate,ostatus,row_number()over(order by odate desc) rm from ts_order o  inner join ts_restaurant r   on o.ortid=r.rtid   inner join ts_user u  on u.userid=o.ouserid  and ouuid is not null and ortid=? and ostatus=2    group by username,ouuid,ortid,rtname,rtpic,odate,ostatus) where rm between ? and ?";
 		  if(sort!=null&&!sort.equals("")){
 	           	 sql+=" order by   "+sort+"  "+order; 	 
-	            }  
-         for (Map<String, Object> map : getMapList(sql, id,(pageindex-1)*pagesize,pagesize*pageindex)) {
+	            }else{
+	           	 sql+="   order by odate desc"; 	 
+	            	
+	            }
+         for (Map<String, Object> map : getMapList(sql, id,pagesize*(pageindex-1)+1,pagesize*pageindex)) {
 			   Map<String,String>  map2=new HashMap<String, String>();
 			    map2.put("RM", map.get("RM").toString());
 			   map2.put("USERNAME", map.get("USERNAME").toString());
@@ -276,7 +287,7 @@ public class ChenShunDao extends DataDao {
 		 if(sort!=null&&!sort.equals("")){
            	 sql+=" order by   "+sort+"  "+order; 	 
             }  
-		 for (Map<String, Object> map : getMapList(sql, id,(pageindex-1)*pagesize,pageindex*pagesize)) {
+		 for (Map<String, Object> map : getMapList(sql, id,pagesize*(pageindex-1)+1,pageindex*pagesize)) {
 			   Map<String,String>  map2=new HashMap<String, String>();
 			    map2.put("RM", map.get("RM").toString());
 				  //  map2.put("USERNAME", map.get("USERNAME").toString());
