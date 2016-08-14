@@ -125,7 +125,7 @@
     						label="权限"
     				></s:select></td></tr>			
     				<tr><td ><s:file id='photo' name='photo' label="图片"></s:file></td></tr>
-    				<tr><td><s:token/><s:actionerror/></td></tr>
+    				<tr><td><s:token theme='simple'/><s:actionerror theme='simple'/></td></tr>
     				<tr><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:submit value="提交" theme="simple"></s:submit></td>
     				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:reset value="取消" theme="simple"></s:reset>	</td></tr>
     				</table>
