@@ -25,6 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <body>
     <table align="center" width="60%">
+       <tr>
+          <td><input type="hidden" value="${mapshop.rtid }" name="rtid"/></td>
+       </tr>
         <tr>
             <td align="center" colspan="2"><img src="${mapshop.rtpic }"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${mapshop.rtname }</td>
         </tr>
@@ -44,9 +47,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
          </textarea>
          </tr>
-         <c:forEach items="${mapshop.menuList}" var="m">
+         <c:forEach items="${mapshop.menuList}" var="m" varStatus="i">
              <tr>
-                <td align="center">${m.muname }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.ocount }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="点评"/></td>
+                <td align="center">${m.muname }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${m.ocount }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="点评" onclick="meu(${i.index})"/></td>
+             </tr>
+             <tr>
+               <td align="center">
+                     
+                     <div name="${i.index }" style="display:none">
+                      <c:forEach begin="1" end="5" var="j">
+                   	   <span  style="cursor: pointer;" onclick="menuassess(${j})" ><font size="4" color="#ccc">★</font></span> 
+                      </c:forEach> </div><br/>
+                      <textarea rows="2" cols="28" hidden="true"  name="${i.index }">
+                         ${i.index}
+                      </textarea>
+                   
+               </td>
              </tr>
          </c:forEach>
     </table>
