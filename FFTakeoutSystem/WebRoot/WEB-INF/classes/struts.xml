@@ -20,7 +20,9 @@
 	</package>
 	<package name="chenkai" extends="struts-default">
 		<action name="shwk" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">	
-					
+			<interceptor-ref name="token"/>
+			<interceptor-ref name="defaultStack"/>
+			<result name="invalid.token">/pages/chenkai/AddUserMain.jsp</result>		
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkrest"
