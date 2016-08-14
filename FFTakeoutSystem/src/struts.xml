@@ -101,9 +101,10 @@
 			<result name="sd">/pages/yyq/ShopInfoById.jsp</result>
 		</action>
 	</package>
-
 	<package name="chenshun" extends="struts-default"><!-- 陈顺 -->
 		<action name="cs" class="zx.ffts.web.action.chenshun.ChenShunAction">
+		  <result name="addok"  type="redirect">/pages/chenshun/backstage.jsp</result>
+		    <result name="updateok"  type="redirect">/pages/chenshun/backstage.jsp</result>
 		</action>
 		<action name="login" class="zx.ffts.web.action.chenshun.ChenShunAction"> <!-- 陈顺登录验证 -->
 		</action>
