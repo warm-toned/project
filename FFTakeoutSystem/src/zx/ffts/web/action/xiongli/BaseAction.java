@@ -17,6 +17,18 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,Ser
 	protected HttpSession session;
 	protected HttpServletResponse response;
 	protected OrderDao odao=new OrderDao();
+	
+	protected String uuid;
+	
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		

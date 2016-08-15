@@ -26,6 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body onload='dataview()'>
    	<div id="mydiv" style="width:1000px;height: 600px"></div>
-   		<div id="Mydiv" style="width:1000px;height: 600px"></div>
+   		<!-- <div id="zhuzhaung" style="width:1000px;height: 600px"></div> -->
   </body>
 </html>
