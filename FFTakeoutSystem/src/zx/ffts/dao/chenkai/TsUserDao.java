@@ -90,7 +90,13 @@ public class TsUserDao extends DataDao {
 	public Integer updateUser(String username,String pwd,String tel,String email,String address,String realname,double balance,Integer score,String gender,String regdate,Integer authority,String photo,Integer userid){
 		String sql="update ts_user set username=?,pwd=?,tel=?,email=?,address=?,realname=?,balance=?,score=?,gender=?,regdate=to_date('"+regdate+"','yyyy-MM-dd hh24:mi:ss') ,authority=?,photo=? where userid=? ";
 		Integer i=update(sql, username,pwd,tel,email,address,realname,balance,score,gender,authority,photo,userid);
-		System.out.println(sql);
+		return i;
+	}
+	
+	//修改用户权限
+	public Integer updateAUser(Integer userid){
+		String sql="update ts_user set authority=3 where userid=? ";
+		Integer i=update(sql,userid);
 		return i;
 	}
 	

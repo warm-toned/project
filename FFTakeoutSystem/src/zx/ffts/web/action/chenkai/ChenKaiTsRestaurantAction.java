@@ -67,6 +67,54 @@ public class ChenKaiTsRestaurantAction extends BaseAction {
 		out.flush();
 		out.close();
 	}
+
+	
+	//申请开店商家的集合（分页）
+	public void getSomeRestList() throws IOException{
+		String pageStr = req.getParameter("page");
+		String rowStr = req.getParameter("rows");
+		
+		Integer page=1;
+		Integer row=5;
+		if (pageStr!=null&&!"".equals(pageStr)) {
+			page=Integer.parseInt(pageStr);
+		}
+		if (rowStr!=null&&!"".equals(rowStr)) {
+			row=Integer.parseInt(rowStr);
+		}	
+		restlist=myrest.getSomeRestList(page, row);		
+		int num=0;
+		if (myrest.SomeRestCount()!=0) {
+			if (myrest.SomeRestCount()%row==0) {
+				num=myrest.SomeRestCount()/row;
+			}else{
+				num=myrest.SomeRestCount()/row+1;
+			}
+		}else{
+			num=1;
+		}
+		PrintWriter out = res.getWriter();
+		JSONObject json = new JSONObject();
+		json.put("pages", page);
+		json.put("total", num);
+		json.put("rows", restlist);
+		out.write(json.toString());
+		out.flush();
+		out.close();
+	}
+
+	//同意开店申请修改用户权限为店家
+	public void UpdateRestStatus(){
+		Integer rtid=Integer.parseInt(req.getParameter("rtid"));
+		Integer uid=Integer.parseInt(req.getParameter("userid"));
+		
+		myrest.updateARest(rtid);
+		TsUserDao u=new TsUserDao();
+		u.updateAUser(uid);
+	
+	}
+	
+	
 	
 	//获得所有商家的集合
 	public void getAllRest() throws IOException{
@@ -78,6 +126,8 @@ public class ChenKaiTsRestaurantAction extends BaseAction {
 		out.flush();
 		out.close();
 	}
+	
+	
 	
 	//下载所有商家信息
 	public void WriteRest() throws Exception{
