@@ -1,7 +1,6 @@
 $(function() {
 	var info = $("#pginfo");
-	var page = info.attr("page");
-	var size = info.attr("size");
+
 	// 导航
 	$("li[name='nav']").click(function() {
 		$("li[name='nav']").removeClass("active");
@@ -21,17 +20,31 @@ $(function() {
 			$("#complete").removeClass("sr-only");
 		}
 	});
-	
+
 	// 查询可接订单信息
-	getUsableOrders(page, size);
-	setInterval(function(){
-		getUsableOrders(page, size);
+	getUsableOrders(info);
+	setInterval(function() {
+		getUsableOrders(info);
 	}, 20000);
+
+	$(".pagereact").click(function() {
+		var num = $(this).attr("value");
+		var actions = $(".pageaction");
+		for ( var i = 0; i < actions.length; i++) {
+			$(actions[i]).attr("size", num);
+		}
+		info.attr("size", num);
+		$("#pagecount").text("每页显示 "+num+" 条订单");
+	});
 });
 
-function getUsableOrders(page,size){
-	$.post("sender!getUsableOrders.action",{"page":page,"size":size},function(data){
+function getUsableOrders(info) {
+	var page = info.attr("page");
+	var size = info.attr("size");
+	$.post("sender!getUsableOrders.action", {
+		"page" : page,
+		"size" : size
+	}, function(data) {
 		var json = eval(data);
-		for
 	});
 }

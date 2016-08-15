@@ -43,6 +43,8 @@ public class SenderAction implements ServletResponseAware {
 			size = 10;
 		}
 		response.getWriter().write(
-				senderDao.getUsableOrders(page, size).toString());
+				"{'count':" + senderDao.getPageCounts() + ",'list':"
+						+ senderDao.getUsableOrders(page, size).toString()
+						+ "}");
 	}
 }

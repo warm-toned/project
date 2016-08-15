@@ -74,21 +74,24 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="user!gotoUserCenter.action">用户中心</a>
-									</li>
+									<li><a href="user!gotoUserCenter.action">用户中心</a></li>
 									<c:if test="${sessionScope.user.authority eq 2}">
 										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
-										<li><a href="page!restaurantMain.action">店铺管理</a></li>
+										<li><a href="page!restaurantMain.action">店铺管理</a>
+										</li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority >= 4}">
-										<li><a href="page!adminMain.action">后台管理</a></li>
+										<li><a href="page!adminMain.action">后台管理</a>
+										</li>
 									</c:if>
 									<li role="separator" class="divider"></li>
-									<li><a href="user!logout.action">退出登录</a></li>
-								</ul></li>
+									<li><a href="user!logout.action">退出登录</a>
+									</li>
+								</ul>
+							</li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -96,8 +99,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a id="logMsg" href="user!willLog.action">
 									点击登录&nbsp;&nbsp;&nbsp;&nbsp;<span
-									class="glyphicon glyphicon-log-in"></span> </a>
-							</li>
+									class="glyphicon glyphicon-log-in"></span> </a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
@@ -108,42 +110,55 @@
 	<div class="container">
 		<%--导航 --%>
 		<ul class="nav nav-tabs visible-xs">
-			<li index="0" name="nav" class="active"><a href="#">全部订单</a>
-			</li>
-			<li index="1" name="nav"><a href="#">已接订单</a>
-			</li>
-			<li index="2" name="nav"><a href="#">已完成订单</a>
-			</li>
+			<li index="0" name="nav" class="active"><a href="#">全部订单</a></li>
+			<li index="1" name="nav"><a href="#">已接订单</a></li>
+			<li index="2" name="nav"><a href="#">已完成订单</a></li>
 		</ul>
 		<a class="sr-only" id="pginfo" page="1" size="10"></a>
 		<div class="col-md-6" id="usable">
+			<div class="dropdown" style="font-size: 12px;margin-top: 10px;">
+				<button type="button"
+					class="btn borderGray2 dropdown-toggle pull-right"
+					data-toggle="dropdown">
+					<span id="pagecount">每页显示 10 条订单 </span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right" style="margin-top: 25px;">
+					<li><a href="#" class="pagereact" value="2"><span>2</span>
+					</a></li>
+					<li><a href="#" class="pagereact" value="3"><span>3</span>
+					</a></li>
+					<li><a href="#" class="pagereact" value="5"><span>5</span>
+					</a></li>
+					<li><a href="#" class="pagereact" value="10"><span>10</span>
+					</a></li>
+					<li><a href="#" class="pagereact" value="20"><span>20</span>
+					</a></li>
+					<li><a href="#" class="pagereact" value="50"><span>50</span>
+					</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#" class="pagereact" value="10"><span>重置</span>
+					</a></li>
+				</ul>
+			</div>
 			<div id="orders"></div>
 			<div class="portfolio-pagination">
 				<ul class="pagination">
-					<li><a id="first" size="${bean.pageSize}"
-						href="user!gotoUserCenter.action?page=1&size=${bean.pageSize}"
-						class="pageaction"><span>首页</span> </a>
-					</li>
+					<li><a id="first" size="${bean.pageSize}" href=""
+						class="pageaction"><span>首页</span> </a></li>
 					<%--设置上一页是否被激活 --%>
 					<li><a href="" class="pageaction"><span
-							class="glyphicon glyphicon-chevron-left"></span> </a>
-					</li>
+							class="glyphicon glyphicon-chevron-left"></span> </a></li>
 					<%--设置页数的开始页码 --%>
-					<li><a href="" class="pageaction"><span>1</span> </a>
-					</li>
-					<li><a href="" class="pageaction"><span>2</span> </a>
-					</li>
-					<li><a href="" class="pageaction"><span>3</span> </a>
-					</li>
-					<li><a href="" class="pageaction"><span>4</span> </a>
-					</li>
-					<li><a href="" class="pageaction"><span>5</span> </a>
-					</li>
+					<li><a href="" class="pageaction"><span>1</span> </a></li>
+					<li><a href="" class="pageaction"><span>2</span> </a></li>
+					<li><a href="" class="pageaction"><span>3</span> </a></li>
+					<li><a href="" class="pageaction"><span>4</span> </a></li>
+					<li><a href="" class="pageaction"><span>5</span> </a></li>
 					<%--设置下一页是否被激活 --%>
 					<li><a href="" class="pageaction"><span
-							class="glyphicon glyphicon-chevron-right"></span> </a>
+							class="glyphicon glyphicon-chevron-right"></span> </a></li>
+					<li><a href="" class="pageaction"><span>尾页</span> </a>
 					</li>
-					<li><a href="" class="pageaction"><span>尾页</span> </a></li>
 				</ul>
 			</div>
 		</div>

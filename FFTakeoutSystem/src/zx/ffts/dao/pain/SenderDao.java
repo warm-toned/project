@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import zx.ffts.dao.DataAccessObject;
 
 public class SenderDao extends DataAccessObject {
@@ -34,5 +35,10 @@ public class SenderDao extends DataAccessObject {
 			map.put("sum", sum);
 		}
 		return JSONArray.fromObject(list);
+	}
+
+	public Integer getPageCounts() {
+		String sql = "select count(*) from ts_order where osender is null group by ouuid";
+		return executeScalarInteger(sql);
 	}
 }
