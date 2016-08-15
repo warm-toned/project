@@ -88,8 +88,7 @@ function ts_menu(){
 	  $("input[name=type]").combobox({    // 自动加载数据库的所有菜的品种
 		  url:"cs!LoadType.action?v="+Math.random(),
 		  valueField:"MUTYPE",
-		  textField:"MUTYPE",  
-		  editable:false,
+		  textField:"MUTYPE",     
 	 	  panelHeight:"108" , // 设置高度
 	 	  editable: false, //不允许手动输入
 	      onLoadSuccess: function () { //加载完成后,设置选中第一项
@@ -416,7 +415,7 @@ function ts_menu(){
 function ts_order(){
 	$("#myTable").html("");
 	$('#searchDiv').panel('open');  // 打开面板
-	 var s="订单状态：<select id='status'>";
+	 var s="订单状态：<select id='status' style='width: 110px'>";
       s+=" <option value='-1'>全部订单</option>";
       s+=" <option value='2'>已付款</option>";
       s+=" <option value='3'>已接单</option>";
@@ -438,7 +437,7 @@ function ts_order(){
 	  	iconCls:'icon-search'  
 	  }) 
   $('#status').combobox('select',-1);  // 默认选中
-	  // 单击查询  
+	// 单击查询时
 	$("#searchBtn").click(function(){	
      // 获取combobox选中的 值
     var status=$('#status').combobox('getValue');
@@ -473,10 +472,10 @@ function ts_order(){
 		
 			columns:[[	    
 			      {field:'RM',title:'编号',width:300,align:'center'},
-			      {field:'USERNAME',title:'客户名称',width:300,align:'center',sortable:true},
+			      {field:'REALNAME',title:'客户名称',width:300,align:'center',sortable:true},
 			     //{field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true},
 			    // {field:'MUPRICE',title:'菜单单价',width:300,align:'center',sortable:true},	
-			     {field:'ODATE',title:'订单时间',width:300,align:'center',sortable:true},		
+			     {field:'TIMES',title:'订单时间',width:300,align:'center',sortable:true},		
 			    {field:'OSTATUS',title:'订单状态',width:300,align:'center',sortable:true,formatter:function(value,row,index){
 		    	    if(value==0){ 
 		    		 return "<span style='color:green'><b>购物车中</b></span>";
@@ -610,11 +609,8 @@ function ts_order_yes(){
 		
 			columns:[[	    
 			          {field:'RM',title:'编号',width:300,align:'center'},
-					    //  {field:'USERNAME',title:'客户名称',width:300,align:'center',sortable:true},
-					    // {field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true},
-					    // {field:'MUPRICE',title:'菜单单价',width:300,align:'center',sortable:true},
-					      
-					     {field:'ODATE',title:'订单时间',width:300,align:'center',sortable:true},		
+					      {field:'REALNAME',title:'客户名称',width:300,align:'center',sortable:true},
+					     {field:'TIMES',title:'订单时间',width:300,align:'center',sortable:true},		
 					    {field:'OSTATUS',title:'订单状态',width:300,align:'center',sortable:true,formatter:function(value,row,index){
 				    	    if(value==0){ 
 				    		 return "<span style='color:green'><b>购物车中</b></span>";
@@ -670,7 +666,7 @@ function ts_order_no(){
 		toolbar:[
 		         {text:"开始接单",iconCls:"icon-ok",handler:function(){    
 		        	 $.messager.alert("系统提示","已开始接单!","info");
-		        	  int=setInterval(function(){   //setInterval()定时器
+		        	 int=setInterval(function(){   //setInterval()定时器
 		        		 $("#myTable").datagrid("reload"); 
 		        	 },10000); //指定1秒刷新一次    	 
 		        	  
@@ -701,11 +697,8 @@ function ts_order_no(){
 			
 			columns:[[	    
 			      {field:'RM',title:'编号',width:300,align:'center'},
-			    //  {field:'USERNAME',title:'客户名称',width:300,align:'center',sortable:true},
-			    // {field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true},
-			    // {field:'MUPRICE',title:'菜单单价',width:300,align:'center',sortable:true},
-			      
-			     {field:'ODATE',title:'订单时间',width:300,align:'center',sortable:true},		
+			    {field:'REALNAME',title:'客户名称',width:300,align:'center',sortable:true},
+			     {field:'TIMES',title:'订单时间',width:300,align:'center',sortable:true},		
 			    {field:'OSTATUS',title:'订单状态',width:300,align:'center',sortable:true,formatter:function(value,row,index){
 		    	    if(value==0){ 
 		    		 return "<span style='color:green'><b>购物车中</b></span>";
