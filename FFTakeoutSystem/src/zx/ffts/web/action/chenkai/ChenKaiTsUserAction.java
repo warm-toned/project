@@ -81,7 +81,27 @@ public class ChenKaiTsUserAction extends BaseAction {
 		}
 	}
 	
+	//查询所有店家
+	public void GetAllOwner() throws Exception{
+		userlist=myuser.GetAllOwner();		
+		PrintWriter out = res.getWriter();
+		JSONObject json = new JSONObject();
+		json.put("rows", userlist);
+		out.write(json.toString());
+		out.flush();
+		out.close();
+	}
 	
+	//查询所有配送员
+	public void GetAllSender() throws Exception{
+		userlist=myuser.GetAllSender();		
+		PrintWriter out = res.getWriter();
+		JSONObject json = new JSONObject();
+		json.put("rows", userlist);
+		out.write(json.toString());
+		out.flush();
+		out.close();
+	}
 	
 	//获得所有用户的集合
 	public void getAllUser() throws IOException{

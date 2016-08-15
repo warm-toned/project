@@ -27,8 +27,6 @@ public class TsUserDao extends DataDao {
 		List<TsUser>  list=getEntities(sql,user , (((nowPage-1)*pageSize)+1),(nowPage*pageSize));
 		return list;
 	}
-
-	
 	
 	//查询所有用户
 	public List<TsUser>  getAllUser(){
@@ -38,6 +36,23 @@ public class TsUserDao extends DataDao {
 		return list;
 	}
 	
+	//查询所有店家
+	public List<TsUser> GetAllOwner(){
+		String sql="select * from ts_user where authority =3 order by userid";	
+		TsUser  user=new TsUser();
+		List<TsUser>  list=getEntities(sql,user);
+		return list;
+	}
+	
+	//查询所有配送员
+	public List<TsUser> GetAllSender(){
+		String sql="select * from ts_user where authority =2 order by userid";	
+		TsUser  user=new TsUser();
+		List<TsUser>  list=getEntities(sql,user);
+		return list;
+	}
+	
+	//下载所有用户
 	public List<Map<String, Object>> WriteUser(){
 		String sql="select * from ts_user order by userid";
 		List<Map<String, Object>> list=getMapList(sql);
