@@ -73,7 +73,7 @@ span{
 
 
 				<div title="菜单管理" iconCls="icon-reload" selected="true"
-					style="padding: 10px; width: 300px; height: 50px;" onclick="caidanguanli()">
+					style="padding: 10px; width: 300px; height: 50px;">
 					<ul style="list-style-type: none">
 						<li >
 							<span onclick='ts_menu()' onmouseover="this.style.textDecoration='underline'; this.style.cursor='hand' ;this.style.color='red' " onmouseout="this.style.textDecoration='none' ;this.style.color='blue'" >[我的菜单]</span>
@@ -85,7 +85,7 @@ span{
 
 
 				<div title="订单管理" iconCls="icon-reload" selected="true"
-					style="padding: 10px; width: 300px; height: 50px;" onclick="caidanguanli()">
+					style="padding: 10px; width: 300px; height: 50px;">
 					<ul style="list-style-type: none">
 						<li>
 							<span onclick='ts_order()' onmouseover="this.style.textDecoration='underline' ; this.style.cursor='hand'  ;this.style.color='red'" onmouseout="this.style.textDecoration='none' ;this.style.color='blue'" >[全部订单]</span>
@@ -124,19 +124,19 @@ span{
 			<table id="myTable"></table> 
 			
 			
-			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px;>
+			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px;">
          <s:form id="myfrm"  action=""  method="post" enctype="multipart/form-data">
 				<Table align="center" width="100%" style="padding-left: 50px">
 				<tr>
-					  <td>菜单名称:</td>
+					   <Td>菜单名称:</Td>
 						<Td>
 				           <input type="text" name="muname"  class="easyui-validatebox" required=true" />
 						</Td>
 					</Tr>
 					<Tr>
-						<Td>菜单价格</Td>
+						<Td>菜单价格:</Td>
 						<Td>
-							<input type="text" name="muprice" class="easyui-numberbox" required=true />
+							<input type="text" name="muprice" class="easyui-numberbox"  required=true />
 						</Td>
 					</Tr>
 					<Tr>
