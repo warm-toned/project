@@ -68,8 +68,7 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 	 * @throws FileNotFoundException
 	 */
 	public String upload() throws FileNotFoundException, IOException {
-<<<<<<< HEAD
-<<<<<<< f68599925e63c57e17a8861db36b2d8ce101d11e
+
 		String photoPath = "image/users";//数据库
 		String name = photoFileName;//文件名
 		String realPath = application.getRealPath("/image/users");//目录真实路径
@@ -84,27 +83,7 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 		FileInputStream fi = new FileInputStream(photo);
 		FileOutputStream fo = new FileOutputStream(file);
 		byte[] data = new byte[1024];
-=======
-=======
->>>>>>> 281fdd2f16e6fbf949e7d2070452a0a73e883db7
-		String photoPath = "image/users";     //数据库的路径
-		String name = photoFileName;     //文件名称
-		int code = photoFileName.hashCode();   //获取当前文件的hashCode
-		String hex = Integer.toHexString(code);   //转为字符串
-		String realPath = application.getRealPath("/image/user");  //文件的路径
-		realPath += "\\" + hex.charAt(0) + "\\" + hex.charAt(1);     //获取hashcode第一位和第二位字符
-		File path = new File(realPath);    // 创建一个新路径
-		path.mkdirs();   //创建路径
-		name = DbUtils.getUUID() + name.substring(name.lastIndexOf("."));  // uuid+文件名称         
-		photoPath += "/" + hex.charAt(0) + "/" + hex.charAt(1) + "/" + name;   // 数据库路径+hashcode第一位字符+hashcode第二位字符 +文件名称
-		File file = new File(realPath, name);            //  在新目录下创建目录名称
-		FileInputStream fi = new FileInputStream(photo);     //获取该文件
-		FileOutputStream fo = new FileOutputStream(file);       //写入到新的路径
-		byte[] data = new byte[1024];        //写入
-<<<<<<< HEAD
->>>>>>> :2016年8月14日21:40:14 陈顺提交
-=======
->>>>>>> 281fdd2f16e6fbf949e7d2070452a0a73e883db7
+
 		int len = 0;
 		while ((len = fi.read(data)) != -1) {
 			fo.write(data, 0, len);
