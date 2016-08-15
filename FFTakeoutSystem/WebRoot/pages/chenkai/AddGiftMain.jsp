@@ -1,16 +1,15 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="/struts-tags"  prefix="s"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -20,9 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	
 	<title>订餐系统后台模板管理系统</title>
-	
 
 	<link type="text/css" rel="stylesheet" href="<%=path %>/css/style.css" />
 	<script type="text/javascript" src="<%=path %>/js/chenkai/jquery-1.5.2.js"></script>
@@ -40,7 +37,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="logo">订餐后台管理系统</div>
 	<div class="navigation">
 		<ul>
-			<li><a href='index.jsp'>返回前台</a></li>
 		 	<li>欢迎您！</li>
 			<li><span>${sessionScope.user.username}</span></li>
 			<li><input type="hidden" id="id" name="id" value="${sessionScope.user.userid}"> </li>
@@ -55,9 +51,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <li>
           <h4 class="M1"><span></span>用户管理</h4>
           <div class="list-item none">
-          	<a id="findalluser">查询所有用户</a>
-            <a href="<%= path %>/pages/chenkai/AddUserMain.jsp">新增用户</a>
-            <a href='shwkuser!WriteUser.action'>下载所有用户信息</a>
+            <a id="findalluser">查询所有用户</a>
+            <a href='<%= path %>/pages/chenkai/AddUserMain.jsp'>新增用户1111</a>
+            <a id="addUser">新增用户</a>
+            <a href='shwk!WriteUser.action'>下载所有用户信息</a>
           </div>
         </li>
         <li>
@@ -95,8 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <h4  class="M6"><span></span>礼品管理</h4>
           <div class="list-item none">
             <a id='findallgift'>查询所有礼品</a>
-            <a href='shwkugift!WriteGift.action'>下载所有礼品</a>
-            <a href='<%= path %>/pages/chenkai/AddGiftMain.jsp'>添加礼品</a>
+            <a href='shwkgift!WriteGift.action'>下载所有礼品</a>
+            <a href="<%= path %>/pages/chenkai/AddGiftMain.jsp">添加礼品</a>
             <a id='findallgiftRec'>查询所有礼品兑换记录</a>
             <a href='shwkgiftrec!WriteGiftRec.action'>下载所有礼品兑换记录</a>
           </div>
@@ -104,11 +101,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </ul>
 		</div>
 		<div class="m-right">
-			<div id='finddiv' class="right-nav" >
-					
+			<div class="right-nav">					
 			</div>
 			<div id="mydiv" class="main">
-				
+				<s:form  action='shwkgift!addGift.action'  method='post' enctype='multipart/form-data'>
+						<table align='center'>
+					    <tr><td>礼品名：<input type='text' id='gname' name='gname'onblur='mygname()'/>&nbsp;&nbsp;<span id='mgname'></span></td></tr>
+						<tr><td>图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>
+						<tr><td>所需积分:<input type='text' id='greqscore' name='greqscore' onblur='mygreqscore()'/>&nbsp;&nbsp;<span id='mgreqscore'></span></td></tr>
+						<tr><td>总库存数:<input type='text' id='gsum' name='gsum' onblur='mygsum()'/>&nbsp;&nbsp;<span id='mgsum'></span></td></tr>
+						<tr><td>描述：<textarea rows='3' cols='20' id='gdesc' name='gdesc'></textarea></td></tr>
+						<tr><td><s:token theme='simple'/><s:actionerror theme='simple'/></td></tr>
+						<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='reset' value='取消'/></td></tr></table>
+				</s:form>
 			</div>
 		</div>
 </div>

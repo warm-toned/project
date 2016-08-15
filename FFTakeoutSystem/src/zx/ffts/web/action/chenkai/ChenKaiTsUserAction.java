@@ -24,6 +24,7 @@ import org.apache.struts2.ServletActionContext;
 import net.sf.json.JSONObject;
 import zx.ffts.dao.chenkai.TsUserDao;
 import zx.ffts.domain.chenkai.TsUser;
+import zx.ffts.utils.PageBean;
 
 
 public class ChenKaiTsUserAction extends BaseAction {
@@ -78,11 +79,13 @@ public class ChenKaiTsUserAction extends BaseAction {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
+	
 	
 	//获得所有用户的集合
 	public void getAllUser() throws IOException{
+	
 		userlist=myuser.getAllUser();		
 		PrintWriter out = res.getWriter();
 		JSONObject json = new JSONObject();
@@ -105,7 +108,7 @@ public class ChenKaiTsUserAction extends BaseAction {
 		String balance=req.getParameter("balance");
 		String gender=req.getParameter("gender");
 		String authority=req.getParameter("authority");
-		//String token=req.getParameter("token");
+	
 	
 		if (photoFileName==null) {
 			myuser.addUser(username, pwd, tel, email, address, realname, Double.parseDouble(balance), gender, Integer.parseInt(authority), null);	
@@ -116,9 +119,9 @@ public class ChenKaiTsUserAction extends BaseAction {
 			
 			String src="image/"+photoFileName;
 			myuser.addUser(username, pwd, tel, email, address, realname, Integer.parseInt(balance), gender, Integer.parseInt(authority), src);	
-		}
-		
+		}	
 		return "success";
+		
 	}
 	
 	//删除用户
@@ -169,6 +172,7 @@ public class ChenKaiTsUserAction extends BaseAction {
 		}
 		return "success";
 	}
+
 
 	//产生用户表电子文档
 	public void WriteUser() throws Exception{

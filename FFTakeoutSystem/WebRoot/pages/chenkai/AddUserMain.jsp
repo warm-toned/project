@@ -52,16 +52,15 @@
           <h4 class="M1"><span></span>用户管理</h4>
           <div class="list-item none">
             <a id="findalluser">查询所有用户</a>
-            <a href='<%= basePath %>AddUserMain.jsp'>新增用户1111</a>
-            <a id="addUser">新增用户</a>
-            <a href='shwk!WriteUser.action'>下载所有用户信息</a>
+            <a href='<%= path %>/pages/chenkai/AddUserMain.jsp'>新增用户</a>
+            <a href='shwkuser!WriteUser.action'>下载所有用户信息</a>
           </div>
         </li>
         <li>
           <h4 class="M2"><span></span>店家管理</h4>
           <div class="list-item none">
             <a id="findallrest">查询所有店家</a>
-            <a id='addRest'>新增店家</a>
+            <a href='#'>查看开店申请</a>
             <a href='shwkrest!WriteRest.action'>下载所有店家信息</a>   
             <a id='findaddMess'>查询所有店家评论</a>   
            </div>
@@ -92,8 +91,8 @@
           <h4  class="M6"><span></span>礼品管理</h4>
           <div class="list-item none">
             <a id='findallgift'>查询所有礼品</a>
-            <a href='shwkgift!WriteGift.action'>下载所有礼品</a>
-            <a id='addgift'>添加礼品</a>
+            <a href='shwkugift!WriteGift.action'>下载所有礼品</a>
+            <a href="<%= path %>/pages/chenkai/AddGiftMain.jsp">添加礼品</a>
             <a id='findallgiftRec'>查询所有礼品兑换记录</a>
             <a href='shwkgiftrec!WriteGiftRec.action'>下载所有礼品兑换记录</a>
           </div>
@@ -106,6 +105,24 @@
 			</div>
 			<div id="mydiv" class="main">
 				<s:form action="shwk!addUser.action" method='post' enctype='multipart/form-data' >
+<<<<<<< HEAD
+    			<table align='center' >				
+					<tr><td >姓名：<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
+				    <tr><td >密码：<input type='text' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>
+					<tr><td >电话：<input type='text' id='tel' name='tel' onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>
+					<tr><td >邮件：<input type='text' id='email' name='email' onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>
+					<tr><td >地址：<input type='text' id='address' name='address' onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>
+					<tr><td >真实姓名：<input type='text' id='realname' name='realname' onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>
+					<tr><td >余额：<input type='text' id='balance' name='balance' onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>
+					<tr><td >性别:<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>
+					<tr><td >权限:<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>
+					<tr><td >图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
+					<tr><td><s:token theme='simple'/><s:actionerror  theme='simple'/></td></tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type='reset' value='取消'/></td></tr>
+				</table>
+=======
     			<table align='center' >
     				<tr><td ><s:textfield name="username" label="姓名 "></s:textfield></td></tr>
     				<tr><td ><s:password name="pwd" label="密码"></s:password></td></tr>
@@ -125,10 +142,11 @@
     						label="权限"
     				></s:select></td></tr>			
     				<tr><td ><s:file id='photo' name='photo' label="图片"></s:file></td></tr>
-    				<tr><td><s:token/><s:actionerror/></td></tr>
+    				<tr><td><s:token theme='simple'/><s:actionerror theme='simple'/></td></tr>
     				<tr><td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:submit value="提交" theme="simple"></s:submit></td>
     				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:reset value="取消" theme="simple"></s:reset>	</td></tr>
     				</table>
+>>>>>>> 8fc85ccdbbb58995ceaf2b6c43ea551d5e1f52bf
     		</s:form>
 			</div>
 		</div>

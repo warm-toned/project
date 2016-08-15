@@ -1,29 +1,10 @@
 $(function() {
+		
 	// 查询所有用户
 	$("#findalluser").click(function() {
-		$.getJSON("shwk!getUserList.action?v=" + Math.random(), Userrollback)
+		
+		$.getJSON("shwkuser!getUserList.action?v=" + Math.random(), Userrollback)
 	});
-	
-	// 添加用户
-	$("#addUser").click(function() {
-		var s = "<form action='shwk!addUser.action' onsubmit='return dosubmit(this)'  method='post' enctype='multipart/form-data' >";
-		s += "<table align='center' >";
-		s += "<tr><td >姓名：<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>"
-	    s += "<tr><td >密码：<input type='text' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>"
-		s += "<tr><td >电话：<input type='text' id='tel' name='tel' onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>"
-		s += "<tr><td >邮件：<input type='text' id='email' name='email' onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>"
-		s += "<tr><td >地址：<input type='text' id='address' name='address' onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>"
-		s += "<tr><td >真实姓名：<input type='text' id='realname' name='realname' onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>"
-		s += "<tr><td >余额：<input type='text' id='balance' name='balance' onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>"
-		s += "<tr><td >性别:<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>"
-		s += "<tr><td >权限:<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
-		s += "<tr><td >图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"			
-		//s+="<tr><td><input type='hidden' value="+Math.random()+" id='token'/></td></tr>"
-		s += "<tr><td><input type='submit' value='提交' id='submit'/><input type='reset' value='取消'/></td></tr>"
-		s += "</table>"
-		s += "</form>"
-		$("#mydiv").html(s);	
-		});
 
 	// 查询所有商家
 	$("#findallrest").click(
@@ -31,41 +12,6 @@ $(function() {
 				$.getJSON("shwkrest!getRestList.action?v=" + Math.random(),
 						Restrollback)
 			});
-	// 添加商家
-	$("#addRest")
-			.click(
-					function() {
-						$
-								.getJSON(
-										"shwk!getAllUser.action?v="
-												+ Math.random(),
-										function(data) {
-											var getAllUser = data.rows;
-											var str = "";
-											for ( var i = 0; i < getAllUser.length; i++) {
-												var k = getAllUser[i]
-												str += "<option value="
-														+ k.userid + ">"
-														+ k.username
-														+ "</option>"
-											}
-											var s = "<form  action='shwkrest!addRest.action'  method='post' enctype='multipart/form-data'>";
-											s += "<table align='center'>";
-											s += "<tr><td>店名：<input type='text' id='rtname' name='rtname' onblur='myrtname()'/>&nbsp;&nbsp;<span id='mrtname'></span></td></tr>"
-											s += "<tr><td>地址：<input type='text' id='rtaddr' name='rtaddr' onblur='myrtaddr()'/>&nbsp;&nbsp;<span id='mrtaddr'></span></td></tr>"
-											s += "<tr><td>店主:<select id='rtowner' name='rtowner'>"
-													+ str
-													+ "</select></td></tr>"
-											s += "<tr><td>图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
-											s += "<tr><td>公告：<textarea rows='3' cols='20' id='rtcontent' name='rtcontent'></textarea></td></tr>"
-											s += "<tr><td>营业时间：<input type='text' id='rtonbuz' name='rtonbuz' onblur='myrtonbuz()'/>&nbsp;&nbsp;<span id='mrtonbuz'></span></td></tr>"
-											s += "<tr><td>营业状态:<select id='rtstatus' name='rtstatus'><option value='0'>正在营业</option><option value='1'>休息中</option></select></td></tr>"
-											s += "<tr><td><input type='submit' value='提交'/><input type='reset' value='取消'/></td></tr>"
-											s += "</table>"
-											s += "</form>"
-											$("#mydiv").html(s);
-										})
-					});
 
 	// 查询所有商家评论
 	$("#findaddMess").click(
@@ -103,26 +49,9 @@ $(function() {
 	// 查询所有礼品
 	$("#findallgift").click(
 			function() {
-				$.getJSON("shwkgift!getGiftList.action?v=" + Math.random(),
+				$.getJSON("shwkugift!getGiftList.action?v=" + Math.random(),
 						Giftrollback)
 			});
-
-	// 添加礼品
-	$("#addgift")
-			.click(
-					function() {
-						var s = "<form  action='shwkgift!addGift.action'  method='post' enctype='multipart/form-data'>";
-						s += "<table align='center'>";
-						s += "<tr><td>礼品名：<input type='text' id='gname' name='gname'onblur='mygname()'/>&nbsp;&nbsp;<span id='mgname'></span></td></tr>"
-						s += "<tr><td>图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
-						s += "<tr><td>所需积分:<input type='text' id='greqscore' name='greqscore' onblur='mygreqscore()'/>&nbsp;&nbsp;<span id='mgreqscore'></span></td></tr>"
-						s += "<tr><td>总库存数:<input type='text' id='gsum' name='gsum' onblur='mygsum()'/>&nbsp;&nbsp;<span id='mgsum'></span></td></tr>"
-						s += "<tr><td>描述：<textarea rows='3' cols='20' id='gdesc' name='gdesc'></textarea></td></tr>"
-						s += "<tr><td><input type='submit' value='提交'/><input type='reset' value='取消'/></td></tr>"
-						s += "</table>"
-						s += "</form>"
-						$("#mydiv").html(s);
-					});
 
 	// 查询所有礼品兑换记录
 	$("#findallgiftRec").click(
@@ -221,6 +150,8 @@ function Userrollback(data) {
 	s += "</td>"
 	s += "</tr>"
 	s += "</table>"
+	
+		 
 	$("#mydiv").html(s);
 	TableModel();
 }
@@ -833,7 +764,7 @@ function GiftRecrollback(data) {
 // 分页查询用户
 function getUserList(pages) {
 	$.ajax( {
-		url : "shwk!getUserList.action?v=" + Math.random(),
+		url : "shwkuser!getUserList.action?v=" + Math.random(),
 		type : "post",
 		data : {
 			"page" : pages
@@ -924,7 +855,7 @@ function getPayList(pages) {
 // 分页查询礼品
 function getGiftList(pages) {
 	$.ajax( {
-		url : "shwkgift!getGiftList.action?v=" + Math.random(),
+		url : "shwkugift!getGiftList.action?v=" + Math.random(),
 		type : "post",
 		data : {
 			"page" : pages
@@ -951,7 +882,7 @@ function getGiftRecList(pages) {
 function findbyid(id) {
 	$
 			.ajax( {
-				url : "shwk!FindbyId.action?v=" + Math.random(),
+				url : "shwkuser!FindbyId.action?v=" + Math.random(),
 				type : "post",
 				data : {
 					"id" : id
@@ -959,7 +890,7 @@ function findbyid(id) {
 				dataType : "json",
 				success : function(data) {
 					var us = data.user;
-					var s = "<form  action='shwk!UpdaUser.action'  method='post' enctype='multipart/form-data'>";
+					var s = "<form  action='shwkuser!UpdaUser.action'  method='post' enctype='multipart/form-data'>";
 					s += "<table align='center'>";
 					s += "<tr><td><input type='hidden' id='userid' name='userid' value="
 							+ us.userid + " /></td></tr>"
@@ -1008,7 +939,7 @@ function findbyid(id) {
 					$("#mydiv").html(s);
 					$("#btn").click(
 							function() {
-								$.getJSON("shwk!getUserList.action?v="
+								$.getJSON("shwkuser!getUserList.action?v="
 										+ Math.random(), Userrollback)
 							})
 				}
@@ -1029,7 +960,7 @@ function findrestbyid(id) {
 					var ts = data.rest;
 					$
 							.getJSON(
-									"shwk!getAllUser.action?v=" + Math.random(),
+									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										var str = "";
@@ -1111,7 +1042,7 @@ function findmessbyid(id) {
 					var str2 = "";
 					$
 							.getJSON(
-									"shwk!getAllUser.action?v=" + Math.random(),
+									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										for ( var i = 0; i < getAllUser.length; i++) {
@@ -1285,7 +1216,7 @@ function findmenumsgbyid(id) {
 					var str2 = "";
 					$
 							.getJSON(
-									"shwk!getAllUser.action?v=" + Math.random(),
+									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										for ( var i = 0; i < getAllUser.length; i++) {
@@ -1412,7 +1343,7 @@ function findorderbyid(id) {
 					var str4 = "";
 					$
 							.getJSON(
-									"shwk!getAllUser.action?v=" + Math.random(),
+									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 
@@ -1600,7 +1531,7 @@ function findpaybyid(id) {
 function findgiftbyid(id) {
 	$
 			.ajax( {
-				url : "shwkgift!findGiftById.action?v=" + Math.random(),
+				url : "shwkugift!findGiftById.action?v=" + Math.random(),
 				type : "post",
 				data : {
 					"id" : id
@@ -1608,7 +1539,7 @@ function findgiftbyid(id) {
 				dataType : "json",
 				success : function(data) {
 					var ts = data.gift;
-					var s = "<form  action='shwkgift!UpdaGift.action'  method='post' enctype='multipart/form-data'>";
+					var s = "<form  action='shwkugift!UpdaGift.action'  method='post' enctype='multipart/form-data'>";
 					s += "<table align='center'>";
 					s += "<tr><td><input type='hidden' id='gid' name='gid' value="
 							+ ts.gid + " /></td></tr>"
@@ -1633,7 +1564,7 @@ function findgiftbyid(id) {
 					$("#mydiv").html(s);
 					$("#btn").click(
 							function() {
-								$.getJSON("shwkgift!getGiftList.action?v="
+								$.getJSON("shwkugift!getGiftList.action?v="
 										+ Math.random(), Giftrollback)
 							})
 				}
@@ -1642,7 +1573,6 @@ function findgiftbyid(id) {
 
 // 通过id查询礼品兑换记录
 function findGiftRecbyid(id) {
-	alert(id)
 	$
 			.ajax( {
 				url : "shwkgiftrec!FindGiftRecordbyId.action?v="
@@ -1658,7 +1588,7 @@ function findGiftRecbyid(id) {
 					var str2 = "";
 					$
 							.getJSON(
-									"shwk!getAllUser.action?v=" + Math.random(),
+									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										for ( var i = 0; i < getAllUser.length; i++) {
@@ -1676,7 +1606,7 @@ function findGiftRecbyid(id) {
 										}
 										$
 												.getJSON(
-														"shwkgift!getAllGift.action?v="
+														"shwkugift!getAllGift.action?v="
 																+ Math.random(),
 														function(data) {
 															var getAllGift = data.rows;
@@ -1725,13 +1655,9 @@ function findGiftRecbyid(id) {
 															$("#btn")
 																	.click(
 																			function() {
-																				$
-																						.getJSON(
-																								"shwkmenumsg!getMenuMsgList.action?v="
-																										+ Math
-																												.random(),
-																								MenuMsgrollback)
-																			})
+																				$.getJSON("shwkgiftrec!getGiftRecordList.action?v="
+																						+ Math.random(), GiftRecrollback)
+																			});
 														})
 									})
 				}
@@ -1740,147 +1666,212 @@ function findGiftRecbyid(id) {
 
 // 删除用户
 function deleUser(id) {
-	$.ajax( {
-		url : "shwk!deleUser.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwk!getUserList.action?v=" + Math.random(),
-					Userrollback);
-		}
-	})
+	var ret=confirm("确认删除这个用户吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkuser!deleUser.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkuser!getUserList.action?v=" + Math.random(),
+						Userrollback);
+			}
+		})
+	}else{
+		$.getJSON("shwkuser!getUserList.action?v=" + Math.random(),
+				Userrollback);
+	}
+
 }
+
 
 // 删除商家
 function deleRest(id) {
-	$.ajax( {
-		url : "shwkrest!deleRest.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkrest!getRestList.action?v=" + Math.random(),
-					Restrollback);
-		}
-	})
+	var ret=confirm("确认删除这个商家吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkrest!deleRest.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkrest!getRestList.action?v=" + Math.random(),
+						Restrollback);
+			}
+		})
+	}else{
+		$.getJSON("shwkrest!getRestList.action?v=" + Math.random(),
+				Restrollback);
+	}
+	
 }
 
 // 删除商家评论
 function deleMess(id) {
-	$.ajax( {
-		url : "shwkmess!deleMess.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkmess!getMessList.action?v=" + Math.random(),
-					Messrollback)
-		}
-	})
+	var ret=confirm("确认删除这条商家评论吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkmess!deleMess.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkmess!getMessList.action?v=" + Math.random(),
+						Messrollback)
+			}
+		})
+	}else{
+		$.getJSON("shwkmess!getMessList.action?v=" + Math.random(),
+				Messrollback)
+	}
+	
 }
 
 // 删除菜单
 function deleMenu(id) {
-	$.ajax( {
-		url : "shwkmenu!deleMenu.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkmenu!getMenuList.action?v=" + Math.random(),
-					Menurollback)
-		}
-	})
+	var ret=confirm("确认删除这个菜吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkmenu!deleMenu.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkmenu!getMenuList.action?v=" + Math.random(),
+						Menurollback)
+			}
+		})
+	}else{
+		$.getJSON("shwkmenu!getMenuList.action?v=" + Math.random(),
+				Menurollback)
+	}
+	
 }
 
 // 删除菜单评论
 function deleMenumsg(id) {
-	$.ajax( {
-		url : "shwkmenumsg!deleMenuMsg.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkmenumsg!getMenuMsgList.action?v=" + Math.random(),
-					MenuMsgrollback)
-		}
-	})
+	var ret=confirm("确认删除这条菜单评论吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkmenumsg!deleMenuMsg.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkmenumsg!getMenuMsgList.action?v=" + Math.random(),
+						MenuMsgrollback)
+			}
+		})
+	}else{
+		$.getJSON("shwkmenumsg!getMenuMsgList.action?v=" + Math.random(),
+				MenuMsgrollback)
+	}
+	
 }
 
 // 删除订单
 function deleOrder(id) {
-	$.ajax( {
-		url : "shwkorder!deleOrder.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkorder!getOrderList.action?v=" + Math.random(),
-					Orderrollback)
-		}
-	})
+	var ret=confirm("确认删除这个订单吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkorder!deleOrder.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkorder!getOrderList.action?v=" + Math.random(),
+						Orderrollback)
+			}
+		})
+	}else{
+		$.getJSON("shwkorder!getOrderList.action?v=" + Math.random(),
+				Orderrollback)
+	}
+	
 }
 
 // 删除订单支付
 function delepay(id) {
-	$.ajax( {
-		url : "shwkpay!delePay.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkpay!getPayList.action?v=" + Math.random(),
-					Payrollback)
-		}
-	})
+	var ret=confirm("确认删除这个支付信息吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkpay!delePay.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkpay!getPayList.action?v=" + Math.random(),
+						Payrollback)
+			}
+		})
+	}else{
+		$.getJSON("shwkpay!getPayList.action?v=" + Math.random(),
+				Payrollback)
+	}
+
 }
 
 // 删除礼品
 function deleGift(id) {
-	$.ajax( {
-		url : "shwkgift!deleGift.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON("shwkgift!getGiftList.action?v=" + Math.random(),
-					Giftrollback)
-		}
-	})
+	var ret=confirm("确认删除这件礼品吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkugift!deleGift.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON("shwkugift!getGiftList.action?v=" + Math.random(),
+						Giftrollback)
+			}
+		})
+	}else{
+		$.getJSON("shwkugift!getGiftList.action?v=" + Math.random(),
+				Giftrollback)
+	}
+	
 }
 
 // 删除礼品兑换记录
 function deleGiftRec(id) {
-	$.ajax( {
-		url : "shwkgiftrec!deleGiftRecord.action?v=" + Math.random(),
-		type : "post",
-		data : {
-			"id" : id
-		},
-		dataType : "json",
-		success : function() {
-			$.getJSON(
-					"shwkgiftrec!getGiftRecordList.action?v=" + Math.random(),
-					GiftRecrollback)
-		}
-	})
+	var ret=confirm("确认删除这条记录吗？")
+	if (ret==true) {
+		$.ajax( {
+			url : "shwkgiftrec!deleGiftRecord.action?v=" + Math.random(),
+			type : "post",
+			data : {
+				"id" : id
+			},
+			dataType : "json",
+			success : function() {
+				$.getJSON(
+						"shwkgiftrec!getGiftRecordList.action?v=" + Math.random(),
+						GiftRecrollback)
+			}
+		})
+	}else{
+		$.getJSON(
+				"shwkgiftrec!getGiftRecordList.action?v=" + Math.random(),
+				GiftRecrollback)
+	}
+	
 }
 
 // 通过店的id查询菜名
@@ -1903,6 +1894,14 @@ function ortidchange(omuid) {
 		$("#omuid").append(str)
 	});
 }
+
+
+
+
+
+
+
+
 
 // 验证用户名
 function inputname() {
@@ -2280,12 +2279,12 @@ function mygrnum(){
 function TableModel(){
 	$("table").css("margin-top","20px");
 	$("th").css("height","15px");
-	$("td").css("height","50px");
+	$("td").css("height","55px");
 	   
-	$("tr:first").css("background-color","#5e5e5e").css("color","#fbfbfb");						   
+	$("tr:first").css("background-color","#00a5a5").css("color","#fbfbfb");						   
 	$("tr:not(#title,#last)").hover(
 			function(){
-				$(this).css("background-color","#00a5a5");
+				$(this).css("background-color","#666666");
 				$(this).css("color","#fbfbfb");
 			},function(){
 				$(this).css("background-color","#f6f6f6");
