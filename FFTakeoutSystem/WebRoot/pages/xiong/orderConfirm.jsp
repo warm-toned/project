@@ -81,7 +81,7 @@
 										href="user!gotoUserCenter.action">用户中心</a>
 									</li>
 									<c:if test="${sessionScope.user.authority eq 2}">
-										<li><a href="page!restaurantMain.action">外卖接单</a></li>
+										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a></li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
 										<li><a href="page!restaurantMain.action">店铺管理</a></li>

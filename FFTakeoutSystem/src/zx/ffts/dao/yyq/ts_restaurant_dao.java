@@ -6,6 +6,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import zx.ffts.dao.DataDao;
+import zx.ffts.dao.pain.SenderDao;
 import zx.ffts.dao.xiong.OrderFunctionDao;
 
 public class ts_restaurant_dao extends DataDao {
@@ -62,7 +63,7 @@ public class ts_restaurant_dao extends DataDao {
 
 	@Test
 	public void test() {
-		System.out.println();
+		System.out.println(new SenderDao().getUsableOrders(1, 10));
 	}
 
 	// 根据菜单id查看商店现象信息

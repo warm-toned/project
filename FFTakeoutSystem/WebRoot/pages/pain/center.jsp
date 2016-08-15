@@ -77,24 +77,21 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="user!gotoUserCenter.action">用户中心</a></li>
+									<li><a href="user!gotoUserCenter.action">用户中心</a>
+									</li>
 									<c:if test="${sessionScope.user.authority eq 2}">
-										<li><a href="page!restaurantMain.action">外卖接单</a>
+										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
-										<li><a href="page!restaurantMain.action">店铺管理</a>
-										</li>
+										<li><a href="page!restaurantMain.action">店铺管理</a></li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority >= 4}">
-										<li><a href="page!adminMain.action">后台管理</a>
-										</li>
+										<li><a href="page!adminMain.action">后台管理</a></li>
 									</c:if>
 									<li role="separator" class="divider"></li>
-									<li><a href="user!logout.action">退出登录</a>
-									</li>
-								</ul>
-							</li>
+									<li><a href="user!logout.action">退出登录</a></li>
+								</ul></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -102,7 +99,8 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a id="logMsg" href="user!willLog.action">
 									点击登录&nbsp;&nbsp;&nbsp;&nbsp;<span
-									class="glyphicon glyphicon-log-in"></span> </a></li>
+									class="glyphicon glyphicon-log-in"></span> </a>
+							</li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
@@ -114,51 +112,52 @@
 	<div class="container">
 		<%--导航 --%>
 		<ul class="nav nav-tabs">
-			<li index="0" name="nav" class="active"><a href="#">我的订单</a></li>
-			<li index="1" name="nav"><a href="#">编辑个人信息</a></li>
+			<li index="0" name="nav" class="active"><a href="#">我的订单</a>
+			</li>
+			<li index="1" name="nav"><a href="#">编辑个人信息</a>
+			</li>
 			<c:choose>
 				<c:when test="${user.authority == 1}">
-					<li index="2" name="nav"><a href="#">我要开店</a></li>
+					<li index="2" name="nav"><a href="#">我要开店</a>
+					</li>
 				</c:when>
 				<c:when test="${user.authority == 3}">
-					<li index="2" name="nav"><a href="#">管理商店</a></li>
+					<li index="2" name="nav"><a href="#">管理商店</a>
+					</li>
 				</c:when>
 			</c:choose>
 		</ul>
 		<div id="myorder" style="margin-top: 10px;">
-			<div class="dropdown" style="font-size: 12px;">
-				<button type="button"
-					class="btn borderGray2 dropdown-toggle pull-right"
-					data-toggle="dropdown">
-					每页显示 ${bean.pageSize} 条订单 <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu pull-right" style="margin-top: 25px;">
-					<li><a href="#" class="pagereact" value="2"><span>2</span>
-					</a>
-					</li>
-					<li><a href="#" class="pagereact" value="3"><span>3</span>
-					</a>
-					</li>
-					<li><a href="#" class="pagereact" value="5"><span>5</span>
-					</a>
-					</li>
-					<li><a href="#" class="pagereact" value="10"><span>10</span>
-					</a>
-					</li>
-					<li><a href="#" class="pagereact" value="20"><span>20</span>
-					</a>
-					</li>
-					<li role="separator" class="divider"></li>
-					<li><a href="#" class="pagereact" value="10"><span>重置</span>
-					</a>
-					</li>
-				</ul>
-			</div>
+			<c:if test="${not empty bean.beanList}">
+				<div class="dropdown" style="font-size: 12px;">
+					<button type="button"
+						class="btn borderGray2 dropdown-toggle pull-right"
+						data-toggle="dropdown">
+						每页显示 ${bean.pageSize} 条订单 <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right" style="margin-top: 25px;">
+						<li><a href="#" class="pagereact" value="2"><span>2</span>
+						</a></li>
+						<li><a href="#" class="pagereact" value="3"><span>3</span>
+						</a></li>
+						<li><a href="#" class="pagereact" value="5"><span>5</span>
+						</a></li>
+						<li><a href="#" class="pagereact" value="10"><span>10</span>
+						</a></li>
+						<li><a href="#" class="pagereact" value="20"><span>20</span>
+						</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#" class="pagereact" value="10"><span>重置</span>
+						</a></li>
+					</ul>
+				</div>
+			</c:if>
 			<div class="clearfix"></div>
 			<h6 style="padding: 0px;margin: 0px;">&nbsp;</h6>
 			<c:forEach items="${bean.beanList}" var="item">
 				<div class="border2Circle" style="margin-bottom: 20px;">
-					<a href="/ffts/pages/xiong/orderDetails.jsp?uuid=${item.ouuid}"
+					<a
+						href="/ffts/pages/xiong/orderDetails.jsp?uuid=${item.ouuid}&status=${item.ostatus}"
 						style="font-size: 9px;margin-top: 0px;padding-left: 10px;display: block;margin-bottom: 5px;padding-bottom: 0px;"
 						class="page-header">订单号 : ${item.ouuid} <span
 						class="glyphicon glyphicon-chevron-right pull-right"
@@ -239,7 +238,8 @@
 								<a class="btn borderSky pull-right" href="">点此催单</a>
 							</c:when>
 							<c:when test="${item.ostatus == 5 and item.oassess == 0}">
-								<a class="btn borderOrange pull-right" href="shwx!getAssess.action?uuid=${item.ouuid}&uScore=${item.sum * 10}">评价得<fmt:formatNumber
+								<a class="btn borderOrange pull-right"
+									href="shwx!getAssess.action?uuid=${item.ouuid}&uScore=${item.sum * 10}">评价得<fmt:formatNumber
 										value="${item.sum * 10}" pattern="0" />积分</a>
 							</c:when>
 						</c:choose>
@@ -273,18 +273,21 @@
 						<ul class="pagination">
 							<li><a id="first" size="${bean.pageSize}"
 								href="user!gotoUserCenter.action?page=1&size=${bean.pageSize}"
-								class="pageaction"><span>首页</span> </a></li>
+								class="pageaction"><span>首页</span> </a>
+							</li>
 							<%--设置上一页是否被激活 --%>
 							<c:choose>
 								<c:when test="${bean.currentPage > 1}">
 									<li><a
 										href="user!gotoUserCenter.action?page=${bean.currentPage-1}&size=${bean.pageSize}"
 										class="pageaction"><span
-											class="glyphicon glyphicon-chevron-left"></span> </a></li>
+											class="glyphicon glyphicon-chevron-left"></span> </a>
+									</li>
 								</c:when>
 								<c:otherwise>
 									<li class="disabled"><a href="javascript:;"><span
-											class="glyphicon glyphicon-chevron-left"></span> </a></li>
+											class="glyphicon glyphicon-chevron-left"></span> </a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 							<%--设置页数的开始页码 --%>
@@ -292,12 +295,14 @@
 								<c:choose>
 									<c:when test="${bean.currentPage == i}">
 										<li class="disabled"><a href="javascript:;"><span>${i}</span>
-										</a></li>
+										</a>
+										</li>
 									</c:when>
 									<c:otherwise>
 										<li><a
 											href="user!gotoUserCenter.action?page=${i}&size=${bean.pageSize}"
-											class="pageaction"><span>${i}</span> </a></li>
+											class="pageaction"><span>${i}</span> </a>
+										</li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -307,17 +312,18 @@
 									<li><a
 										href="user!gotoUserCenter.action?page=${bean.currentPage+1}&size=${bean.pageSize}"
 										class="pageaction"><span
-											class="glyphicon glyphicon-chevron-right"></span> </a></li>
+											class="glyphicon glyphicon-chevron-right"></span> </a>
+									</li>
 								</c:when>
 								<c:otherwise>
 									<li class="disabled"><a href="javascript:;"><span
-											class="glyphicon glyphicon-chevron-right"></span> </a></li>
+											class="glyphicon glyphicon-chevron-right"></span> </a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 							<li><a
 								href="user!gotoUserCenter.action?page=${bean.totalPages}&size=${bean.pageSize}"
-								class="pageaction"><span>尾页</span> </a>
-							</li>
+								class="pageaction"><span>尾页</span> </a></li>
 						</ul>
 					</div>
 				</c:when>
@@ -489,14 +495,15 @@
 		intvalues[i] = 1;
 		window.setInterval("startShow(" + i + ")", 1000);
 	}
-	
+
 	function startShow(i, EndTime, intvalue) {
 		intvalues[i]++;
-		$(".timer:eq("+i+")").text(
-				Math.floor(((endtimes[i] - intvalues[i]) / 60)).toString() + "分"
-						+ ((endtimes[i] - intvalues[i]) % 60).toString() + "秒");
+		$(".timer:eq(" + i + ")").text(
+				Math.floor(((endtimes[i] - intvalues[i]) / 60)).toString()
+						+ "分" + ((endtimes[i] - intvalues[i]) % 60).toString()
+						+ "秒");
 		if (intvalues[i] >= endtimes[i]) {
-			$(".timer:eq("+i+")").text("订单失效");
+			$(".timer:eq(" + i + ")").text("订单失效");
 		}
 	}
 

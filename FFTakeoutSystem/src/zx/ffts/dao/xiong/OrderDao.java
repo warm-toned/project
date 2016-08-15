@@ -21,7 +21,7 @@ public class OrderDao extends DataDao {
 			String updatesql = "update ts_order set ocount=ocount+1 where omuid=? and ortid=?";
 			return update(updatesql, menuid, dianid);
 		} else {
-			String addsql = "insert into ts_order values(ts_order_seq.nextval,?,?,?,1,2,sysdate,null,0,0)";
+			String addsql = "insert into ts_order values(ts_order_seq.nextval,?,?,?,1,null,sysdate,null,0,0)";
 			return update(addsql, userid, menuid, dianid);
 		}
 	}

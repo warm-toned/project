@@ -40,7 +40,7 @@
 
 <body>
 	<a id="infos" class="sr-only" rtid="${sessionScope.shopid}"
-		userid="${sessionScope.user.userid}" uuid="${param.uuid}"></a>
+		userid="${sessionScope.user.userid}" uuid="${param.uuid}" status="${param.ostatus}"></a>
 	<!--此处是导航条 -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -78,7 +78,7 @@
 										href="user!gotoUserCenter.action">用户中心</a>
 									</li>
 									<c:if test="${sessionScope.user.authority eq 2}">
-										<li><a href="page!restaurantMain.action">外卖接单</a></li>
+										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a></li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
 										<li><a href="page!restaurantMain.action">店铺管理</a></li>
@@ -123,7 +123,7 @@
 					</div>
 				</div>
 				<div class="panel-footer" style="font-size: 10px;padding-bottom: 16px;" id="close">
-					<span class="pull-left statusSpan">等待商家接单</span>
+					<span class="pull-left statusSpan" id="wait">等待商家接单</span>
 					<div style="text-align: center;border-bottom: 1px #ddd dotted;">
 						<span style="padding-bottom: 5px;" class="statusSpan">配送中...</span>
 						<span class="pull-right statusSpan">已送达</span>
@@ -171,5 +171,28 @@
 			</div>
 		</div>
 	</nav>
+	<%--模态框(小) --%>
+	<div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+		aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel" style="font-weight:bold;">页面提示</h4>
+				</div>
+				<div class="modal-body">
+					<span id="s-modal-body-addon" class=""></span> <span
+						id="s-modal-body" class="h4"></span>
+				</div>
+				<div class="modal-footer" style="padding:5px;">
+					<button type="button" class="btn btn-info btn-block"
+						data-dismiss="modal">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

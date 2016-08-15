@@ -74,7 +74,7 @@
 								<ul class="dropdown-menu">
 									<li><a href="user!gotoUserCenter.action">用户中心</a></li>
 									<c:if test="${sessionScope.user.authority eq 2}">
-										<li><a href="page!restaurantMain.action">外卖接单</a>
+										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
@@ -112,7 +112,7 @@
 			</h3>
 			<p style="font-size: 12px;">数据意外消失在了宇宙的某个角落.....!</p>
 			<p>
-				<a href="javascript:history.back();" class="btn btn-danger"
+				<a href="shop!ShopList.action" class="btn btn-danger"
 					role="button">返回</a>
 			</p>
 		</div>

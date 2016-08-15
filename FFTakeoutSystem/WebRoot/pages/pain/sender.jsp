@@ -1,8 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	String path = request.getContextPath();
-	request.setAttribute("path", path);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -21,7 +21,6 @@
 <%--引入外部文件 --%>
 <link rel="stylesheet" href="<%=path%>/css/bootstrap.min.css"
 	type="text/css"></link>
-<link rel="stylesheet" href="<%=path%>/css/error.css" type="text/css"></link>
 <%--与本页相关的css --%>
 <link href="<%=path%>/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css"></link>
@@ -30,21 +29,24 @@
 <link href="<%=path%>/css/lightbox.css" rel="stylesheet" type="text/css"></link>
 <link href="<%=path%>/css/responsive.css" rel="stylesheet"
 	type="text/css"></link>
+<link rel="stylesheet" href="<%=path%>/css/fileinput.css" />
 <%--通用样式 --%>
-<link href="<%=path%>/css/main.css" rel="stylesheet" type="text/css"></link>
+<link href="<%=path%>/css/main2.css" rel="stylesheet" type="text/css"></link>
 <link href="<%=path%>/css/page.css" rel="stylesheet" type="text/css"></link>
 <script type="text/javascript" src="<%=path%>/js/jquery-1.12.0.js"></script>
 <script type="text/javascript" src="<%=path%>/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path%>/js/lightbox.min.js"></script>
+<script type="text/javascript" src="<%=path%>/js/pain/sender.js"></script>
 </head>
 
 <body>
+	<a id="infos" class="sr-only" userid="${sessionScope.user.userid}"></a>
 	<!--此处是导航条 -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<!--导航首部 -->
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed pull-right" 
+				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 					aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span> <span
@@ -72,24 +74,21 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="user!gotoUserCenter.action">用户中心</a></li>
+									<li><a href="user!gotoUserCenter.action">用户中心</a>
+									</li>
 									<c:if test="${sessionScope.user.authority eq 2}">
 										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
-										<li><a href="page!restaurantMain.action">店铺管理</a>
-										</li>
+										<li><a href="page!restaurantMain.action">店铺管理</a></li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority >= 4}">
-										<li><a href="page!adminMain.action">后台管理</a>
-										</li>
+										<li><a href="page!adminMain.action">后台管理</a></li>
 									</c:if>
 									<li role="separator" class="divider"></li>
-									<li><a href="user!logout.action">退出登录</a>
-									</li>
-								</ul>
-							</li>
+									<li><a href="user!logout.action">退出登录</a></li>
+								</ul></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -97,25 +96,59 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a id="logMsg" href="user!willLog.action">
 									点击登录&nbsp;&nbsp;&nbsp;&nbsp;<span
-									class="glyphicon glyphicon-log-in"></span> </a></li>
+									class="glyphicon glyphicon-log-in"></span> </a>
+							</li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
 	</nav>
-	<!--404-->
-	<div class="four-four">
-		<div class="container">
-			<h3>
-				<span class="hlf">5</span>0<span class="hlf">0</span>
-			</h3>
-			<p style="font-size: 12px;">再伟大的人也会犯错，我们正在紧急处理.....!</p>
-			<p>
-				<a href="shop!ShopList.action" class="btn btn-danger" role="button">返回</a>
-			</p>
+	<div class="clearfix" style="margin-top: 60px;"></div>
+	<div class="container">
+		<%--导航 --%>
+		<ul class="nav nav-tabs visible-xs">
+			<li index="0" name="nav" class="active"><a href="#">全部订单</a>
+			</li>
+			<li index="1" name="nav"><a href="#">已接订单</a>
+			</li>
+			<li index="2" name="nav"><a href="#">已完成订单</a>
+			</li>
+		</ul>
+		<a class="sr-only" id="pginfo" page="1" size="10"></a>
+		<div class="col-md-6" id="usable">
+			<div id="orders"></div>
+			<div class="portfolio-pagination">
+				<ul class="pagination">
+					<li><a id="first" size="${bean.pageSize}"
+						href="user!gotoUserCenter.action?page=1&size=${bean.pageSize}"
+						class="pageaction"><span>首页</span> </a>
+					</li>
+					<%--设置上一页是否被激活 --%>
+					<li><a href="" class="pageaction"><span
+							class="glyphicon glyphicon-chevron-left"></span> </a>
+					</li>
+					<%--设置页数的开始页码 --%>
+					<li><a href="" class="pageaction"><span>1</span> </a>
+					</li>
+					<li><a href="" class="pageaction"><span>2</span> </a>
+					</li>
+					<li><a href="" class="pageaction"><span>3</span> </a>
+					</li>
+					<li><a href="" class="pageaction"><span>4</span> </a>
+					</li>
+					<li><a href="" class="pageaction"><span>5</span> </a>
+					</li>
+					<%--设置下一页是否被激活 --%>
+					<li><a href="" class="pageaction"><span
+							class="glyphicon glyphicon-chevron-right"></span> </a>
+					</li>
+					<li><a href="" class="pageaction"><span>尾页</span> </a></li>
+				</ul>
+			</div>
 		</div>
+		<div class="col-md-6" id="got"></div>
+		<div class="col-md-6" id="complete"></div>
 	</div>
-	<!--404-->
 </body>
 </html>

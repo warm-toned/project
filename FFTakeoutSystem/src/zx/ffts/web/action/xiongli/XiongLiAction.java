@@ -99,28 +99,6 @@ public class XiongLiAction extends BaseAction {
 	}
 
 	/**
-	 * 点击去结算显示详情信息
-	 * 
-	 * @return
-	 */
-	public String getDetail() {
-		Integer shopid = Integer.parseInt(request.getParameter("sid")); // 商店id
-		Integer userid = 1;
-		Map<String, Object> mapdetail = odao.getDetail(userid, shopid);
-		List<Map<String, Object>> list = odao.getCar(userid, shopid);
-		int numprice = 0;
-		for (Map<String, Object> map : list) {
-			numprice += Integer.parseInt(map.get("muprice").toString())
-					* Integer.parseInt(map.get("ocount").toString());
-		}
-		request.setAttribute("list", list);
-		request.setAttribute("sumMoney", numprice);
-		request.setAttribute("sid", shopid);
-		request.setAttribute("mapdetail", mapdetail);
-		return "getDetail";
-	}
-
-	/**
 	 * 继续购买
 	 * 
 	 * @return
