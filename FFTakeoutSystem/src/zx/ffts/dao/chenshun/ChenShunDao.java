@@ -145,11 +145,12 @@ public class ChenShunDao extends DataDao {
     
 		if(status!=null && status!=-1)
            {
-        	   sql+="   and ostatus>="+status;    	   
-           }else{
-        	   sql+="   and ostatus>="+2;    	 
-        	   
-           }
+        	   sql+="   and ostatus="+status;    	   
+         }
+//        	   else{
+//        	   sql+="   and ostatus>="+2;    	 
+//        	   
+//           }
            sql+="  group by username,ouuid,ortid,rtname,rtpic,odate,ostatus) where rm between ? and ? ";
            if(sort!=null&&!sort.equals("")){
            	 sql+="   order by   "+sort+"  "+order; 	 

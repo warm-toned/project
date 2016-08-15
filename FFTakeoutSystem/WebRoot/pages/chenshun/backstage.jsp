@@ -206,14 +206,14 @@ span{
 		</div>
 		
 		<!-- 修改密码 -->
-		<div id="alterpassword" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:280px;height:120px;margin:0px; ">
+		<div id="alterpassword" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:280px;height:150px;margin:0px; ">
 		             <table align="center">
 		             <tr>
-		              <td style="font-size:12px; color:#9ED7E8">请输入新密码：<input type="password" name="password"/></td>
+		              <td style="font-size:12px; color:#15428B">请输入新密码：<input type="password" name="password"/></td>
 		             </tr>
                         <tr></tr>
 		             <tr>
-		              <td style="font-size:12px; color:#9ED7E8">&nbsp;确认新密码：<input type="password" name="passwordx"/></td>
+		              <td style="font-size:12px; color:#15428B">&nbsp;确认新密码：<input type="password" name="passwordx"/></td>
 		             </tr>
 		           </table>          
 		             <br/>
