@@ -960,7 +960,7 @@ function findrestbyid(id) {
 					var ts = data.rest;
 					$
 							.getJSON(
-									"shwkuser!getAllUser.action?v=" + Math.random(),
+									"shwkuser!GetAllOwner.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										var str = "";
@@ -1341,69 +1341,41 @@ function findorderbyid(id) {
 					var str2 = "";
 					var str3 = "";
 					var str4 = "";
-					$
-							.getJSON(
-									"shwkuser!getAllUser.action?v=" + Math.random(),
-									function(data) {
-										var getAllUser = data.rows;
-
-										for ( var i = 0; i < getAllUser.length; i++) {
-											var k = getAllUser[i]
-											if (ts.ouserid == k.userid) {
-												str += "<option value="
-														+ k.userid
-														+ "  selected='selected'>"
-														+ k.username
-														+ "</option>"
-											} else {
-												str += "<option value="
-														+ k.userid + ">"
-														+ k.username
-														+ "</option>"
-											}
-											if (ts.osender == k.userid) {
-												str2 += "<option value="
-														+ k.userid
-														+ "  selected='selected'>"
-														+ k.username
-														+ "</option>"
-											} else {
-												str2 += "<option value="
-														+ k.userid + ">"
-														+ k.username
-														+ "</option>"
-											}
-
+					$.getJSON("shwkuser!getAllUser.action?v=" + Math.random(),
+							function(data) {
+									var getAllUser = data.rows;
+									for ( var i = 0; i < getAllUser.length; i++) {
+										var k = getAllUser[i]
+										if (ts.ouserid == k.userid) {
+											str += "<option value="+ k.userid+ "  selected='selected'>"+ k.username+ "</option>"
+										} else {
+											str += "<option value="+ k.userid + ">"+ k.username+ "</option>"
 										}
-										$
-												.getJSON(
-														"shwkrest!getAllRest.action?v="
-																+ Math.random(),
-														function(data) {
-															var getAllRest = data.rows;
-															for ( var i = 0; i < getAllRest.length; i++) {
-																var k = getAllRest[i]
-																if (ts.ortid == k.rtid) {
-																	str3 += "<option value="
-																			+ k.rtid
-																			+ "  selected='selected'>"
-																			+ k.rtname
-																			+ "</option>"
-																} else {
-																	str3 += "<option value="
-																			+ k.rtid
-																			+ ">"
-																			+ k.rtname
-																			+ "</option>"
+									}
+					$.getJSON("shwkuser!GetAllSender.action?v=" + Math.random(),
+						   function(data) {
+									var getAllUser = data.rows;
+									for ( var i = 0; i < getAllUser.length; i++) {
+										var k = getAllUser[i]
+										if (ts.osender == k.userid) {
+												str2 += "<option value="+ k.userid+ "  selected='selected'>"+ k.username+ "</option>"
+										} else {
+												str2 += "<option value="+ k.userid + ">"+ k.username+ "</option>"
+										}
+
+									}
+					$.getJSON("shwkrest!getAllRest.action?v="+ Math.random(),
+							function(data) {
+									var getAllRest = data.rows;
+									for ( var i = 0; i < getAllRest.length; i++) {
+										var k = getAllRest[i]
+										if (ts.ortid == k.rtid) {
+												str3 += "<option value="+ k.rtid+ "  selected='selected'>"+ k.rtname+ "</option>"
+										} else {
+												str3 += "<option value="+ k.rtid+ ">"+ k.rtname+ "</option>"
 																}
 															}
-															$
-																	.getJSON(
-																			"shwkmenu!getAllMenuByRest.action?v="
-																					+ Math
-																							.random()
-																					+ "&murtid="
-																					+ ts.ortid,
+															$.getJSON("shwkmenu!getAllMenuByRest.action?v="+ Math.random()+ "&murtid="+ ts.ortid,
 																			function(
 																					data) {
 																				var getAllMenu = data.rows;
@@ -1483,8 +1455,9 @@ function findorderbyid(id) {
 																																	.random(),
 																													Orderrollback)
 																								})
-																			})
+																			});
 														})
+										})
 									})
 				}
 			})
@@ -1586,8 +1559,7 @@ function findGiftRecbyid(id) {
 					var ts = data.grec;
 					var str = "";
 					var str2 = "";
-					$
-							.getJSON(
+					$.getJSON(
 									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
@@ -1599,10 +1571,11 @@ function findGiftRecbyid(id) {
 														+ "  selected='selected'>"
 														+ k.username
 														+ "</option>"
-											}
+											}else{
 											str += "<option value=" + k.userid
 													+ ">" + k.username
 													+ "</option>"
+											}
 										}
 										$
 												.getJSON(
@@ -1618,12 +1591,13 @@ function findGiftRecbyid(id) {
 																			+ "  selected='selected'>"
 																			+ k.gname
 																			+ "</option>"
-																}
+																}else{
 																str2 += "<option value="
 																		+ k.gid
 																		+ ">"
 																		+ k.gname
 																		+ "</option>"
+																}
 															}
 
 															var s = "<form  action='shwkgiftrec!UpdaGiftRecord.action'  method='post' enctype='multipart/form-data'>";
@@ -1686,7 +1660,6 @@ function deleUser(id) {
 	}
 
 }
-
 
 // 删除商家
 function deleRest(id) {
