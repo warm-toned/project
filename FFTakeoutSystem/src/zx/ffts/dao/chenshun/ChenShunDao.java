@@ -46,7 +46,6 @@ public class ChenShunDao extends DataDao {
         	   sql+=" order by mustatus asc";
         	  
           }
-		 
 		 return getMapList(sql,pagesize*pageindex,id,(pageindex-1)*pagesize);
 
 	}

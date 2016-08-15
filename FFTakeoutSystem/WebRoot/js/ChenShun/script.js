@@ -187,7 +187,6 @@ function ts_menu(){
 			        $.post("cs!DeleteMenu.action?v="+Math.random(),{"ids":ids},function(data)  // 有问题
 			        {
 			        	var fiag=eval("("+data+")");
-			             alert(fiag.deletefiag)
 			          if(fiag.deletefiag>0){
 			        	  $.messager.alert("下架提示",'下架成功','warning'); 
 			        	  $("#myTable").datagrid("reload");  // 重新加载数据，但是数据会停留在当前页
