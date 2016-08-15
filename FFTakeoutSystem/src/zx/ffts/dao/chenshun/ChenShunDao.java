@@ -271,7 +271,7 @@ public class ChenShunDao extends DataDao {
 	  * @return
 	  */
 		public int OrderNumNo(Integer id){
-			String sql="select count(*) from ts_order  where ortid=? and ouuid is not null group by ouuid";
+			String sql="    select count(*) from   (select ouuid from ts_order  where ortid=? and ouuid is not null group by ouuid)";
 			
 			return scalarNumber(sql,id);
 			
@@ -352,6 +352,15 @@ public class ChenShunDao extends DataDao {
 	   
    }
 	
+   /**
+    * 根据用户id返回店的id
+    * @param id
+    * @return
+    */
+   public int UserId(Integer id){
+	   String sql="select RTID from ts_restaurant  where rtowner=?";
+	   return scalarNumber(sql,id);
+   }
 
 	 
 	

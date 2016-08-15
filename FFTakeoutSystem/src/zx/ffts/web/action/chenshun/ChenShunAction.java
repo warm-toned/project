@@ -12,6 +12,8 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.jms.Session;
+
 import jxl.Workbook;
 import jxl.format.Alignment;
 import jxl.format.Border;
@@ -38,7 +40,7 @@ import net.sf.json.JSONObject;
 public class ChenShunAction extends ChenShunBase {
 	JSONObject json = new JSONObject();
 	ChenShunDao cs = new ChenShunDao();
-
+	
 	/**
 	 * 加载自己的信息
 	 * 
@@ -70,10 +72,12 @@ public class ChenShunAction extends ChenShunBase {
 		String order = request.getParameter("order");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		List<Map<String, Object>> list = cs.MenuList(1, page, rows, type,
+		PrintWriter out = response.getWriter(); 
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
+		    
+		List<Map<String, Object>> list = cs.MenuList(cs.UserId(t.getUserid()), page, rows, type,
 				Integer.parseInt(price), name, sort, order);
-		json.put("total", cs.MenuNum(1, null, null, null));
+		json.put("total", cs.MenuNum(cs.UserId(t.getUserid()), null, null, null));
 
 		json.put("rows", list);
 		out.write(json.toString());
@@ -175,7 +179,8 @@ public class ChenShunAction extends ChenShunBase {
 	
 		String mupic = photoPath;
 		ts_menu ts = new ts_menu();
-		ts.setMurtid(1); // 手动添加数据，纯为测试
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
+		ts.setMurtid(t.getUserid()); // 手动添加数据，纯为测试
 		ts.setMuname(muname);
 		ts.setMuprice(Integer.parseInt(muprice));
 		ts.setMupic(mupic);
@@ -266,9 +271,10 @@ public class ChenShunAction extends ChenShunBase {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		List<Map<String, String>> list = cs.OrderList(1,status,page,rows,sort,order); // 所有数据
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
+		List<Map<String, String>> list = cs.OrderList(cs.UserId(t.getUserid()),status,page,rows,sort,order); // 所有数据
 		session.setAttribute("list", list);
-		int num = cs.OrderNum(1, status); // 数量
+		int num = cs.OrderNum(cs.UserId(t.getUserid()), status); // 数量
 		json.put("total", num); // 店主的id此处是自己设的
 		json.put("rows", list);// 店主的id此处是自己设的
 
@@ -287,8 +293,9 @@ public class ChenShunAction extends ChenShunBase {
 		String sort = request.getParameter("sort");
 		String order = request.getParameter("order");
 		PrintWriter out = response.getWriter();
-		List<Map<String, String>> list = cs.OrderListNo(1,page,rows,sort,order);  //商店的id
-		int num = cs.OrderNumNo(1);   
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
+		List<Map<String, String>> list = cs.OrderListNo(cs.UserId(t.getUserid()),page,rows,sort,order);  //商店的id
+		int num = cs.OrderNumNo(cs.UserId(t.getUserid()));   
 		json.put("total", num); // 店主的id此处是自己设的
 		json.put("rows", list);// 店主的id此处是自己设的
 
@@ -309,8 +316,9 @@ public class ChenShunAction extends ChenShunBase {
 		String sort = request.getParameter("sort");
 		String order = request.getParameter("order");
 		PrintWriter out = response.getWriter();
-		List<Map<String, String>> list = cs.OrderListYes(1,page,rows,sort,order);  //商店的id
-		int num = cs.OrderNumNo(1);   
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
+		List<Map<String, String>> list = cs.OrderListYes(cs.UserId(t.getUserid()),page,rows,sort,order);  //商店的id
+		int num = cs.OrderNumNo(cs.UserId(t.getUserid()));   
 		json.put("total", num); // 店主的id此处是自己设的
 		json.put("rows", list);// 店主的id此处是自己设的
 		out.write(json.toString());
@@ -421,9 +429,9 @@ public class ChenShunAction extends ChenShunBase {
 		st.mergeCells(0, 0, 7, 0);// 合并单元格
 
 		/*****************************************************************/
-
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
 		// 从session中，取得list
-		List<Map<String, Object>> list = cs.GetListOrder(1);     //加载所有的订单，值是店主的id值
+		List<Map<String, Object>> list = cs.GetListOrder(cs.UserId(t.getUserid()));     //加载所有的订单，值是店主的id值
 
 		// 创建标签，用于显示数据
 		Label labId = new Label(0, 1, "编号", wcf);
@@ -527,9 +535,9 @@ public class ChenShunAction extends ChenShunBase {
 		st.mergeCells(0, 0, 7, 0);// 合并单元格
 
 		/*****************************************************************/
-
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
 		// 从session中，取得list
-		List<Map<String, Object>> list = cs.GetMenuList(1);   //返回某家店的所有菜      id是店主的id
+		List<Map<String, Object>> list = cs.GetMenuList(cs.UserId(t.getUserid()));   //返回某家店的所有菜      id是店主的id
 
 		// 创建标签，用于显示数据
 		Label labId = new Label(0, 1, "菜单编号", wcf);
@@ -587,8 +595,8 @@ public class ChenShunAction extends ChenShunBase {
 	public void showBar() throws Exception {
 
 		response.setContentType("text/html;charset=utf-8");
-
-		Map<String, Object> map = cs.getList(1); // 此处是用户的id
+		 User  t=(User)session.getAttribute("user");   //获取当前用户
+		Map<String, Object> map = cs.getList(cs.UserId(t.getUserid())); // 此处是店主
 		JSONObject json = new JSONObject();
 
 		json.put("columnsName", map.keySet());// 把所有的键的名称,放到set集合，返回

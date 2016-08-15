@@ -37,7 +37,7 @@
 
  
 
-function CheckImg(FileUpload){
+//function CheckImg(FileUpload){
 	 
 
 	 
@@ -58,12 +58,12 @@ function CheckImg(FileUpload){
 //    document.getElementsByName("image").value=FileUpload.value;
 //    document.getElementsByName("image").src=document.getElementsByName("u.abc").value;	
 	
-}
+//}
 
 
-function caidanguanli(){
-	$('#myTable').datagrid('clearData');
-}
+//function caidanguanli(){
+//	$('#myTable').datagrid('clearData');
+//}
 
 
 
@@ -121,6 +121,7 @@ function ts_menu(){
 		toolbar:[
 		         {text:"新增",iconCls:"icon-add",handler:function(){ 
 		        	  $("#myfrm")[0].reset(); //重置表单数据 
+		        		$("img[name=image]").attr("src","");	
 		        	 //添加首先添加窗口值改变
 				    	$("#mydiv").dialog({
 				    		iconCls:'icon-add',
@@ -215,12 +216,20 @@ function ts_menu(){
 							})
 						  
 							var r=rows[0]//通过下标取到选中的行
-							           
+		                                 		      
 					    $("#myfrm").form("load",{"muname":r.MUNAME,"muprice":r.MUPRICE,"mutype":r.MUTYPE,"mudesc":r.DESC,"mustatus":r.MUSTATUS,"mudesc":r.MUDESC,"muid":r.MUID});
-							   $("img[name=image]").attr("src",r.MUPIC);
-							  
+//						   $("input[name=muprice]").attr("value",r.MUPRICE);	   
+//							
+						    	$("img[name=image]").attr("src",r.MUPIC);	
+//							   $("input[name=muname]").attr("value",r.MUNAME);	
+//							
+//							   $("select[name=mutype]").attr("value",r.MUTYPE);	
+//							   $("input[name=mudesc]").attr("value",r.DESC);	
+//							   $("select[name=mustatus]").attr("value",r.MUSTATUS);	
+//							   $("textarea[name=mudesc]").attr("value",r.MUDESC);	
+//							   $("input[name=muid]").attr("value",r.MUID);	
 								$("#mydiv").dialog("open");//打开添加窗口
-						    	$(document).ready(function(){  $("input[name=muname]").focus();});
+						    	$(document).ready(function(){$("input[name=muname]").focus();});
 						    	$("#addBtn").click(function(){
 						    		var name=$("input[name=muname]").val();
 						    		var price=$("input[name=muprice]").val();			    		
