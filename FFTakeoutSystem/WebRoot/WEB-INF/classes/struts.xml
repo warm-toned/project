@@ -25,11 +25,20 @@
 	</package>
 	<package name="chenkai" extends="struts-default">
 		<action name="shwk" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">	
-					
-			<result name="success">/pages/chenkai/main.jsp</result>
+			<interceptor-ref name="token"/>
+			<interceptor-ref name="defaultStack"/>
+			<result name="invalid.token">/pages/chenkai/AddUserMain.jsp</result>		
+<<<<<<< HEAD
+			<result name="success">/pages/chenkai/main.jsp</result>	
 		</action>
-		<action name="shwkrest"
-			class="zx.ffts.web.action.chenkai.ChenKaiTsRestaurantAction">
+		<action name="shwkuser" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">		
+			<result name="success">/pages/chenkai/main.jsp</result>		
+			<result name="findAllUser">/pages/chenkai/SelectUser.jsp</result>		
+=======
+			<result name="success">/pages/chenkai/main.jsp</result>
+>>>>>>> 8fc85ccdbbb58995ceaf2b6c43ea551d5e1f52bf
+		</action>
+		<action name="shwkrest" class="zx.ffts.web.action.chenkai.ChenKaiTsRestaurantAction">
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkmess"
@@ -50,6 +59,12 @@
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkgift" class="zx.ffts.web.action.chenkai.ChenKaiTsGiftAction">
+			<interceptor-ref name="token"/>
+			<interceptor-ref name="defaultStack"/>
+			<result name="invalid.token">/pages/chenkai/AddRestMain.jsp</result>
+			<result name="success">/pages/chenkai/main.jsp</result>
+		</action>
+			<action name="shwkugift" class="zx.ffts.web.action.chenkai.ChenKaiTsGiftAction">
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkgiftrec"
