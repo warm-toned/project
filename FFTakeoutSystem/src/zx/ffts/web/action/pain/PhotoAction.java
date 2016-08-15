@@ -68,6 +68,7 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 	 * @throws FileNotFoundException
 	 */
 	public String upload() throws FileNotFoundException, IOException {
+<<<<<<< HEAD
 <<<<<<< f68599925e63c57e17a8861db36b2d8ce101d11e
 		String photoPath = "image/users";//数据库
 		String name = photoFileName;//文件名
@@ -84,6 +85,8 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 		FileOutputStream fo = new FileOutputStream(file);
 		byte[] data = new byte[1024];
 =======
+=======
+>>>>>>> 281fdd2f16e6fbf949e7d2070452a0a73e883db7
 		String photoPath = "image/users";     //数据库的路径
 		String name = photoFileName;     //文件名称
 		int code = photoFileName.hashCode();   //获取当前文件的hashCode
@@ -98,7 +101,10 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 		FileInputStream fi = new FileInputStream(photo);     //获取该文件
 		FileOutputStream fo = new FileOutputStream(file);       //写入到新的路径
 		byte[] data = new byte[1024];        //写入
+<<<<<<< HEAD
 >>>>>>> :2016年8月14日21:40:14 陈顺提交
+=======
+>>>>>>> 281fdd2f16e6fbf949e7d2070452a0a73e883db7
 		int len = 0;
 		while ((len = fi.read(data)) != -1) {
 			fo.write(data, 0, len);
