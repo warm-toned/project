@@ -52,8 +52,9 @@
           <h4 class="M1"><span></span>用户管理</h4>
           <div class="list-item none">
             <a id="findalluser">查询所有用户</a>
-            <a href='<%= path %>/pages/chenkai/AddUserMain.jsp'>新增用户</a>
-            <a href='shwkuser!WriteUser.action'>下载所有用户信息</a>
+            <a href='<%= path %>/pages/chenkai/AddUserMain.jsp'>新增用户1111</a>
+            <a id="addUser">新增用户</a>
+            <a href='shwk!WriteUser.action'>下载所有用户信息</a>
           </div>
         </li>
         <li>
@@ -91,7 +92,7 @@
           <h4  class="M6"><span></span>礼品管理</h4>
           <div class="list-item none">
             <a id='findallgift'>查询所有礼品</a>
-            <a href='shwkugift!WriteGift.action'>下载所有礼品</a>
+            <a href='shwkgift!WriteGift.action'>下载所有礼品</a>
             <a href="<%= path %>/pages/chenkai/AddGiftMain.jsp">添加礼品</a>
             <a id='findallgiftRec'>查询所有礼品兑换记录</a>
             <a href='shwkgiftrec!WriteGiftRec.action'>下载所有礼品兑换记录</a>
@@ -100,28 +101,21 @@
   </ul>
 		</div>
 		<div class="m-right">
-			<div class="right-nav">
-					
+			<div class="right-nav">					
 			</div>
 			<div id="mydiv" class="main">
-				<s:form action="shwk!addUser.action" method='post' enctype='multipart/form-data' >
-    			<table align='center' >				
-					<tr><td >姓名：<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
-				    <tr><td >密码：<input type='text' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>
-					<tr><td >电话：<input type='text' id='tel' name='tel' onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>
-					<tr><td >邮件：<input type='text' id='email' name='email' onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>
-					<tr><td >地址：<input type='text' id='address' name='address' onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>
-					<tr><td >真实姓名：<input type='text' id='realname' name='realname' onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>
-					<tr><td >余额：<input type='text' id='balance' name='balance' onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>
-					<tr><td >性别:<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>
-					<tr><td >权限:<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>
-					<tr><td >图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
-					<tr><td><s:token theme='simple'/><s:actionerror  theme='simple'/></td></tr>
-					<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type='reset' value='取消'/></td></tr>
-				</table>
-    		</s:form>
+				<s:form  action='shwkgift!addGift.action'  method='post' enctype='multipart/form-data'>
+						<table align='center'>
+					    <tr><td>礼品名：<input type='text' id='gname' name='gname'onblur='mygname()'/>&nbsp;&nbsp;<span id='mgname'></span></td></tr>
+						<tr><td>图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>
+						<tr><td>所需积分:<input type='text' id='greqscore' name='greqscore' onblur='mygreqscore()'/>&nbsp;&nbsp;<span id='mgreqscore'></span></td></tr>
+						<tr><td>总库存数:<input type='text' id='gsum' name='gsum' onblur='mygsum()'/>&nbsp;&nbsp;<span id='mgsum'></span></td></tr>
+						<tr><td>描述：<textarea rows='3' cols='20' id='gdesc' name='gdesc'></textarea></td></tr>
+						<tr><td><s:token theme='simple'/><s:actionerror theme='simple'/></td></tr>
+						<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='reset' value='取消'/></td></tr></table>
+				</s:form>
 			</div>
 		</div>
 </div>

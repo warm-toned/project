@@ -21,12 +21,14 @@ public class TsUserDao extends DataDao {
 		return ts;
 	}
 	//分页查询用户
-	public List<TsUser>  getUserList(Integer nowPage,Integer pageSize){
-		String sql="select * from (select t.*,rownum rn from(select * from ts_user order by userid)t)where rn between ? and ?";	
+	public List<TsUser>  getUserList(Integer nowPage,Integer pageSize ){
+		String sql="select * from (select t.*,rownum rn from(select * from ts_user  order by userid)t)where rn between ? and ?";	
 		TsUser  user=new TsUser();
 		List<TsUser>  list=getEntities(sql,user , (((nowPage-1)*pageSize)+1),(nowPage*pageSize));
 		return list;
 	}
+
+	
 	
 	//查询所有用户
 	public List<TsUser>  getAllUser(){
@@ -83,4 +85,6 @@ public class TsUserDao extends DataDao {
 		Integer i=scalarNumber(sql);
 		return i;
 	}
+
+	
 }

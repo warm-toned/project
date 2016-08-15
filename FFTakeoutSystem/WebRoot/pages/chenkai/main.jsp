@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="logo">订餐后台管理系统</div>
 	<div class="navigation">
 		<ul>
+			<li><a href='index.jsp'>返回前台</a></li>
 		 	<li>欢迎您！</li>
 			<li><span>${sessionScope.user.username}</span></li>
 			<li><input type="hidden" id="id" name="id" value="${sessionScope.user.userid}"> </li>
@@ -54,18 +55,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <li>
           <h4 class="M1"><span></span>用户管理</h4>
           <div class="list-item none">
-            <a id="findalluser">查询所有用户</a>
-            
-            <a onclick="addUserClick(<%=Math.random() %>)">新增用户1111</a>
+          	<a id="findalluser">查询所有用户</a>
             <a href="<%= path %>/pages/chenkai/AddUserMain.jsp">新增用户</a>
-            <a href='shwk!WriteUser.action'>下载所有用户信息</a>
+            <a href='shwkuser!WriteUser.action'>下载所有用户信息</a>
           </div>
         </li>
         <li>
           <h4 class="M2"><span></span>店家管理</h4>
           <div class="list-item none">
             <a id="findallrest">查询所有店家</a>
-            <a id='addRest'>新增店家</a>
+            <a href='#'>查看开店申请</a>
             <a href='shwkrest!WriteRest.action'>下载所有店家信息</a>   
             <a id='findaddMess'>查询所有店家评论</a>   
            </div>
@@ -96,8 +95,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <h4  class="M6"><span></span>礼品管理</h4>
           <div class="list-item none">
             <a id='findallgift'>查询所有礼品</a>
-            <a href='shwkgift!WriteGift.action'>下载所有礼品</a>
-            <a id='addgift'>添加礼品</a>
+            <a href='shwkugift!WriteGift.action'>下载所有礼品</a>
+            <a href='<%= path %>/pages/chenkai/AddGiftMain.jsp'>添加礼品</a>
             <a id='findallgiftRec'>查询所有礼品兑换记录</a>
             <a href='shwkgiftrec!WriteGiftRec.action'>下载所有礼品兑换记录</a>
           </div>
@@ -105,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </ul>
 		</div>
 		<div class="m-right">
-			<div class="right-nav">
+			<div id='finddiv' class="right-nav" >
 					
 			</div>
 			<div id="mydiv" class="main">
