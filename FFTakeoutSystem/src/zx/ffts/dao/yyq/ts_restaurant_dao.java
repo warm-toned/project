@@ -63,7 +63,7 @@ public class ts_restaurant_dao extends DataDao {
 
 	@Test
 	public void test() {
-		System.out.println(new SenderDao().getUsableOrders(1, 10));
+		System.out.println(new SenderDao().getPageCounts());
 	}
 
 	// 根据菜单id查看商店现象信息

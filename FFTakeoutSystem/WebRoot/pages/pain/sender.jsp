@@ -36,6 +36,9 @@
 <script type="text/javascript" src="<%=path%>/js/jquery-1.12.0.js"></script>
 <script type="text/javascript" src="<%=path%>/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path%>/js/lightbox.min.js"></script>
+<script type="text/javascript" src="<%=path%>/js/jquery.fly.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/js/requestAnimationFrame.js"></script>
 <script type="text/javascript" src="<%=path%>/js/pain/sender.js"></script>
 </head>
 
@@ -111,12 +114,20 @@
 		<%--导航 --%>
 		<ul class="nav nav-tabs visible-xs">
 			<li index="0" name="nav" class="active"><a href="#">全部订单</a></li>
-			<li index="1" name="nav"><a href="#">已接订单</a></li>
-			<li index="2" name="nav"><a href="#">已完成订单</a></li>
+			<li index="1" name="nav"><a href="#">已接订单&nbsp;&nbsp;&nbsp;&nbsp;<span
+					class="badge pull-right"></span>
+			</a><i class="visible-xs pull-left end"></i> <i index="1"
+				class="pull-left visible-xs carts" style="width:60px;"
+				data-placement="bottom" data-content=""></i></li>
+			<li index="2" name="nav"><a href="#">已完成订单</a><i
+				class="visible-xs pull-left svend"></i> <i index="1"
+				class="pull-left visible-xs sended" style="width:60px;"
+				data-placement="bottom" data-content=""></i></li>
 		</ul>
-		<a class="sr-only" id="pginfo" page="1" size="10"></a>
+		<a class="sr-only" id="pginfo" page="1" size="10" page2="1" size2="10"></a>
 		<div class="col-md-6" id="usable">
-			<div class="dropdown" style="font-size: 12px;margin-top: 10px;">
+			<div class="dropdown visible-xs"
+				style="font-size: 12px;margin-top: 10px;">
 				<button type="button"
 					class="btn borderGray2 dropdown-toggle pull-right"
 					data-toggle="dropdown">
@@ -140,30 +151,140 @@
 					</a></li>
 				</ul>
 			</div>
-			<div id="orders"></div>
+			<div class="clearfix" style="margin-top: 10px;"></div>
+			<div id="orders">
+				<div class="media"
+					style="border-top: 1px #000 solid;margin-top: 10px;">
+					<div class="media-left">
+						<img src="<%=path%>/image/defaults/userdefault.jpg"
+							class="img40 img-circle" />
+					</div>
+					<div class="media-body">
+						<h6>XXX店订单</h6>
+					</div>
+				</div>
+			</div>
 			<div class="portfolio-pagination">
 				<ul class="pagination">
-					<li><a id="first" size="${bean.pageSize}" href=""
-						class="pageaction"><span>首页</span> </a></li>
+					<li><a id="first" href="" page="1" class="pageaction"><span>首页</span>
+					</a></li>
 					<%--设置上一页是否被激活 --%>
-					<li><a href="" class="pageaction"><span
+					<li><a href="" class="pageaction" page=""><span
 							class="glyphicon glyphicon-chevron-left"></span> </a></li>
 					<%--设置页数的开始页码 --%>
-					<li><a href="" class="pageaction"><span>1</span> </a></li>
-					<li><a href="" class="pageaction"><span>2</span> </a></li>
-					<li><a href="" class="pageaction"><span>3</span> </a></li>
-					<li><a href="" class="pageaction"><span>4</span> </a></li>
-					<li><a href="" class="pageaction"><span>5</span> </a></li>
+					<li><a href="" class="pageaction" page=""><span>1</span> </a>
+					</li>
+					<li><a href="" class="pageaction" page=""><span>2</span> </a>
+					</li>
+					<li><a href="" class="pageaction" page=""><span>3</span> </a>
+					</li>
+					<li><a href="" class="pageaction" page=""><span>4</span> </a>
+					</li>
+					<li><a href="" class="pageaction" page=""><span>5</span> </a>
+					</li>
 					<%--设置下一页是否被激活 --%>
-					<li><a href="" class="pageaction"><span
+					<li><a href="" class="pageaction" page=""><span
 							class="glyphicon glyphicon-chevron-right"></span> </a></li>
-					<li><a href="" class="pageaction"><span>尾页</span> </a>
+					<li><a href="" class="pageaction" page=""><span>尾页</span>
+					</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-6" id="got"></div>
-		<div class="col-md-6" id="complete"></div>
+		<div class="col-md-6 hidden-xs" id="got">
+			<h3 class="page-header hidden-xs">
+				已接订单&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge"></span> <i
+					class="hidden-xs pull-left end"></i> <i index="1"
+					class="pull-left hidden-xs carts" style="width:60px;"
+					data-placement="bottom" data-content="加入购物车成功"></i>
+			</h3>
+			<div id="saved" style="margin-top: 20px;"></div>
+		</div>
+		<div class="col-md-6 hidden-xs" id="complete">
+			<h3 class="page-header hidden-xs">
+				已送订单 <i index="1" class="pull-left hidden-xs sended"
+					style="width:60px;" data-placement="top" data-content=""></i>
+			</h3>
+			<div class="dropdown visible-xs"
+				style="font-size: 12px;margin-top: 10px;">
+				<button type="button"
+					class="btn borderGray2 dropdown-toggle pull-right"
+					data-toggle="dropdown">
+					<span id="page2count">每页显示 10 条订单 </span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right" style="margin-top: 25px;">
+					<li><a href="#" class="page2react" value="2"><span>2</span>
+					</a></li>
+					<li><a href="#" class="page2react" value="3"><span>3</span>
+					</a></li>
+					<li><a href="#" class="page2react" value="5"><span>5</span>
+					</a></li>
+					<li><a href="#" class="page2react" value="10"><span>10</span>
+					</a></li>
+					<li><a href="#" class="page2react" value="20"><span>20</span>
+					</a></li>
+					<li><a href="#" class="page2react" value="50"><span>50</span>
+					</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#" class="page2react" value="10"><span>重置</span>
+					</a></li>
+				</ul>
+			</div>
+			<div class="clearfix" style="margin-top: 10px;"></div>
+			<div id="sded">
+			</div>
+			<div class="portfolio-pagination">
+				<ul class="pagination">
+					<li><a id="first" href="" page2="1" class="page2action"><span>首页</span>
+					</a></li>
+					<%--设置上一页是否被激活 --%>
+					<li><a href="" class="page2action" page2=""><span
+							class="glyphicon glyphicon-chevron-left"></span> </a></li>
+					<%--设置页数的开始页码 --%>
+					<li><a href="" class="page2action" page2=""><span>1</span> </a>
+					</li>
+					<li><a href="" class="page2action" page2=""><span>2</span> </a>
+					</li>
+					<li><a href="" class="page2action" page2=""><span>3</span> </a>
+					</li>
+					<li><a href="" class="page2action" page2=""><span>4</span> </a>
+					</li>
+					<li><a href="" class="page2action" page2=""><span>5</span> </a>
+					</li>
+					<%--设置下一页是否被激活 --%>
+					<li><a href="" class="page2action" page2=""><span
+							class="glyphicon glyphicon-chevron-right"></span> </a></li>
+					<li><a href="" class="page2action" page2=""><span>尾页</span>
+					</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<%--模态框(小) --%>
+	<div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1"
+		role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel" style="font-weight:bold;">页面提示</h4>
+				</div>
+				<div class="modal-body">
+					<span id="s-modal-body-addon" class=""></span> <span
+						id="s-modal-body" class="h4"></span>
+				</div>
+				<div class="modal-footer" style="padding:5px;">
+					<a href="page!loginPage.action" id="logBtn" type="button"
+						class="btn btn-info sr-only">登陆</a>
+					<button type="button" class="btn btn-info" data-dismiss="modal">确认</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
