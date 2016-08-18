@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 	String path = request.getContextPath();
 %>
@@ -79,6 +78,7 @@
 								<ul class="dropdown-menu">
 									<li><a href="user!gotoUserCenter.action">用户中心</a>
 									</li>
+									<li><a href="gift!getgiftList.action">积分商城</a></li>
 									<c:if test="${sessionScope.user.authority eq 2}">
 										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>
@@ -239,7 +239,7 @@
 							</c:when>
 							<c:when test="${item.ostatus == 5 and item.oassess == 0}">
 								<a class="btn borderOrange pull-right"
-									href="shwx!getAssess.action?uuid=${item.ouuid}&uScore=${item.sum * 10}">评价得<fmt:formatNumber
+									href="shwx!getAssess.action?uuid=${item.ouuid}&uscore=${item.sum * 10}">评价得<fmt:formatNumber
 										value="${item.sum * 10}" pattern="0" />积分</a>
 							</c:when>
 						</c:choose>
@@ -446,13 +446,65 @@
 				</div>
 				<div id="abc"></div>
 			</form>
+			<div style="margin-bottom: 20px;"></div>
 		</div>
 		<%--编辑我的信息结束 --%>
 		<%--我要开店/店铺管理 --%>
 		<c:choose>
-			<c:when test="${user.authority == 1}">
+			<c:when test="${user.authority == 1 and not sessionScope.os}">
 				<%--申请开店 --%>
-				<div id="shopMgt" class="sr-only">申请开店</div>
+				<div id="shopMgt" class="sr-only" style="margin-top: 10px;">
+					<form class="form-horizontal" id="osFrm"
+						action="os!setApply.action" method="post"
+						enctype="multipart/form-data">
+						<input type="hidden" name="userid"
+							value="${sessionScope.user.userid}" />
+						<%--联系方式 --%>
+						<div class="form-group">
+							<label for="" class="col-xs-3 control-label"
+								style="line-height: 40px;text-align: right;font-size: 12px;">店名:</label>
+							<div class="col-xs-9">
+								<input type="text" class="form-control" name="rtname"
+									placeholder="店名" required style="font-size: 12px;"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-3 control-label"
+								style="line-height: 40px;text-align: right;font-size: 12px;">地址:</label>
+							<div class="col-xs-9">
+								<input type="text" class="form-control" name="rtaddr"
+									placeholder="地址" required style="font-size: 12px;"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-3 control-label"
+								style="line-height: 40px;text-align: right;font-size: 12px;">简述:</label>
+							<div class="col-xs-9">
+								<textarea rows="3" class="form-control" name="rtcontent"
+									placeholder="简单描述一下您的店铺.." required style="font-size: 12px;"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-3 control-label"
+								style="line-height: 40px;text-align: right;font-size: 12px;">营业时间:</label>
+							<div class="col-xs-9"></div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-3 control-label"
+								style="line-height: 40px;text-align: right;font-size: 12px;">店铺图标:</label>
+							<div class="col-xs-9">
+								<input class="file" type="file" name="rtpic" required style="font-size: 12px;"/>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-success btn-block">提交申请</button>
+					</form>
+					<div style="margin-bottom: 20px;"></div>
+				</div>
+			</c:when>
+			<c:when test="${sessionScope.os}">
+				<div id="shopMgt" class="sr-only">
+					<h3>正在审核中...</h3>
+				</div>
 			</c:when>
 			<c:when test="${user.authority == 3}">
 				<div id="shopMgt" class="sr-only"></div>

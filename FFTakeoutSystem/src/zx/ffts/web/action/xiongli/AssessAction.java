@@ -18,14 +18,14 @@ public class AssessAction implements SessionAware {
 	private List<Integer> muScore;
 	private Map<String, Object> session;
 	private String rtid;
-	private Integer uScore;
+	private Double uscore;
 
-	public Integer getuScore() {
-		return uScore;
+	public Double getUscore() {
+		return uscore;
 	}
 
-	public void setuScore(Integer uScore) {
-		this.uScore = uScore;
+	public void setUscore(Double uscore) {
+		this.uscore = uscore;
 	}
 
 	public Integer getScore() {
@@ -84,7 +84,7 @@ public class AssessAction implements SessionAware {
 	public String setAssess() {
 		Integer userid = ((User) session.get("user")).getUserid();
 		new OrderFunctionDao().doTransaction(new SetAssessTransaction(), uuid,
-				userid, rtid, rtAssess, score, muScore, menuAssess, uScore);
-		return "";
+				userid, rtid, rtAssess, score, muScore, menuAssess, uscore);
+		return "success";
 	}
 }

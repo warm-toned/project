@@ -1,8 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
+	request.setAttribute("path", path);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -24,23 +24,17 @@
 <%--与本页相关的css --%>
 <link href="<%=path%>/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css"></link>
-<link href="<%=path%>/css/animate.min.css" rel="stylesheet"
-	type="text/css"></link>
-<link href="<%=path%>/css/lightbox.css" rel="stylesheet" type="text/css"></link>
 <link href="<%=path%>/css/responsive.css" rel="stylesheet"
 	type="text/css"></link>
 <%--通用样式 --%>
-<link href="<%=path%>/css/main.css" rel="stylesheet" type="text/css"></link>
+<link href="<%=path%>/css/main2.css" rel="stylesheet" type="text/css"></link>
 <link href="<%=path%>/css/page.css" rel="stylesheet" type="text/css"></link>
 <script type="text/javascript" src="<%=path%>/js/jquery-1.12.0.js"></script>
 <script type="text/javascript" src="<%=path%>/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=path%>/js/lightbox.min.js"></script>
-<script type="text/javascript" src="<%=path%>/js/xiongli/order-load.js"></script>
 </head>
 
 <body>
-	<a id="infos" class="sr-only" rtid="${sessionScope.shopid}"
-		userid="${sessionScope.user.userid}" uuid="${param.uuid}" status="${param.ostatus}"></a>
+	<a id="infos" class="sr-only" userid="${sessionScope.user.userid}"></a>
 	<!--此处是导航条 -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -74,12 +68,13 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a
-										href="user!gotoUserCenter.action">用户中心</a>
+									<li><a href="user!gotoUserCenter.action">用户中心</a>
 									</li>
-									<li><a href="gift!getgiftList.action">积分商城</a></li>
+									<li><a href="gift!getgiftList.action">积分商城</a>
+									</li>
 									<c:if test="${sessionScope.user.authority eq 2}">
-										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a></li>
+										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
+										</li>
 									</c:if>
 									<c:if test="${sessionScope.user.authority eq 3}">
 										<li><a href="page!restaurantMain.action">店铺管理</a></li>
@@ -106,75 +101,49 @@
 		</div>
 	</nav>
 	<div class="clearfix" style="margin-top: 60px;"></div>
-	<%--主体内容 --%>
+	<!-- 主要内容 -->
 	<div class="container">
-		<div class="row clearfix">
-			<div class="panel panel-default borderCircle"
-				style="margin: 0px 10px 0px 10px;">
-				<div class="panel-body">
-					<div class="media">
-						<div class="media-left">
-							<img src="<%=path%>/image/defaults/shop.png" class="img40" />
-						</div>
-						<div class="media-body">
-							<h5 style="padding: 0px;margin: 0px;" id="orderStatus">订单状态</h5>
-							<a><span id="orderDate">2016年8月11日16:01:36</span>
+		<h6 style="text-align: right;padding: 0px;margin: 0px;"
+			class="page-header">
+			<a href="gift!getrecord.action"
+				class="btn btn-success btn-sm pull-left" style="margin-top: -8px;">兑换记录</a>
+			当前积分&nbsp;&nbsp;&nbsp;&nbsp;<span id="jf" style="font-size: 20px;color: red;">${userScore}</span>
+		</h6>
+		<c:forEach items="${gift}" var="g">
+			<div class="media"
+				style="border-bottom: 1px #ccc solid;padding-bottom: 5px;">
+				<div class="media-left">
+					<img class="img40 img-rounded" src="<%=path%>/${g.gpic}">
+				</div>
+				<div class="media-body">
+					<div class="">
+						<h6 style="padding: 0px;margin: 0px;font-size: 14px;">${g.gname}</h6>
+						<p style="padding: 0px;margin: 0px;font-size: 12px;">
+							<label class="label label-warning">需要积分</label> <a><span>${g.greqscore}</span>
 							</a>
-						</div>
-					</div>
-				</div>
-				<div class="panel-footer" style="font-size: 10px;padding-bottom: 16px;" id="close">
-					<span class="pull-left statusSpan" id="wait">等待商家接单</span>
-					<div style="text-align: center;border-bottom: 1px #ddd dotted;">
-						<span style="padding-bottom: 5px;" class="statusSpan">配送中...</span>
-						<span class="pull-right statusSpan">已送达</span>
+						</p>
+						<p style="padding: 0px;margin: 0px;font-size: 12px;">
+							<label class="label label-danger">剩余数量</label> <a><span id="${g.gid}">${g.gsum
+									- g.gcount}</span> </a>
+						</p>
+						<c:choose>
+							<c:when test="${g.gcount==g.gsum}">
+								<a class="btn btn-default pull-right" disabled="disabled"
+									href="javascript:;" style="margin-top: -40px;">暂无</a>
+							</c:when>
+							<c:otherwise>
+								<a gid="${g.gid}" score="${g.greqscore}" sum="${g.gsum}" class="btn btn-info pull-right gift" href="javascript:;"
+									style="margin-top: -40px;" >我要兑换</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		<div class="row" style="padding: 10px;margin-top: 20px;margin-bottom:70px;">
-			<table class="table">
-				<tbody id="main">
-					<tr>
-						<td><span class="pull-left" style="padding-left:10px;">
-							<img id="rtpic" src="" class="img40"/>
-						</span>
-							<a id="rtname" href="" style="padding-left: 10px;line-height: 30px"></a>
-						</td>
-					</tr>
-					<tr class="orderInfo">
-						<td><span class="pull-left" style="padding-left:10px;">支付方式</span>
-							<span class="pull-right" style="padding-right:10px;">
-							</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		</c:forEach>
 	</div>
-
-	<nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom">
-		<div class="container">
-			<!--导航首部 -->
-			<div class="navbar-header">
-				<a href="shop!ShopList.action"
-					class="navbar-toggle collapsed pull-left span"
-					style="background-color:#444;"><span
-					class="glyphicon glyphicon-circle-arrow-left"
-					style="color:#dab074;">&nbsp;</span>返回主页 </a>
-			</div>
-			<div id="footbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-left">
-					<li class="return"><a href="shop!ShopList.action" class="span"><span
-							class="glyphicon glyphicon-circle-arrow-left">&nbsp;</span>返回主页</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
 	<%--模态框(小) --%>
-	<div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
-		aria-labelledby="mySmallModalLabel">
+	<div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1"
+		role="dialog" aria-labelledby="mySmallModalLabel">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -189,11 +158,46 @@
 						id="s-modal-body" class="h4"></span>
 				</div>
 				<div class="modal-footer" style="padding:5px;">
-					<button type="button" class="btn btn-info btn-block"
-						data-dismiss="modal">确认</button>
+					<a href="page!loginPage.action" id="logBtn" type="button"
+						class="btn btn-info sr-only">登陆</a>
+					<button type="button" class="btn btn-info" data-dismiss="modal">确认</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$(".gift").click(function(){
+			var sum = $(this).attr("sum");
+			var gid = $(this).attr("gid");
+			var obj = $(this);
+			$.post("gift!change.action",{
+				"gid":gid,
+				"score":$(this).attr("score")
+			},function(data){
+				var json = eval("("+data+")");
+				if(json.res==1){
+	    			$("#jf").text(json.uscore);
+		    		$("#"+gid).text(sum-json.gcount);
+		    		$("#s-modal-body").text("恭喜您兑换成功!");
+					$("#s-modal-body-addon").removeClass().addClass("glyphicon glyphicon-exclamation-sign");
+					$("#modal").modal({"show":true});
+		    		if(sum==json.gcount){
+		    			obj.removeClass("gift");
+		    			obj.removeClass("btn-info");
+		    			obj.addClass("btn-default");
+		    			obj.attr("disabled","disabled");
+		    			obj.text("暂无");
+		    			obj.unbind("click");
+		    		}
+		    	}else{
+		    		$("#s-modal-body").text("抱歉您的积分不够!");
+					$("#s-modal-body-addon").removeClass().addClass("glyphicon glyphicon-exclamation-sign");
+					$("#modal").modal({"show":true});
+		    	}
+			});
+		});
+	});
+</script>
 </html>

@@ -1,11 +1,7 @@
 ﻿每次项目开始编写
-<<<<<<< HEAD
-	//1.首先要创建一个远程分支(只执行一次)
-=======
 	1.首先要创建一个远程分支(只执行一次)
->>>>>>> 22089ca0d7164215a635b6421f273e03ec3cba16
 		git remote add morigin git@github.com:PainZzz/project.git
-	//2.更新你的版本库
+	2.更新你的版本库
 		//获取更新
 		git remote update morigin
 		//合并本地和更新内容

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<constant name="struts.ui.templateDir"  value="WEB-INF/template"/>
+	<constant name="struts.ui.templateDir" value="WEB-INF/template" />
 	<package name="pain" extends="struts-default">
 		<action name="user" class="zx.ffts.web.action.pain.UserAction">
 			<result>/pages/pain/login.jsp</result>
@@ -18,25 +18,32 @@
 			<result name="adminMain">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="photo" class="zx.ffts.web.action.pain.PhotoAction">
-			<result name="back" type="redirectAction">user!gotoUserCenter.action?index=1</result>
-			<result name="registSuccess" type="redirectAction">user!gotoUserCenter.action</result>
-			<result name="fail">/pages/pain/login.jsp?purpose=regist;msg='发生了未知异常，请重试！'</result>
+			<result name="back" type="redirectAction">user!gotoUserCenter.action?index=1
+			</result>
+			<result name="registSuccess" type="redirectAction">user!gotoUserCenter.action
+			</result>
+			<result name="fail">/pages/pain/login.jsp?purpose=regist;msg='发生了未知异常，请重试！'
+			</result>
 		</action>
-		<action name="sender" class="zx.ffts.web.action.pain.SenderAction"/>
+		<action name="sender" class="zx.ffts.web.action.pain.SenderAction" />
+		<action name="os" class="zx.ffts.web.action.pain.OpenShopAction">
+			<result name="success" type="redirectAction">user!gotoUserCenter.action?index=2</result>
+		</action>
 	</package>
 	<package name="chenkai" extends="struts-default">
-		<action name="shwk" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">	
-			<interceptor-ref name="token"/>
-			<interceptor-ref name="defaultStack"/>
-			<result name="invalid.token">/pages/chenkai/AddUserMain.jsp</result>		
-			<result name="success">/pages/chenkai/main.jsp</result>	
-		</action>
-		<action name="shwkuser" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">		
-			<result name="success">/pages/chenkai/main.jsp</result>		
-			<result name="findAllUser">/pages/chenkai/SelectUser.jsp</result>		
+		<action name="shwk" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+			<result name="invalid.token">/pages/chenkai/AddUserMain.jsp</result>
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
-		<action name="shwkrest" class="zx.ffts.web.action.chenkai.ChenKaiTsRestaurantAction">
+		<action name="shwkuser" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">
+			<result name="success">/pages/chenkai/main.jsp</result>
+			<result name="findAllUser">/pages/chenkai/SelectUser.jsp</result>
+			<result name="success">/pages/chenkai/main.jsp</result>
+		</action>
+		<action name="shwkrest"
+			class="zx.ffts.web.action.chenkai.ChenKaiTsRestaurantAction">
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkmess"
@@ -57,12 +64,12 @@
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkgift" class="zx.ffts.web.action.chenkai.ChenKaiTsGiftAction">
-			<interceptor-ref name="token"/>
-			<interceptor-ref name="defaultStack"/>
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
 			<result name="invalid.token">/pages/chenkai/AddRestMain.jsp</result>
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
-			<action name="shwkugift" class="zx.ffts.web.action.chenkai.ChenKaiTsGiftAction">
+		<action name="shwkugift" class="zx.ffts.web.action.chenkai.ChenKaiTsGiftAction">
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkgiftrec"
@@ -84,9 +91,9 @@
 			<result name="orderPay">/pages/xiong/jump.jsp</result>
 			<result name="payPage">/pages/xiong/orderPay.jsp</result>
 		</action>
-		<action name="pay" class="zx.ffts.web.action.xiongli.PayAction"/>
+		<action name="pay" class="zx.ffts.web.action.xiongli.PayAction" />
 		<action name="assess" class="zx.ffts.web.action.xiongli.AssessAction">
-			<result name=""></result>
+			<result name="success" type="redirect">/pages/pain/assessOk.jsp</result>
 		</action>
 	</package>
 	<package name="yyq" extends="struts-default">
@@ -96,6 +103,10 @@
 			<result name="MenuMessage">/pages/yyq/MenuItemDetail.jsp</result>
 			<result name="shopmessage">/pages/yyq/ShopMessById.jsp</result>
 			<result name="sd">/pages/yyq/ShopInfoById.jsp</result>
+		</action>
+		<action name="gift" class="zx.ffts.web.action.yyq.GiftAction">
+			<result name="gifts">/pages/yyq/GiftList.jsp</result>
+			<result name="record">/pages/yyq/GiftRecord.jsp</result>
 		</action>
 	</package>
 

@@ -81,6 +81,7 @@
 							</a>
 								<ul class="dropdown-menu">
 									<li><a href="user!gotoUserCenter.action">用户中心</a></li>
+									<li><a href="gift!getgiftList.action">积分商城</a></li>
 									<c:if test="${sessionScope.user.authority eq 2}">
 										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>

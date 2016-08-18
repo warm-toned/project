@@ -105,15 +105,13 @@
 			</div>
 		</div>
 	</nav>
-	<!--404-->
 	<div class="four-four">
 		<div class="container">
-			<h3>
-				40<span class="hlf">4</span>
+			<h3 style="font-size: 40px;">
+				评论<span class="hlf">成功</span>!
 			</h3>
-			<p style="font-size: 12px;">数据意外消失在了宇宙的某个角落.....!</p>
-			<p>
-				<a href="shop!ShopList.action" class="btn btn-danger"
+			<p style="margin-top: 30px;">
+				<a href="user!gotoUserCenter.action" class="btn btn-success"
 					role="button">返回</a>
 			</p>
 		</div>

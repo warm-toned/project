@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.util.ServletContextAware;
 
+import zx.ffts.dao.pain.RestaurantDao;
 import zx.ffts.dao.pain.UserDao;
 import zx.ffts.domain.User;
 import zx.ffts.utils.DbUtils;
@@ -130,6 +131,7 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 				user.getGender(), photoPath);
 		if (id != -1) {
 			session.setAttribute("user", userdao.getUserById(id));
+			session.setAttribute("os", new RestaurantDao().hasApply(id));
 			return "registSuccess";
 		} else {
 			return "fail";

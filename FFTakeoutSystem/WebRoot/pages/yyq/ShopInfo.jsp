@@ -77,6 +77,7 @@
 							</a>
 								<ul class="dropdown-menu">
 									<li><a href="user!gotoUserCenter.action">用户中心</a></li>
+									<li><a href="gift!getgiftList.action">积分商城</a></li>
 									<c:if test="${sessionScope.user.authority eq 2}">
 										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a>
 										</li>
@@ -110,17 +111,19 @@
 	</nav>
 	<div class="clearfix" style="margin-top: 60px;"></div>
 	<!-- 主要内容 -->
-	<div class="container">
+	<div class="container" style="padding: 0px;">
 		<ul style="margin: 0px;padding: 0px;">
 			<c:forEach items="${shop.list}" var="s" varStatus="su">
-				<li>
-					<div class="media panel panel-warning"
-						style="padding: 0px;margin: 3px 0px;">
-						<a href="shop!MenuList.action?rtid=${s.rtid}&cp=${cp}"
-							class="pull-left" style="padding: 10px;"><img
-							src="<%=path%>/${s.rtpic}" class="img60 img-rounded" /> </a>
-						<div class="media-body panel-body"
-							style="padding: 5px 0px 0px;margin: 0px;">
+				<li class="sd" index="${su.index}"
+					style="<c:if test="${su.first}">border-top:1px #ccc solid;</c:if> border-bottom:1px #ccc solid;">
+					<div class="media" style="padding: 0px;margin: 3px 0px;">
+						<div class="media-left">
+							<a index="${su.index}"
+								href="shop!MenuList.action?rtid=${s.rtid}&cp=${cp}"
+								class="pull-left detail" style="padding: 10px;"><img
+								src="<%=path%>/${s.rtpic}" class="img60 img-rounded" /> </a>
+						</div>
+						<div class="media-body" style="padding: 5px 0px 0px;margin: 0px;">
 							<a href="shop!MenuList.action?rtid=${s.rtid}&cp=${cp}"
 								style="font-size:15px;">${s.rtname}</a><br /> <label
 								class="label label-success pull-left"
@@ -155,15 +158,12 @@
 			</c:if>
 			<div class="portfolio-pagination">
 				<ul class="pagination">
-					<li><a
-						href="shop!ShopList.action?cp=1"><span>首页</span>
-					</a>
+					<li><a href="shop!ShopList.action?cp=1"><span>首页</span> </a>
 					</li>
 					<%--设置上一页是否被激活 --%>
 					<c:choose>
 						<c:when test="${shop.info.nowpage > 1}">
-							<li><a
-								href="shop!ShopList.action?cp=${shop.info.nowpage-1}"><span
+							<li><a href="shop!ShopList.action?cp=${shop.info.nowpage-1}"><span
 									class="glyphicon glyphicon-chevron-left"></span> </a></li>
 						</c:when>
 						<c:otherwise>
@@ -179,8 +179,7 @@
 								</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a
-									href="shop!ShopList.action?cp=${i}"><span>${i}</span>
+								<li><a href="shop!ShopList.action?cp=${i}"><span>${i}</span>
 								</a></li>
 							</c:otherwise>
 						</c:choose>
@@ -188,8 +187,7 @@
 					<%--设置下一页是否被激活 --%>
 					<c:choose>
 						<c:when test="${shop.info.nowpage != shop.info.sumpage}">
-							<li><a
-								href="shop!ShopList.action?cp=${shop.info.nowpage+1}"><span
+							<li><a href="shop!ShopList.action?cp=${shop.info.nowpage+1}"><span
 									class="glyphicon glyphicon-chevron-right"></span> </a></li>
 						</c:when>
 						<c:otherwise>
@@ -197,8 +195,7 @@
 									class="glyphicon glyphicon-chevron-right"></span> </a></li>
 						</c:otherwise>
 					</c:choose>
-					<li><a
-						href="shop!ShopList.action?cp=${shop.info.sumpage}"><span>尾页</span>
+					<li><a href="shop!ShopList.action?cp=${shop.info.sumpage}"><span>尾页</span>
 					</a>
 					</li>
 				</ul>

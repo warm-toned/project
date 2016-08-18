@@ -12,7 +12,7 @@ import zx.ffts.dao.xiong.OrderFunctionDao;
 public class ts_restaurant_dao extends DataDao {
 	// 加载所有的商店信息
 	public List<Map<String, Object>> getShopList(pageinfo info) {
-		String sql = "select * from (select s.*,rownum r from ts_restaurant s where rownum<=?)re where re.r>?";
+		String sql = "select * from (select s.*,rownum r from ts_restaurant s where rtstatus=0 and rownum<=?)re where re.r>?";
 		return getMapList(sql, info.getEnd(), info.getStar());
 
 	}

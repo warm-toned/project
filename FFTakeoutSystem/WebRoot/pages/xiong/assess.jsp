@@ -78,6 +78,7 @@
 								<ul class="dropdown-menu">
 									<li><a href="user!gotoUserCenter.action">用户中心</a>
 									</li>
+									<li><a href="gift!getgiftList.action">积分商城</a></li>
 									<c:if test="${sessionScope.user.authority eq 2}">
 										<li><a href="<c:url value='/pages/pain/sender.jsp'/>">外卖接单</a></li>
 									</c:if>
@@ -109,7 +110,7 @@
 	<%--页面主体 --%>
 	<div class="container">
 		<form action="assess!setAssess.action" method="post" id="assFrm">
-			<input type="hidden" name="uScore" value="${param.uScore}"/> 
+			<input type="hidden" name="uscore" value="${param.uscore}"/> 
 			<h5 style="text-align: center;margin: 0px;">
 				<img class="img30 img-circle" src="<%=path%>/${mapshop.rtpic }" />&nbsp;&nbsp;${mapshop.rtname}
 			</h5>

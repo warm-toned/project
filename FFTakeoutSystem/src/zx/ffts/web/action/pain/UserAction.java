@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import zx.ffts.dao.pain.RestaurantDao;
 import zx.ffts.dao.pain.UserDao;
 import zx.ffts.dao.transaction.UserCenterTransaction;
 import zx.ffts.domain.User;
@@ -103,6 +104,7 @@ public class UserAction extends ActionSupport implements ServletResponseAware,
 			User currentUser = userDao.login(user.getUsername(), user.getPwd());
 			if (currentUser != null) {
 				session.setAttribute("user", currentUser);
+				session.setAttribute("os", new RestaurantDao().hasApply(currentUser.getUserid()));
 				if (rememberMe != null && rememberMe) {
 					Cookie userCookie = new Cookie("username",
 							currentUser.getUsername());
@@ -125,6 +127,7 @@ public class UserAction extends ActionSupport implements ServletResponseAware,
 
 	public String logout() {
 		session.removeAttribute("user");
+		session.removeAttribute("os");
 		return "loginFailed";
 	}
 
