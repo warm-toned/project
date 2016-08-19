@@ -72,6 +72,7 @@
  * @return
  */
 function ts_menu(){
+	 
 	       var username=$("input[name=user]").val();
 	     if(username==null || username==""){
 		  if(confirm("请先登录")){
@@ -80,8 +81,6 @@ function ts_menu(){
 			  window.location="user!willLog.action";
 			 }
 	}else{
-	$("#myTable").html("");
-	
 	$('#searchDiv').panel('open');
 	 var s="   菜单名称：<input type='text'  id='name'/>";
      s+="     菜单价格 :<input type='text'  id='price'/>"
@@ -124,8 +123,10 @@ function ts_menu(){
 	})
 	$("#searchDiv").panel("expand");// 默认展开
 	$("#myTable").datagrid({
+		
 		toolbar:[
 		         {text:"新增",iconCls:"icon-add",handler:function(){ 
+		        	 $("img[name=image]").hide();
 		        	  $("#myfrm")[0].reset(); //重置表单数据 
 		        		$("img[name=image]").attr("src","");	
 		        	 //添加首先添加窗口值改变
@@ -146,30 +147,7 @@ function ts_menu(){
 							    			  $("#mydiv").dialog("close");//关闭			    		
 				    				}
 				    		
-				    		
-				    		
-				    		
-				    		 
-//				            $.post("cs!AddMenu.action?v="+Math.random(),$("#myfrm").serialize(),function(data){
-//				            	  var o = eval("("+data+")");
-//				                  if(o.addfiag){   //判断是否是否有null值
-//				                
-//				    		    	
-//				    		    	
-//				    	    			
-//				                 }else{
-//				                	  $.messager.alert("添加提示","请填写完整信息","info")
-//				                	 
-//				                 }
-//				            	
-//				                  $('#mydiv').dialog({ 
-//				                	  onClose: function () { 
-//				                	  //解决弹出窗口关闭后，验证消息还显示在最上面 
-//				                	  $('.tooltip.tooltip-right').hide(); 
-//				                	  } 
-//				                	  });
-//				            })
-//				      
+
 				    		
 				    	})
 				    	 $("#quxiao").click(function(){         //单机取消时
@@ -196,9 +174,10 @@ function ts_menu(){
 			          if(fiag.deletefiag>0){
 			        	  $.messager.alert("下架提示",'下架成功','warning'); 
 			        	  $("#myTable").datagrid("reload");  // 重新加载数据，但是数据会停留在当前页
+			        	  $("#myTable").datagrid('clearSelections');
 			          }else{
 			        	  $.messager.alert("下架提示",'未知错误,下架失败......','warning'); 
-			        	   
+			        	  $("#myTable").datagrid('clearSelections');
 			          }
 			           	        	
 			        })    		
@@ -207,32 +186,30 @@ function ts_menu(){
 		        	 
 		         }},
 		         {text:"修改",iconCls:"icon-edit",handler:function(){
-//		        
+		        	 
+  	              $("img[name=image]").show();
+  	           
 		        		var rows=$("#myTable").datagrid("getSelections");
+		        		
 						if(rows.length==0){
 							   $.messager.alert("修改提示",'请选择勾上修改内容','warning'); 
 							
 						}else if(rows.length>1){		
-							  $.messager.alert("修改提示",'抱歉！一次只能修改一行','warning'); 
+							   $.messager.alert("修改提示",'抱歉！一次只能修改一行','warning'); 
+							   $("#myTable").datagrid('clearSelections');
 						}else{
+						
 							$("#mydiv").dialog({
 								conCls:"icon-update",
 							    title:"修改"
 							})
-						  
+						 
 							var r=rows[0]//通过下标取到选中的行
 		                                 		      
 					    $("#myfrm").form("load",{"muname":r.MUNAME,"muprice":r.MUPRICE,"mutype":r.MUTYPE,"mudesc":r.DESC,"mustatus":r.MUSTATUS,"mudesc":r.MUDESC,"muid":r.MUID});
-//						   $("input[name=muprice]").attr("value",r.MUPRICE);	   
-//							
+     					   $("input[name=muprice]").attr("value",r.MUPRICE);	   				
 						    	$("img[name=image]").attr("src",r.MUPIC);	
-//							   $("input[name=muname]").attr("value",r.MUNAME);	
-//							
-//							   $("select[name=mutype]").attr("value",r.MUTYPE);	
-//							   $("input[name=mudesc]").attr("value",r.DESC);	
-//							   $("select[name=mustatus]").attr("value",r.MUSTATUS);	
-//							   $("textarea[name=mudesc]").attr("value",r.MUDESC);	
-//							   $("input[name=muid]").attr("value",r.MUID);	
+
 								$("#mydiv").dialog("open");//打开添加窗口
 						    	$(document).ready(function(){$("input[name=muname]").focus();});
 						    	$("#addBtn").click(function(){
@@ -243,7 +220,8 @@ function ts_menu(){
 									    		}else{
 									    			 $("#myfrm").attr("action", "cs!UpdateMenu.action").submit();
 									    			  $.messager.alert("修改提示","修改成功","info");
-									    			  $("#mydiv").dialog("close");//关闭			    		
+									    			  $("#mydiv").dialog("close");//关闭		
+									    			  $("#myTable").datagrid('clearSelections');
 						    				}
 						    		
 							    
@@ -419,7 +397,7 @@ function ts_menu(){
  * @return
  */
 function ts_order(){
-	$("#myTable").html("");
+	 
 	$('#searchDiv').panel('open');  // 打开面板
 	 var s="订单状态：<select id='status' style='width: 110px'>";
       s+=" <option value='-1'>全部订单</option>";
@@ -586,10 +564,8 @@ function  dataview(){
  * 已处理订单
  * @return
  */
-function ts_order_yes(){
-	$("#myTable").html("");
-	
-	
+function ts_order_yes(){	
+	 
 	$('#searchDiv').panel('close');  // 打开面板
 
 	$("#myTable").datagrid({
@@ -663,12 +639,9 @@ function ts_order_yes(){
  */
 var int;
 function ts_order_no(){
-	$("#myTable").html("");
 	  
-	$('#searchDiv').panel('close');  // 打开面板
-
+	$('#searchDiv').panel('close');  // 关闭面板
 	$("#myTable").datagrid({
-		 
 		toolbar:[
 		         {text:"开始接单",iconCls:"icon-ok",handler:function(){    
 		        	 $.messager.alert("系统提示","已开始接单!","info");
@@ -693,7 +666,6 @@ function ts_order_no(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-			checkOnSelect:false,
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -737,6 +709,7 @@ function ts_order_no(){
 		        $('.editcls').linkbutton({text:'接单',plain:true,iconCls:'icon-add'});  
 		        $('.xiangqing').linkbutton({text:'详情',plain:true,iconCls:'icon-tip'});  
 		    }  
+			
 	   
 	
 	

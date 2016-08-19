@@ -125,7 +125,6 @@ span{
          
 			<table id="myTable"></table> 
 			
-			
 			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px;">
          <s:form id="myfrm"  action=""  method="post" enctype="multipart/form-data">
 				<Table align="center" width="100%" style="padding-left: 50px">
@@ -144,7 +143,7 @@ span{
 					<Tr>
 						<Td>				  
                      
-                            <!--  <img  src="" name="image" width="50" height="50"> -->
+                              <img  src="" name="image" width="50" height="50"> 
 				             <s:file name="u.abc" label="上传文件"  accept="image/*" />
       	
 						</Td>

@@ -204,34 +204,38 @@ public class ChenShunAction extends ChenShunBase {
 		String mutype = request.getParameter("mutype");
 		String mudesc = request.getParameter("mudesc");
 		String mustatus = request.getParameter("mustatus");
-
-		 System.out.println("文件名称"+u.getAbcFileName());
-	        String path = ServletActionContext.getServletContext().getRealPath("/image/chenshun"); //物理文件名称
-			File newFile = new File(path, u.getAbcFileName());
-			FileUtils.copyFile(u.getAbc(), newFile);
-		   
-			/*****************************************************************/
-			String photoPath = "image/chenshun";     //数据库的路径
-			String name = u.getAbcFileName();     //文件名称
-			int code = u.getAbcFileName().hashCode();   //获取当前文件的hashCode
-			String hex = Integer.toHexString(code);   //转为字符串
-			String realPath = path;  //文件的路径
-			realPath += "\\" + hex.charAt(0) + "\\" + hex.charAt(1);     //获取hashcode第一位和第二位字符
-			File paths = new File(realPath);    // 创建一个新路径
-			paths.mkdirs();   //创建路径
-			name = DbUtils.getUUID() + name.substring(name.lastIndexOf("."));  // uuid+文件名称         
-			photoPath += "/" + hex.charAt(0) + "/" + hex.charAt(1) + "/" + name;   // 数据库路径+hashcode第一位字符+hashcode第二位字符 +文件名称
-			File file = new File(realPath, name);            //  在新目录下创建目录名称
-			FileInputStream fi = new FileInputStream(u.getAbc());     //获取该文件
-			FileOutputStream fo = new FileOutputStream(file);       //写入到新的路径
-			byte[] data = new byte[1024];        //写入
-			int len = 0;
-			while ((len = fi.read(data)) != -1) {
-				fo.write(data, 0, len);
-				fo.flush();
-				
-			}	
-			fo.close();
+		String photoPath="";
+       if(u!=null){
+        String path = ServletActionContext.getServletContext().getRealPath("/image/chenshun"); //物理文件名称
+		File newFile = new File(path, u.getAbcFileName());
+		FileUtils.copyFile(u.getAbc(), newFile);
+	   
+		/*****************************************************************/
+	    photoPath = "image/chenshun";     //数据库的路径
+		String name = u.getAbcFileName();     //文件名称
+		int code = u.getAbcFileName().hashCode();   //获取当前文件的hashCode
+		String hex = Integer.toHexString(code);   //转为字符串
+		String realPath = path;  //文件的路径
+		realPath += "\\" + hex.charAt(0) + "\\" + hex.charAt(1);     //获取hashcode第一位和第二位字符
+		File paths = new File(realPath);    // 创建一个新路径
+		paths.mkdirs();   //创建路径
+		name = DbUtils.getUUID() + name.substring(name.lastIndexOf("."));  // uuid+文件名称         
+		photoPath += "/" + hex.charAt(0) + "/" + hex.charAt(1) + "/" + name;   // 数据库路径+hashcode第一位字符+hashcode第二位字符 +文件名称
+		File file = new File(realPath, name);            //  在新目录下创建目录名称
+		FileInputStream fi = new FileInputStream(u.getAbc());     //获取该文件
+		FileOutputStream fo = new FileOutputStream(file);       //写入到新的路径
+		byte[] data = new byte[1024];        //写入
+		int len = 0;
+		while ((len = fi.read(data)) != -1) {
+			fo.write(data, 0, len);
+			fo.flush();
+			
+		}	
+		fo.close();
+    	
+    }
+		
+	 
 		String mupic =photoPath ; 	
 		ts_menu ts = new ts_menu();
 		ts.setMuid(Integer.parseInt(muid));
@@ -241,7 +245,7 @@ public class ChenShunAction extends ChenShunBase {
 		ts.setMutype(mutype);
 		ts.setMudesc(mudesc);
 		ts.setMustatus(Integer.parseInt(mustatus));
-		 cs.UpdateMenu(ts);
+		cs.UpdateMenu(ts);
 	
 		return "updateok";
 	}
