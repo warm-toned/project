@@ -601,13 +601,18 @@ function Orderrollback(data) {
 			}else{
 				content=k.OUUID;
 			}
+		
+		var name=k.OSENDERNAME;
+		if (name==undefined || name=="" || name==null) {
+			name="暂无配送人员";
+		}
 		s += "<tr align='center'>"
 		s += "<td >" + k.OID + "</td>";
 		s += "<td >" + k.OUSERNAME + "</td>";
 		s += "<td >" + k.OMUNAME + "</td>";
 		s += "<td >" + k.ORTNAME + "</td>";
 		s += "<td >" + k.OCOUNT + "</td>";
-		s += "<td >" + k.OSENDERNAME + "</td>";
+		s += "<td >" + name + "</td>";
 		s += "<td >" + k.ODATE + "</td>";
 		s += "<td class='tdtype' title="+k.OUUID+">" + content+ "</td>";
 		

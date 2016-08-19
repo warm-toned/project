@@ -110,7 +110,7 @@ public class ChenKaiTsRestaurantAction extends BaseAction {
 		
 		myrest.updateARest(rtid);
 		TsUserDao u=new TsUserDao();
-		u.updateAUser(uid);
+		u.updateAOwner(uid);
 	
 	}
 	
@@ -286,6 +286,11 @@ public class ChenKaiTsRestaurantAction extends BaseAction {
 		String rtstatus=req.getParameter("rtstatus");
 		String pic=req.getParameter("pic");
 	
+		
+		if (Integer.parseInt(rtstatus)==1) {
+			TsUserDao user=new TsUserDao();
+			user.updateAUser(Integer.parseInt(rtowner));
+		}
 		if (photoFileName==null) {
 			myrest.updateRest(rtname, rtaddr, rtowner, pic, rtcontent, rtdate, rtonbuz, Integer.parseInt(rtstatus), rtid);
 		}else{	

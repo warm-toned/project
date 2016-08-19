@@ -93,9 +93,16 @@ public class TsUserDao extends DataDao {
 		return i;
 	}
 	
-	//修改用户权限
-	public Integer updateAUser(Integer userid){
+	//修改用户为店主权限
+	public Integer updateAOwner(Integer userid){
 		String sql="update ts_user set authority=3 where userid=? ";
+		Integer i=update(sql,userid);
+		return i;
+	}
+	
+	//修改用户为普通用户权限
+	public Integer updateAUser(Integer userid){
+		String sql="update ts_user set authority=1 where userid=? ";
 		Integer i=update(sql,userid);
 		return i;
 	}

@@ -11,15 +11,13 @@ public class TsOrderDao extends DataDao {
 	
 	//查询所有订单
 	public List<Map<String, Object>> getOrderList(Integer nowPage,Integer pageSize){	
-		String sql="select * from (select t.*,rownum rn from(" +
-				"select a.oid,a.ouserid,a.omuid,a.ortid,a.ocount," +
-				"a.osender,a.ouuid,a.ostatus,to_char(a.odate,'yyyy-mm-dd hh24:mi:ss')as odate," +
-				"b.username as ousername,c.rtname as ortname,d.muname as omuname," +
-				"e.username as osendername from ts_order a " +
-				"inner join ts_user b on a.ouserid =b.userid " +
-				"inner join ts_restaurant c on a.ortid=c.rtid " +
-				"inner join ts_menu d on a.omuid=d.muid " +
-				"inner join ts_user e on a.osender=e.userid order by oid)t) where rn between ? and ?";	
+		String sql="select * from (select t.*,rownum rn from( "
+				+"select a.oid,a.ouserid,a.omuid,a.ortid,a.ocount,a.osender,a.ouuid,a.ostatus,"
+				+"to_char(a.odate,'yyyy-mm-dd hh24:mi:ss')as odate,b.username as ousername,c.rtname as ortname,"
+				+"d.muname as omuname,(select username from ts_user where ts_user.userid=a.osender) as osendername from ts_order a "
+				+"inner join ts_user b on a.ouserid =b.userid "
+				+"inner join ts_restaurant c on a.ortid=c.rtid "
+				+"inner join ts_menu d on a.omuid=d.muid  order by oid)t) where rn between ? and ?";	
 		//List<TsOrder> list=getEntities(sql,rest,(((nowPage-1)*pageSize)+1),(nowPage*pageSize));
 		List<Map<String, Object>> list=getMapList(sql, (((nowPage-1)*pageSize)+1),(nowPage*pageSize));
 		return list;
