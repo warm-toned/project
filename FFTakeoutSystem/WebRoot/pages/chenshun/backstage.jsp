@@ -49,12 +49,13 @@ span{
 
 </style>
 	</head>
-	<body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
-  
+	<body class="easyui-layout" style="overflow-y:hidden"  scroll="no" onload="ts_menu('${user.username}')">
+	
+	
      <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
       background:  #87cefa repeat-x center 50%;
         line-height: 20px;color: #red; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:20px;" class="head">欢迎:${user.username} <a href="#" id="return">返回主页面</a>  <a href="javascript:void(0);" onclick="AlterPassword()">修改密码</a> <a href="#" onclick="exit()">安全退出</a></span>
+        <span style="float:right; padding-right:20px;" class="head">欢迎:${user.username}<a href="#" id="return">返回主页面</a>  <a href="javascript:void(0);" onclick="AlterPassword()">修改密码</a> <a href="#" onclick="exit()">安全退出</a></span>
         <span style="padding-left:10px; font-size: 16px; "><img src="images/blocks.gif" width="20" height="20" align="absmiddle" />后台管理</span>
     </div>
 		<div region="west" split="true" title="后台管理" style="width: 200px;">
@@ -125,30 +126,26 @@ span{
 			<table id="myTable"></table> 
 			
 			
-			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px">
+			<div id="mydiv" class="easyui-dialog" closable=true closed=true title="添加" iconCls="icon-add" style="width:400px; height:500px;padding-top:40px;">
          <s:form id="myfrm"  action=""  method="post" enctype="multipart/form-data">
 				<Table align="center" width="100%" style="padding-left: 50px">
 				<tr>
-					  <td>菜单名称:</td>
+					   <Td>菜单名称:</Td>
 						<Td>
 				           <input type="text" name="muname"  class="easyui-validatebox" required=true" />
 						</Td>
 					</Tr>
 					<Tr>
-						<Td>菜单价格</Td>
+						<Td>菜单价格:</Td>
 						<Td>
-							<input type="text" name="muprice" class="easyui-numberbox" required=true />
+							<input type="text" name="muprice" class="easyui-numberbox"  required=true />
 						</Td>
 					</Tr>
 					<Tr>
-						<Td>
-					  
+						<Td>				  
                      
-                             <img  src="" name="image" width="50" height="50">
-				             <s:file name="u.abc" label="上传文件"></s:file>
-				      	    
-      	    
-      	    
+                            <!--  <img  src="" name="image" width="50" height="50"> -->
+				             <s:file name="u.abc" label="上传文件"  accept="image/*" />
       	
 						</Td>
 					</Tr>
@@ -185,10 +182,11 @@ span{
 					</Tr>
 					<Tr>
 						<Td colspan="3">
-							&nbsp;&nbsp;<a class="easyui-linkbutton" id="addBtn" iconCls="icon-ok" title="保存">保存</a>
+							&nbsp;&nbsp;<a class="easyui-linkbutton" id="addBtn" iconCls="icon-ok" title="保存"/>保存</a>
 							&nbsp;&nbsp;<a class="easyui-linkbutton" id="quxiao" iconCls="icon-cancel" title="取消">取消</a>
 						</Td>
 					</Tr>
+					 <tr><td><input type="hidden" name="muid"></td></tr>
 				</Table>
 		  </s:form>
    </div>
@@ -198,7 +196,7 @@ span{
 		</div>
 		
 			<!-- 订单详情 -------------------------------- -->	
-		<div id="myorder" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:400px;height:500px;margin:50px;background: silver;overflow: auto; background-color:#20b2aa">
+		<div id="myorder" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:400px;height:500px;margin:50px;background: silver;overflow: auto;">
 		       <!--   <table align="center" width="60%">
 		          <th>列表</th><th>数量</th><th>金额</th>
 		           -------------------------------------
@@ -210,14 +208,14 @@ span{
 		</div>
 		
 		<!-- 修改密码 -->
-		<div id="alterpassword" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:280px;height:120px;margin:0px;>
+		<div id="alterpassword" class="easyui-dialog" closable=true closed=true title="详情" iconCls="icon-tip" style="width:280px;height:150px;margin:0px; ">
 		             <table align="center">
 		             <tr>
-		              <td style="font-size:12px; color:#9ED7E8">请输入新密码：<input type="password" name="password"/></td>
+		              <td style="font-size:12px; color:#15428B">请输入新密码：<input type="password" name="password"/></td>
 		             </tr>
                         <tr></tr>
 		             <tr>
-		              <td style="font-size:12px; color:#9ED7E8">&nbsp;确认新密码：<input type="password" name="passwordx"/></td>
+		              <td style="font-size:12px; color:#15428B">&nbsp;确认新密码：<input type="password" name="passwordx"/></td>
 		             </tr>
 		           </table>          
 		             <br/>
@@ -228,7 +226,7 @@ span{
 		
 	
 
-		
+		   <input type="hidden" value="${user.username}"  name="user"/>
 
 	</body>
 

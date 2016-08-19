@@ -6,7 +6,6 @@
 //function ts_user(){	
 //	
 //
-//	    
 //	$("#myTable").html("ssss");
 //
 //	$('#searchDiv').panel('close');
@@ -16,12 +15,71 @@
 //}
 
 
+
+
+//	 document.getElementsByName("u.abc").addEventListener("change",function(e){
+//	     //1获取	文件对象
+//		 alert("sss")
+//		 var file=e.target.files[0];
+//	     //2、创建FIleReader对象
+//		 var fileReader=new FileReader();
+//		 //3、文件读取成功
+//		 fileReader.onload=function(e){
+//			//4、把读取结果(URL)设置给图片
+//			 document.getElementsByName("image").src=e.target.result;
+//		 }
+//		 fileReader.readAsDataURL(file);
+//		 
+//	 })
+	 
+
+
+ 
+
+//function CheckImg(FileUpload){
+	 
+
+	 
+	 
+//	 document.getElementsByName("u.abc").addEventListener
+//	
+//	alert(FileUpload.value);
+//	var mime=FileUpload.value;
+//    
+//    mime=mime.toLowerCase().substr(mime.lastIndexOf("."));
+//      alert(mime);
+//    if(mime!=".jpg" && mime!=".gif" && mime!=".png")
+//    {
+//        alert("仅支持JPG,GIF,PNG格式的图片");
+//        document.getElementsByName("u.abc").value="";
+//        return;
+//    }
+//    document.getElementsByName("image").value=FileUpload.value;
+//    document.getElementsByName("image").src=document.getElementsByName("u.abc").value;	
+	
+//}
+
+
+//function caidanguanli(){
+//	$('#myTable').datagrid('clearData');
+//}
+
+
+
 /**
  * 我的菜单
  * 
  * @return
  */
 function ts_menu(){
+	       var username=$("input[name=user]").val();
+	     if(username==null || username==""){
+		  if(confirm("请先登录")){
+			  window.location="user!willLog.action";	 
+		  }else{
+			  window.location="user!willLog.action";
+			 }
+	}else{
 	$("#myTable").html("");
 	
 	$('#searchDiv').panel('open');
@@ -69,6 +127,7 @@ function ts_menu(){
 		toolbar:[
 		         {text:"新增",iconCls:"icon-add",handler:function(){ 
 		        	  $("#myfrm")[0].reset(); //重置表单数据 
+		        		$("img[name=image]").attr("src","");	
 		        	 //添加首先添加窗口值改变
 				    	$("#mydiv").dialog({
 				    		iconCls:'icon-add',
@@ -77,27 +136,40 @@ function ts_menu(){
 				    	$("#mydiv").dialog("open");//打开添加窗口
 				    	$(document).ready(function(){  $("input[name=muname]").focus();});
 				    	$("#addBtn").click(function(){
+				    		var name=$("input[name=muname]").val();
+				    		var price=$("input[name=muprice]").val();			    		
+				    					if(name=="" || price==""){
+							    			  $.messager.alert("添加提示","请填写完整的名称和金额","info")
+							    		}else{
+							    			 $("#myfrm").attr("action", "cs!AddMenu.action").submit();
+							    			  $.messager.alert("添加提示","添加成功","info");
+							    			  $("#mydiv").dialog("close");//关闭			    		
+				    				}
+				    		
+				    		
+				    		
+				    		
 				    		 
-				            $.post("cs!AddMenu.action?v="+Math.random(),$("#myfrm").serialize(),function(data){
-				            	  var o = eval("("+data+")");
-				                  if(o.addfiag){   //判断是否是否有null值
-				                
-				    		    	  $.messager.alert("添加提示","添加成功","info")
-				    		    	  $("#mydiv").dialog("close");//关闭
-				    	    				$("#myTable").datagrid("reload");  //从当前页加载
-				                 }else{
-				                	  $.messager.alert("添加提示","请填写完整信息","info")
-				                	 
-				                 }
-				            	
-				                  $('#mydiv').dialog({ 
-				                	  onClose: function () { 
-				                	  //解决弹出窗口关闭后，验证消息还显示在最上面 
-				                	  $('.tooltip.tooltip-right').hide(); 
-				                	  } 
-				                	  });
-				            })
-				      
+//				            $.post("cs!AddMenu.action?v="+Math.random(),$("#myfrm").serialize(),function(data){
+//				            	  var o = eval("("+data+")");
+//				                  if(o.addfiag){   //判断是否是否有null值
+//				                
+//				    		    	
+//				    		    	
+//				    	    			
+//				                 }else{
+//				                	  $.messager.alert("添加提示","请填写完整信息","info")
+//				                	 
+//				                 }
+//				            	
+//				                  $('#mydiv').dialog({ 
+//				                	  onClose: function () { 
+//				                	  //解决弹出窗口关闭后，验证消息还显示在最上面 
+//				                	  $('.tooltip.tooltip-right').hide(); 
+//				                	  } 
+//				                	  });
+//				            })
+//				      
 				    		
 				    	})
 				    	 $("#quxiao").click(function(){         //单机取消时
@@ -107,12 +179,12 @@ function ts_menu(){
 		        	
 		        	
 		         }},
-		         {text:"删除",iconCls:"icon-remove",handler:function(){
+		         {text:"下架",iconCls:"icon-remove",handler:function(){
 		        	  // 获取用户选中的一行，返回值是数组方式
 				    	
 			    	  var rows = $("#myTable").datagrid("getSelections");  // 取得所有选中的数据（数据类型是ListMap>）
 			    	  if(rows.length==0){   // 如果用户没有选择
-			    		  $.messager.alert('删除提示','请选择要删除的数据...','question'); 
+			    		  $.messager.alert('下架提示','请选择一条或多条下架的菜单...','question'); 
 			    	}else{
 			          var ids="";
 			          $.each(rows,function(index,m){
@@ -121,12 +193,11 @@ function ts_menu(){
 			        $.post("cs!DeleteMenu.action?v="+Math.random(),{"ids":ids},function(data)  // 有问题
 			        {
 			        	var fiag=eval("("+data+")");
-			             alert(fiag.deletefiag)
 			          if(fiag.deletefiag>0){
-			        	  $.messager.alert("删除提示",'删除成功','warning'); 
+			        	  $.messager.alert("下架提示",'下架成功','warning'); 
 			        	  $("#myTable").datagrid("reload");  // 重新加载数据，但是数据会停留在当前页
 			          }else{
-			        	  $.messager.alert("删除提示",'删除失败','warning'); 
+			        	  $.messager.alert("下架提示",'未知错误,下架失败......','warning'); 
 			        	   
 			          }
 			           	        	
@@ -150,27 +221,31 @@ function ts_menu(){
 							})
 						  
 							var r=rows[0]//通过下标取到选中的行
-							           
-					    $("#myfrm").form("load",{"muname":r.MUNAME,"muprice":r.MUPRICE,"mutype":r.MUTYPE,"mudesc":r.DESC,"mustatus":r.MUSTATUS,"mudesc":r.MUDESC});
-							   $("img[name=image]").attr("src",r.MUPIC);
-							  
-							$("#mydiv").dialog("open");
-							
-							$("#addBtn").click(function(){   //执行修改操作
-							    $.post("cs!UpdateMenu.action?v="+Math.random()+"&muid="+r.MUID,$("#myfrm").serialize(),function(data){
-							    $("#mydiv").dialog("close");//关闭对话框
-							    $("#myfrm")[0].reset(); //重置表单数据 
-							    $("#myTable").datagrid("reload");//重新加载数据	
-							    var fiag=eval("("+data+")");
-							    if(fiag.updatefiag){
-							         $.messager.alert("修改提示","修改成功","info");
-					
-							         checkOnSelect =true;
-						             $("#myfrm").datagrid("selectRow", rowIndex);
-							    }else{
-							    	  $.messager.alert("修改提示","修改成失败","info");
-							    }
-							    })
+		                                 		      
+					    $("#myfrm").form("load",{"muname":r.MUNAME,"muprice":r.MUPRICE,"mutype":r.MUTYPE,"mudesc":r.DESC,"mustatus":r.MUSTATUS,"mudesc":r.MUDESC,"muid":r.MUID});
+//						   $("input[name=muprice]").attr("value",r.MUPRICE);	   
+//							
+						    	$("img[name=image]").attr("src",r.MUPIC);	
+//							   $("input[name=muname]").attr("value",r.MUNAME);	
+//							
+//							   $("select[name=mutype]").attr("value",r.MUTYPE);	
+//							   $("input[name=mudesc]").attr("value",r.DESC);	
+//							   $("select[name=mustatus]").attr("value",r.MUSTATUS);	
+//							   $("textarea[name=mudesc]").attr("value",r.MUDESC);	
+//							   $("input[name=muid]").attr("value",r.MUID);	
+								$("#mydiv").dialog("open");//打开添加窗口
+						    	$(document).ready(function(){$("input[name=muname]").focus();});
+						    	$("#addBtn").click(function(){
+						    		var name=$("input[name=muname]").val();
+						    		var price=$("input[name=muprice]").val();			    		
+						    					if(name=="" || price==""){
+									    			  $.messager.alert("修改提示","请填写完整的名称和金额","info")
+									    		}else{
+									    			 $("#myfrm").attr("action", "cs!UpdateMenu.action").submit();
+									    			  $.messager.alert("修改提示","修改成功","info");
+									    			  $("#mydiv").dialog("close");//关闭			    		
+						    				}
+						    		
 							    
 								
 							})
@@ -221,7 +296,7 @@ function ts_menu(){
 			singleSelect:false,// 只允许中一行
 			
 			columns:[[	    
-			      {field:'R',title:'编号',width:300,align:'center',checkbox:true},
+			      {field:'MUID',title:'编号',width:300,align:'center',checkbox:true},
 			      {field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true,
 			    	  editor:{   // 编辑状态
 			    	    type:"validatebox",
@@ -336,7 +411,7 @@ function ts_menu(){
 		
 
 	});
-
+	}
 }
 /**
  * 我的订单
@@ -361,7 +436,7 @@ function ts_order(){
 	  var op;
 	  $("#status").combobox({    // 加载所有订单
 	        editable:false,
-		  panelHeight:"146"
+		  panelHeight:"108"
 		  });
 
 	  $('#searchBtn').linkbutton({  // 渲染成按钮
@@ -393,7 +468,7 @@ function ts_order(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-		
+			singleSelect:false,
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -403,21 +478,21 @@ function ts_order(){
 		
 			columns:[[	    
 			      {field:'RM',title:'编号',width:300,align:'center'},
-			      {field:'USERNAME',title:'客户名称',width:300,align:'center',sortable:true},
+			      {field:'REALNAME',title:'客户名称',width:300,align:'center',sortable:true},
 			     //{field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true},
 			    // {field:'MUPRICE',title:'菜单单价',width:300,align:'center',sortable:true},	
-			     {field:'ODATE',title:'订单时间',width:300,align:'center',sortable:true},		
+			     {field:'TIMES',title:'订单时间',width:300,align:'center',sortable:true},		
 			    {field:'OSTATUS',title:'订单状态',width:300,align:'center',sortable:true,formatter:function(value,row,index){
 		    	    if(value==0){ 
 		    		 return "<span style='color:green'><b>购物车中</b></span>";
 			    	 }else if(value==1){
-			    		 return "<span style='color:red'><b>已下单(未支付)</b></span>";
+			    		 return "<span style='color:#666666'><b>已下单(未支付)</b></span>";
 			    	 }else if(value==2){
 			    		 return "<span style='color:red'><b>用户已付款</b></span>";  
 				    	 }else if(value==3){
 				    		 return "<span style='color:#FF8C00'><b>已接单</b></span>";		    
 			    		 }else if(value==4){
-	    	               	 return "<span style='color:#FFFFFF'><b>配送中</b></span>";
+	    	               	 return "<span style='color:blue'><b>配送中</b></span>";
 			    	          }else if(value==5){
 		    		 return "<span style='color:#999999'><b>交易成功</b></span>";
 			    	 }
@@ -522,10 +597,7 @@ function ts_order_yes(){
 		         {text:"刷新",iconCls:"icon-reload",handler:function(){
 		        	 $("#myTable").datagrid("reload"); 	        	
 			         }},
-			         
-			   
-		           
-		         
+	         
 		         ],
 		
 		 // 加载数据 
@@ -533,7 +605,7 @@ function ts_order_yes(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-			checkOnSelect:false,
+			
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -543,11 +615,8 @@ function ts_order_yes(){
 		
 			columns:[[	    
 			          {field:'RM',title:'编号',width:300,align:'center'},
-					    //  {field:'USERNAME',title:'客户名称',width:300,align:'center',sortable:true},
-					    // {field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true},
-					    // {field:'MUPRICE',title:'菜单单价',width:300,align:'center',sortable:true},
-					      
-					     {field:'ODATE',title:'订单时间',width:300,align:'center',sortable:true},		
+					      {field:'REALNAME',title:'客户名称',width:300,align:'center',sortable:true},
+					     {field:'TIMES',title:'订单时间',width:300,align:'center',sortable:true},		
 					    {field:'OSTATUS',title:'订单状态',width:300,align:'center',sortable:true,formatter:function(value,row,index){
 				    	    if(value==0){ 
 				    		 return "<span style='color:green'><b>购物车中</b></span>";
@@ -603,7 +672,7 @@ function ts_order_no(){
 		toolbar:[
 		         {text:"开始接单",iconCls:"icon-ok",handler:function(){    
 		        	 $.messager.alert("系统提示","已开始接单!","info");
-		        	  int=setInterval(function(){   //setInterval()定时器
+		        	 int=setInterval(function(){   //setInterval()定时器
 		        		 $("#myTable").datagrid("reload"); 
 		        	 },10000); //指定1秒刷新一次    	 
 		        	  
@@ -624,7 +693,7 @@ function ts_order_no(){
 			fitColumns:true,// 适应宽度，防止 出现左右滚动条
 			loadMsg:"正在加载，请稍等....",
 			method:"post",
-		
+			checkOnSelect:false,
 			striped:true,// 奇偶行变行
 			pagination:true,// 显示分页
 			pageList:[1,2,3,5,10,20,30,50],
@@ -634,11 +703,8 @@ function ts_order_no(){
 			
 			columns:[[	    
 			      {field:'RM',title:'编号',width:300,align:'center'},
-			    //  {field:'USERNAME',title:'客户名称',width:300,align:'center',sortable:true},
-			    // {field:'MUNAME',title:'菜单名称',width:300,align:'center',sortable:true},
-			    // {field:'MUPRICE',title:'菜单单价',width:300,align:'center',sortable:true},
-			      
-			     {field:'ODATE',title:'订单时间',width:300,align:'center',sortable:true},		
+			    {field:'REALNAME',title:'客户名称',width:300,align:'center',sortable:true},
+			     {field:'TIMES',title:'订单时间',width:300,align:'center',sortable:true},		
 			    {field:'OSTATUS',title:'订单状态',width:300,align:'center',sortable:true,formatter:function(value,row,index){
 		    	    if(value==0){ 
 		    		 return "<span style='color:green'><b>购物车中</b></span>";
@@ -735,11 +801,7 @@ function xiangqing(uuid){
         	
         	  var o = eval("("+data+")");
         	  var list= o.XiangQing;
-        
-        	  
-        	
-        	
-        	
+
         	var s="<h3  align='center'>**********欢迎光临:"+o.rtname+"*********</h3>";
         	s+="<table align='center' style='margin-left:-30px;'>";
   		  s+="<th>列表</th><th>数量</th><th>金额</th>" 			

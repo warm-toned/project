@@ -49,7 +49,7 @@
 				</button>
 				<!--品牌logo -->
 				<a class="navbar-brand text-success" href="shop!ShopList.action"><span
-					class="glyphicon glyphicon-globe text-success">&nbsp;</span>F.Flame
+					class="glyphicon glyphicon-fire text-danger">&nbsp;</span>F.Flame
 					在线订餐系统</a>
 			</div>
 			<!--导航条实际内容 -->

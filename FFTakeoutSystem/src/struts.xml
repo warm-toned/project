@@ -33,8 +33,13 @@
 	<package name="chenkai" extends="struts-default">
 		<action name="shwk" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">
 			<interceptor-ref name="token"/>
-			<interceptor-ref name="defaultStack" />
-			<result name="invalid.token">/pages/chenkai/AddUserMain.jsp</result>
+			<interceptor-ref name="defaultStack"/>
+			<result name="invalid.token">/pages/chenkai/AddUserMain.jsp</result>		
+			<result name="success">/pages/chenkai/main.jsp</result>	
+		</action>
+		<action name="shwkuser" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">		
+			<result name="success">/pages/chenkai/main.jsp</result>		
+			<result name="findAllUser">/pages/chenkai/SelectUser.jsp</result>		
 			<result name="success">/pages/chenkai/main.jsp</result>
 		</action>
 		<action name="shwkuser" class="zx.ffts.web.action.chenkai.ChenKaiTsUserAction">
@@ -109,9 +114,10 @@
 			<result name="record">/pages/yyq/GiftRecord.jsp</result>
 		</action>
 	</package>
-
 	<package name="chenshun" extends="struts-default"><!-- 陈顺 -->
 		<action name="cs" class="zx.ffts.web.action.chenshun.ChenShunAction">
+		  <result name="addok"  type="redirect">/pages/chenshun/backstage.jsp</result>
+		    <result name="updateok"  type="redirect">/pages/chenshun/backstage.jsp</result>
 		</action>
 		<action name="login" class="zx.ffts.web.action.chenshun.ChenShunAction"> <!-- 陈顺登录验证 -->
 		</action>

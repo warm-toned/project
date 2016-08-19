@@ -57,7 +57,7 @@
 				</button>
 				<!--品牌logo -->
 				<a class="navbar-brand text-success" href="shop!ShopList.action"><span
-					class="glyphicon glyphicon-globe text-success">&nbsp;</span>F.Flame
+					class="glyphicon glyphicon-fire text-danger">&nbsp;</span>F.Flame
 					在线订餐系统</a>
 			</div>
 			<!--导航条实际内容 -->
@@ -244,7 +244,7 @@
 							</c:when>
 						</c:choose>
 						<c:if test="${item.ostatus == 5}">
-							<a class="btn borderSky pull-right" href="">再来一单</a>
+							<a class="btn borderSky pull-right" href="shop!MenuList.action?rtid=${item.ortid}">再来一单</a>
 						</c:if>
 					</div>
 				</div>

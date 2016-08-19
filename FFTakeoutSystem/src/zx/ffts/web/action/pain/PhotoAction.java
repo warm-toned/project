@@ -69,6 +69,7 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 	 * @throws FileNotFoundException
 	 */
 	public String upload() throws FileNotFoundException, IOException {
+
 		String photoPath = "image/users";//数据库
 		String name = photoFileName;//文件名
 		String realPath = application.getRealPath("/image/users");//目录真实路径
@@ -83,6 +84,7 @@ public class PhotoAction implements ServletRequestAware, ServletContextAware {
 		FileInputStream fi = new FileInputStream(photo);
 		FileOutputStream fo = new FileOutputStream(file);
 		byte[] data = new byte[1024];
+
 		int len = 0;
 		while ((len = fi.read(data)) != -1) {
 			fo.write(data, 0, len);
