@@ -52,8 +52,7 @@
           <h4 class="M1"><span></span>用户管理</h4>
           <div class="list-item none">
             <a id="findalluser">查询所有用户</a>
-            <a href='<%= path %>/pages/chenkai/AddUserMain.jsp'>新增用户1111</a>
-            <a id="addUser">新增用户</a>
+            <a href='<%= path %>/pages/chenkai/AddUserMain.jsp'>新增用户</a>
             <a href='shwk!WriteUser.action'>下载所有用户信息</a>
           </div>
         </li>
