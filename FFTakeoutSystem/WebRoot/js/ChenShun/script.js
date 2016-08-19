@@ -6,7 +6,6 @@
 //function ts_user(){	
 //	
 //
-//	    
 //	$("#myTable").html("ssss");
 //
 //	$('#searchDiv').panel('close');
@@ -73,7 +72,14 @@
  * @return
  */
 function ts_menu(){
-	
+	       var username=$("input[name=user]").val();
+	     if(username==null || username==""){
+		  if(confirm("请先登录")){
+			  window.location="user!willLog.action";	 
+		  }else{
+			  window.location="user!willLog.action";
+			 }
+	}else{
 	$("#myTable").html("");
 	
 	$('#searchDiv').panel('open');
@@ -405,7 +411,7 @@ function ts_menu(){
 		
 
 	});
-
+	}
 }
 /**
  * 我的订单
@@ -480,13 +486,13 @@ function ts_order(){
 		    	    if(value==0){ 
 		    		 return "<span style='color:green'><b>购物车中</b></span>";
 			    	 }else if(value==1){
-			    		 return "<span style='color:red'><b>已下单(未支付)</b></span>";
+			    		 return "<span style='color:#666666'><b>已下单(未支付)</b></span>";
 			    	 }else if(value==2){
 			    		 return "<span style='color:red'><b>用户已付款</b></span>";  
 				    	 }else if(value==3){
 				    		 return "<span style='color:#FF8C00'><b>已接单</b></span>";		    
 			    		 }else if(value==4){
-	    	               	 return "<span style='color:#FFFFFF'><b>配送中</b></span>";
+	    	               	 return "<span style='color:blue'><b>配送中</b></span>";
 			    	          }else if(value==5){
 		    		 return "<span style='color:#999999'><b>交易成功</b></span>";
 			    	 }

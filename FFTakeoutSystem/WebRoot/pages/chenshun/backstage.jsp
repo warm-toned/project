@@ -49,11 +49,13 @@ span{
 
 </style>
 	</head>
-	<body class="easyui-layout" style="overflow-y:hidden"  scroll="no" onload="ts_menu()">
+	<body class="easyui-layout" style="overflow-y:hidden"  scroll="no" onload="ts_menu('${user.username}')">
+	
+	
      <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
       background:  #87cefa repeat-x center 50%;
         line-height: 20px;color: #red; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:20px;" class="head">欢迎:${user.username} <a href="#" id="return">返回主页面</a>  <a href="javascript:void(0);" onclick="AlterPassword()">修改密码</a> <a href="#" onclick="exit()">安全退出</a></span>
+        <span style="float:right; padding-right:20px;" class="head">欢迎:${user.username}<a href="#" id="return">返回主页面</a>  <a href="javascript:void(0);" onclick="AlterPassword()">修改密码</a> <a href="#" onclick="exit()">安全退出</a></span>
         <span style="padding-left:10px; font-size: 16px; "><img src="images/blocks.gif" width="20" height="20" align="absmiddle" />后台管理</span>
     </div>
 		<div region="west" split="true" title="后台管理" style="width: 200px;">
@@ -142,7 +144,7 @@ span{
 					<Tr>
 						<Td>				  
                      
-                             <img  src="" name="image" width="50" height="50">
+                            <!--  <img  src="" name="image" width="50" height="50"> -->
 				             <s:file name="u.abc" label="上传文件"  accept="image/*" />
       	
 						</Td>
@@ -224,7 +226,7 @@ span{
 		
 	
 
-		
+		   <input type="hidden" value="${user.username}"  name="user"/>
 
 	</body>
 

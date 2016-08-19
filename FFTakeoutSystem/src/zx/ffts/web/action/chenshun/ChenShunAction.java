@@ -318,7 +318,7 @@ public class ChenShunAction extends ChenShunBase {
 		PrintWriter out = response.getWriter();
 		 User  t=(User)session.getAttribute("user");   //获取当前用户
 		List<Map<String, String>> list = cs.OrderListYes(cs.UserId(t.getUserid()),page,rows,sort,order);  //商店的id
-		int num = cs.OrderNumNo(cs.UserId(t.getUserid()));   
+		int num = cs.OrderNumYes(cs.UserId(t.getUserid()));   
 		json.put("total", num); // 店主的id此处是自己设的
 		json.put("rows", list);// 店主的id此处是自己设的
 		out.write(json.toString());
@@ -455,10 +455,10 @@ public class ChenShunAction extends ChenShunBase {
 		for (int i = 0; i < list.size(); i++) {// 对list循环
 			Map<String, Object> m = list.get(i);
 			Label id = new Label(0, i + 2, m.get("OID").toString(), wcf);
-			Label name = new Label(1, i + 2, m.get("USERNAME").toString(), wcf);
+			Label name = new Label(1, i + 2, m.get("REALNAME").toString(), wcf);
 			Label age = new Label(2, i + 2, m.get("MUNAME").toString(), wcf);
 			Label city = new Label(3, i + 2, m.get("MUPRICE").toString(), wcf);
-			Label date = new Label(4, i + 2, m.get("ODATE").toString(), wcf);
+			Label date = new Label(4, i + 2, m.get("TIMES").toString(), wcf);
 			
 			String statustype="";
 			if(m.get("OSTATUS").toString().equals("0")){
@@ -563,7 +563,13 @@ public class ChenShunAction extends ChenShunBase {
 			Label name = new Label(1, i + 2, m.get("MUNAME").toString(), wcf);
 			Label age = new Label(2, i + 2, m.get("MUPRICE").toString(), wcf);
 			Label city = new Label(3, i + 2, m.get("MUTYPE").toString(), wcf);
-			Label date = new Label(4, i + 2, m.get("MUDESC").toString(), wcf);
+			Label date=null;
+			if(m.get("MUDESC")==null || m.get("MUDESC").toString().equals("")){
+				date = new Label(4, i + 2,"暂无描述" , wcf);
+			}else{
+				date = new Label(4, i + 2,m.get("MUDESC").toString() , wcf);
+			}
+			
 			Label status = new Label(5, i + 2, m.get("MUSALE").toString(), wcf);
 			String statustype="";
 			if( m.get("MUSTATUS").toString().equals("0")){

@@ -47,6 +47,7 @@ public class ChenShunDao extends DataDao {
 			sql += " order by mustatus asc";
 
 		}
+	
 		return getMapList(sql, pagesize * pageindex, id, (pageindex - 1)
 				* pagesize);
 
@@ -160,11 +161,14 @@ public class ChenShunDao extends DataDao {
 		sql += "  group by realname,ouuid,ortid,rtname,rtpic,to_char(odate,'yyyy-MM-dd HH24:mi:ss'),ostatus) where rm between ? and ? ";
 		if (sort != null && !sort.equals("")) {
 			sql += "   order by   " + sort + "  " + order;
+		}else{
+			sql+="  order by times  asc";
+			
 		}
 
-		System.out.println(sql);
-		for (Map<String, Object> map : getMapList(sql, id, (pageindex - 1)
-				* pagesize, pageindex * pagesize)) {
+		
+		for (Map<String, Object> map : getMapList(sql, id, pagesize*(pageindex - 1)+1
+				, pageindex * pagesize)) {
 			Map<String, String> map2 = new HashMap<String, String>();
 			map2.put("RM", map.get("RM").toString());
 			map2.put("REALNAME", map.get("REALNAME").toString());
@@ -190,7 +194,7 @@ public class ChenShunDao extends DataDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> GetListOrder(Integer id) {
-		String sql = "select  k.oid,u.username,m.muname,m.muprice,to_char(k.odate,'yyyy-MM-dd HH24:mi:ss') as times,k.ostatus,k.ocount,(m.muprice*k.ocount) as sum from ( select t.*,rownum r from ts_order t     where ortid=? ) k    inner join ts_menu m  on k.omuid=m.muid  inner join ts_user u  on u.userid=k.ouserid";
+		String sql = "select  k.oid,u.realname,m.muname,m.muprice,to_char(k.odate,'yyyy-MM-dd HH24:mi:ss') as times,k.ostatus,k.ocount,(m.muprice*k.ocount) as sum from ( select t.*,rownum r from ts_order t     where ortid=? ) k    inner join ts_menu m  on k.omuid=m.muid  inner join ts_user u  on u.userid=k.ouserid";
 		return getMapList(sql, id);
 
 	}
@@ -226,14 +230,16 @@ public class ChenShunDao extends DataDao {
 	 * @return
 	 */
 	public int OrderNum(Integer id, Integer status) {
-		String sql = "select count(*) from ts_order where ortid=?";
-		if (status != null && status != -1) {
-			sql += "   and ostatus=" + status;
+		String sql=" select count(*) from  (select ouuid from ts_order where ortid=?";
+		if(status!=null && status>0){ 
+			sql+="  and ostatus="+status;
 		}
+		
+		sql+="group by ouuid)";
 		return scalarNumber(sql, id);
 
 	}
-
+	
 	/**
 	 * 柱状图形数据(菜单表)
 	 * 
@@ -267,11 +273,12 @@ public class ChenShunDao extends DataDao {
 		if (sort != null && !sort.equals("")) {
 			sql += " order by   " + sort + "  " + order;
 		} else {
-			sql += "   order by times desc";
+			sql += " order by times asc";
 
 		}
+	
 		for (Map<String, Object> map : getMapList(sql, id, pagesize
-				* (pageindex - 1) + 1, pagesize * pageindex)) {
+				* (pageindex - 1)+1, pagesize * pageindex)) {
 			Map<String, String> map2 = new HashMap<String, String>();
 			map2.put("RM", map.get("RM").toString());
 			map2.put("REALNAME", map.get("REALNAME").toString());
@@ -296,9 +303,11 @@ public class ChenShunDao extends DataDao {
 	 * @return
 	 */
 	public int OrderNumNo(Integer id) {
-		String sql = "    select count(*) from   (select ouuid from ts_order  where ortid=? and ouuid is not null group by ouuid)";
-
+		String sql=" select count(*) from  (select ouuid from ts_order where ortid=? and ostatus=2";	
+		sql+="   group by ouuid)";
 		return scalarNumber(sql, id);
+
+
 
 	}
 
@@ -315,12 +324,12 @@ public class ChenShunDao extends DataDao {
 		if (sort != null && !sort.equals("")) {
 			sql += " order by   " + sort + "  " + order;
 		}else{
-			sql+="  order by times desc";
+			sql+="  order by times asc";
 			
 		}
-		System.out.println(sql);
+	
 		for (Map<String, Object> map : getMapList(sql, id, pagesize
-				* (pageindex - 1) + 1, pageindex * pagesize)) {
+				* (pageindex - 1)+1, pageindex * pagesize)) {
 			Map<String, String> map2 = new HashMap<String, String>();
 			map2.put("RM", map.get("RM").toString());
 			map2.put("REALNAME", map.get("REALNAME").toString());
@@ -346,7 +355,7 @@ public class ChenShunDao extends DataDao {
 	 * @return
 	 */
 	public int OrderNumYes(Integer id) {
-		String sql = "select count(*) from ts_order where ortid=? and ostatus =3";
+		String sql="select count(*) from  (select ouuid from ts_order where ortid=? and ostatus=3 group by ouuid)";
 		return scalarNumber(sql, id);
 
 	}
