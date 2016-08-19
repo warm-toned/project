@@ -122,8 +122,14 @@ public class ChenShunDao extends DataDao {
 	 * @return
 	 */
 	public int UpdateMenu(ts_menu t) {
-		String sql = "update ts_menu set muname=?,muprice=?,mupic=?,mutype=?,mudesc=?,mustatus=? where muid=?";
-		return update(sql, t.getMuname(), t.getMuprice(), t.getMupic(), t
+		String sql = "update ts_menu set muname=?,muprice=?";
+		
+		if(t.getMupic()!=null &&! t.getMupic().equals("")){
+			sql+="  ,mupic='"+t.getMupic()+"'";
+			
+		}
+       sql+="  ,mutype=?,mudesc=?,mustatus=? where muid=?";
+		return update(sql, t.getMuname(), t.getMuprice(),t
 				.getMutype(), t.getMudesc(), t.getMustatus(), t.getMuid());
 
 	}
