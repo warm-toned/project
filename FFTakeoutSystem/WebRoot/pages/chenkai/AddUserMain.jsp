@@ -108,8 +108,6 @@
 					<s:property value="setActionErrors({'请不要重复提交表单'})"/>
 				</s:if>
 				<s:form action="shwk!addUser.action" method='post' enctype='multipart/form-data' >
-<<<<<<< HEAD
-<<<<<<< HEAD
     			<table align='center' style="margin-top: 30px">				
 					<tr><td>用户名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
 				    <tr><td>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -129,21 +127,6 @@
 						<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>
 					<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
-=======
-=======
->>>>>>> 80909bce23246a17c8013d852a550263f6cb5b2c
-    			<table align='center' >				
-					<tr><td >姓名：<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
-				    <tr><td >密码：<input type='text' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>
-					<tr><td >电话：<input type='text' id='tel' name='tel' onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>
-					<tr><td >邮件：<input type='text' id='email' name='email' onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>
-					<tr><td >地址：<input type='text' id='address' name='address' onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>
-					<tr><td >真实姓名：<input type='text' id='realname' name='realname' onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>
-					<tr><td >余额：<input type='text' id='balance' name='balance' onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>
-					<tr><td >性别:<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>
-					<tr><td >权限:<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>
-					<tr><td >图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
->>>>>>> 80909bce23246a17c8013d852a550263f6cb5b2c
 					<tr><td><s:token theme='simple'/><s:actionerror  theme='simple'/></td></tr>
 					<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
