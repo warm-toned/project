@@ -34,7 +34,7 @@
   <body>
 <div class="top"></div>
 <div id="header">
-	<div class="logo">订餐后台管理系统</div>
+	<div class="logo"><a href="<%= path %>/pages/chenkai/main.jsp"  style="color:#fff;text-decoration:none" >订餐后台管理系统</a></div>
 	<div class="navigation">
 		<ul>
 		 	<li>欢迎您！</li>
@@ -60,7 +60,7 @@
           <h4 class="M2"><span></span>店家管理</h4>
           <div class="list-item none">
             <a id="findallrest">查询所有店家</a>
-            <a href='#'>查看开店申请</a>
+             <a id="findsomerest">查看开店申请</a>
             <a href='shwkrest!WriteRest.action'>下载所有店家信息</a>   
             <a id='findaddMess'>查询所有店家评论</a>   
            </div>
@@ -108,17 +108,25 @@
 					<s:property value="setActionErrors({'请不要重复提交表单'})"/>
 				</s:if>
 				<s:form action="shwk!addUser.action" method='post' enctype='multipart/form-data' >
-    			<table align='center' >				
-					<tr><td >姓名：<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
-				    <tr><td >密码：<input type='text' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>
-					<tr><td >电话：<input type='text' id='tel' name='tel' onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>
-					<tr><td >邮件：<input type='text' id='email' name='email' onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>
-					<tr><td >地址：<input type='text' id='address' name='address' onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>
-					<tr><td >真实姓名：<input type='text' id='realname' name='realname' onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>
-					<tr><td >余额：<input type='text' id='balance' name='balance' onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>
-					<tr><td >性别:<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>
-					<tr><td >权限:<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>
-					<tr><td >图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
+    			<table align='center' style="margin-top: 30px">				
+					<tr><td>用户名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
+				    <tr><td>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    	<input type='password' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>
+					<tr><td>电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='text' id='tel' name='tel' onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>
+					<tr><td>邮件：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='text' id='email' name='email' onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>
+					<tr><td>地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='text' id='address' name='address' onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>
+					<tr><td>真实姓名：<input type='text' id='realname' name='realname' onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>
+					<tr><td>余额：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='text' id='balance' name='balance' onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>
+					<tr><td>性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>
+					<tr><td>权限:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select id='authority' name='authority'><option value='1'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>
+					<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
 					<tr><td><s:token theme='simple'/><s:actionerror  theme='simple'/></td></tr>
 					<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

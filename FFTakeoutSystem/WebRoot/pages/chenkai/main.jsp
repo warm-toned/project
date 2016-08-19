@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 <div class="top"></div>
 <div id="header">
-	<div class="logo">订餐后台管理系统</div>
+	<div class="logo"><a href="<%= path %>/pages/chenkai/main.jsp"  style="color:#fff;text-decoration:none" >订餐后台管理系统</a></div>
 	<div class="navigation">
 		<ul>
 			<li><a href='index.jsp'>返回前台</a></li>
