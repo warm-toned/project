@@ -111,7 +111,7 @@ function Userrollback(data) {
 		s += "<td >" + authority + "</td>";
 		s += "<td > <img src=" + k.photo
 				+ " width='50px' heigth='50px'/></td>";
-		s += "<td>";
+		s += "<td width='100px'>";
 		if (userid == k.userid) {
 			s += "<font color='red'>当前用户</font>";
 		} else {
@@ -997,8 +997,7 @@ function getGiftRecList(pages) {
 
 // 通过id查询用户
 function findbyid(id) {
-	$
-			.ajax( {
+	$.ajax( {
 				url : "shwkuser!FindbyId.action?v=" + Math.random(),
 				type : "post",
 				data : {
@@ -1008,49 +1007,49 @@ function findbyid(id) {
 				success : function(data) {
 					var us = data.user;
 					var s = "<form  action='shwkuser!UpdaUser.action'  method='post' enctype='multipart/form-data'>";
-					s += "<table align='center'>";
+					s += "<table align='center' style='margin-top: 30px'>";
 					s += "<tr><td><input type='hidden' id='userid' name='userid' value="
 							+ us.userid + " /></td></tr>"
-					s += "<tr><td>姓名：<input type='text' id='username' name='username' value="
+					s += "<tr><td>用户名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='username' name='username' value="
 							+ us.username + " onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>"
-					s += "<tr><td>密码：<input type='text' id='pwd' name='pwd' value="
+					s += "<tr><td>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='pwd' name='pwd' value="
 							+ us.pwd + " onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>"
-					s += "<tr><td>电话：<input type='text' id='tel' name='tel' value="
+					s += "<tr><td>电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='tel' name='tel' value="
 							+ us.tel + " onblur='usertel()'/>&nbsp;&nbsp;<span id='utel'></span></td></tr>"
-					s += "<tr><td>邮件：<input type='text' id='email' name='email' value="
+					s += "<tr><td>邮件：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='email' name='email' value="
 							+ us.email + " onblur='useremail()'/>&nbsp;&nbsp;<span id='uemail'></span></td></tr>"
-					s += "<tr><td>地址：<input type='text' id='address' name='address'value="
+					s += "<tr><td>地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='address' name='address'value="
 							+ us.address + " onblur='useraddress()'/>&nbsp;&nbsp;<span id='uaddress'></span></td></tr>"
 					s += "<tr><td>真实姓名：<input type='text' id='realname' name='realname' value="
 							+ us.realname + " onblur='userrealname()'/>&nbsp;&nbsp;<span id='urealname'></span></td></tr>"
-					s += "<tr><td>余额：<input type='text' id='balance' name='balance' value="
+					s += "<tr><td>余额：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='balance' name='balance' value="
 							+ us.balance + " onblur='userbalance()'/>&nbsp;&nbsp;<span id='ubalance'></span></td></tr>"
-					s += "<tr><td>积分：<input type='text' id='score' name='score' value="
+					s += "<tr><td>积分：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='score' name='score' value="
 							+ us.score + " onblur='userscore()'/>&nbsp;&nbsp;<span id='uscore'></span></td></tr>"
 					s += "<tr><td>注册日期：<input type='date' id='regdate' name='regdate' value="
 							+ us.regdate + " /></td></tr>"
 					if (us.gender == '男') {
-						s += "<tr><td>性别:<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>"
+						s += "<tr><td>性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='radio' id='gender' name='gender' value='男' checked='checked'>男<input type='radio' id='gender' name='gender' value='女'> 女</td></tr>"
 					} else {
-						s += "<tr><td>性别:<input type='radio' id='gender' name='gender' value='男' >男<input type='radio' id='gender' name='gender' value='女' checked='checked'> 女</td></tr>"
+						s += "<tr><td>性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='radio' id='gender' name='gender' value='男' >男<input type='radio' id='gender' name='gender' value='女' checked='checked'> 女</td></tr>"
 					}
 					if (us.authority == 1) {
-						s += "<tr><td>权限:<select id='authority' name='authority'><option value='1' selected='selected'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
+						s += "<tr><td>权限:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='authority' name='authority'><option value='1' selected='selected'>普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
 					} else if (us.authority == 2) {
-						s += "<tr><td>权限:<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2' selected='selected'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
+						s += "<tr><td>权限:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2' selected='selected'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
 					} else if (us.authority == 3) {
-						s += "<tr><td>权限:<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2'>配送员</option><option value='3' selected='selected'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
+						s += "<tr><td>权限:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2'>配送员</option><option value='3' selected='selected'>店主</option><option value='4'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
 					} else if (us.authority == 4) {
-						s += "<tr><td>权限:<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4' selected='selected'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
+						s += "<tr><td>权限:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4' selected='selected'>普通管理员</option><option value='5'>系统管理员</option> </select></td></tr>"
 					} else {
-						s += "<tr><td>权限:<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5' selected='selected'>系统管理员</option> </select></td></tr>"
+						s += "<tr><td>权限:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='authority' name='authority'><option value='1' >普通用户</option><option value='2'>配送员</option><option value='3'>店主</option><option value='4'>普通管理员</option><option value='5' selected='selected'>系统管理员</option> </select></td></tr>"
 					}
 					s += "<tr><td><input type='hidden' id='pic' name='pic' value="
 							+ us.photo + " /></td></tr>"
-					s += "<tr><td>图片：<img src="
+					s += "<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="
 							+ us.photo
-							+ " width=50px height:50px/><input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
-					s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+							+ " width=50px height:50px/>&nbsp;&nbsp;&nbsp;&nbsp;<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
+					s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 					s += "</table>"
 					s += "</form>"
 					$("#mydiv").html(s);
@@ -1065,9 +1064,7 @@ function findbyid(id) {
 
 // 通过id查询商家
 function findrestbyid(id) {
-	$
-			.ajax( {
-				url : "shwkrest!FindRestbyId.action?v=" + Math.random(),
+	$.ajax( {url : "shwkrest!FindRestbyId.action?v=" + Math.random(),
 				type : "post",
 				data : {
 					"id" : id
@@ -1098,21 +1095,21 @@ function findrestbyid(id) {
 
 										}
 										var s = "<form  action='shwkrest!UpdaRest.action'  method='post' enctype='multipart/form-data'>";
-										s += "<table align='center'>";
+										s += "<table align='center' style='margin-top: 30px'>";
 										s += "<tr><td><input type='hidden' id='rtid' name='rtid' value="
 												+ ts.rtid + " /></td></tr>"
-										s += "<tr><td>店名：<input type='text' id='rtname' name='rtname' value="
+										s += "<tr><td>店名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='rtname' name='rtname' value="
 												+ ts.rtname + " onblur='myrtname()'/>&nbsp;&nbsp;<span id='mrtname'></span></td></tr>"
-										s += "<tr><td>地址：<input type='text' id='rtaddr' name='rtaddr' value="
+										s += "<tr><td>地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='rtaddr' name='rtaddr' value="
 												+ ts.rtaddr + " onblur='myrtaddr()'/>&nbsp;&nbsp;<span id='mrtaddr'></span></td></tr>"
-										s += "<tr><td>店主：<select id='rtowner' name='rtowner'>"
+										s += "<tr><td>店主：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='rtowner' name='rtowner'>"
 												+ str + "<select></td></tr>"
 										s += "<tr><td><input type='hidden' id='pic' name='pic' value="
 												+ ts.rtstatus + " /></td></tr>"
-										s += "<tr><td>图片：<img src="
+										s += "<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="
 												+ ts.rtpic
-												+ " width=50px height:50px/><input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
-										s += "<tr><td>公告<textarea rows='3' cols='20' id='rtcontent' name='rtcontent'>"
+												+ " width=50px height:50px/>&nbsp;&nbsp;<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
+										s += "<tr><td>公告:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea rows='3' cols='20' id='rtcontent' name='rtcontent'>"
 												+ ts.rtcontent
 												+ "</textarea></td></tr>"
 										s += "<tr><td>开店时间：<input type='date' id='rtdate' name='rtdate' value="
@@ -1120,11 +1117,11 @@ function findrestbyid(id) {
 										s += "<tr><td>营业时间：<input type='text' id='rtonbuz' name='rtonbuz'value="
 												+ ts.rtonbuz + " onblur='myrtonbuz()'/>&nbsp;&nbsp;<span id='mrtonbuz'></span></td></tr>"
 										if (ts.rtstatus == 0) {
-											s += "<tr><td>开店认证:<select id='rtstatus' name='rtstatus'><option value='0' selected='selected'>已通过</option><option value='1'>待审核</option> </select></td></tr>"
+											s += "<tr><td>开店认证:&nbsp;&nbsp;<select id='rtstatus' name='rtstatus'><option value='0' selected='selected'>已通过</option><option value='1'>待审核</option> </select></td></tr>"
 										} else if (ts.rtstatus == 1) {
-											s += "<tr><td>开店认证:<select id='rtstatus' name='rtstatus'><option value='0' >已通过</option><option value='1' selected='selected'>待审核</option> </select></td></tr>"
+											s += "<tr><td>开店认证:&nbsp;&nbsp;<select id='rtstatus' name='rtstatus'><option value='0' >已通过</option><option value='1' selected='selected'>待审核</option> </select></td></tr>"
 										}
-										s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+										s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 										s += "</table>"
 										s += "</form>"
 										$("#mydiv").html(s);
@@ -1202,23 +1199,23 @@ function findmessbyid(id) {
 															}
 
 															var s = "<form  action='shwkmess!UpdaMess.action'  method='post' enctype='multipart/form-data'>";
-															s += "<table align='center'>";
+															s += "<table align='center' style='margin-top: 30px'>";
 															s += "<tr><td><input type='hidden' id='mid' name='mid' value="
 																	+ ts.mid
 																	+ " /></td></tr>"
-															s += "<tr><td>用户：<select id='muserid' name='muserid'>"
+															s += "<tr><td>用户：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='muserid' name='muserid'>"
 																	+ str
 																	+ "<select></td></tr>"
-															s += "<tr><td>店铺名：<select id='mrtid' name='mrtid'>"
+															s += "<tr><td>店铺名：&nbsp;&nbsp;&nbsp;&nbsp;<select id='mrtid' name='mrtid'>"
 																	+ str2
 																	+ "<select></td></tr>"
-															s += "<tr><td>评论：<textarea rows='3' cols='20' id='mcontent' name='mcontent'>"
+															s += "<tr><td>评论：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea rows='3' cols='20' id='mcontent' name='mcontent'>"
 																	+ ts.mcontent
 																	+ "</textarea></td></tr>"
 															s += "<tr><td>开店时间：<input type='date' id='mdate' name='mdate' value="
 																	+ ts.mdate
 																	+ " /></td></tr>"
-															s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+															s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 															s += "</table>"
 															s += "</form>"
 															$("#mydiv").html(s);
@@ -1273,32 +1270,32 @@ function findmenubyid(id) {
 											}
 										}
 										var s = "<form  action='shwkmenu!UpdaMenu.action'  method='post' enctype='multipart/form-data'>";
-										s += "<table align='center'>";
+										s += "<table align='center' style='margin-top: 30px'>";
 										s += "<tr><td><input type='hidden' id='muid' name='muid' value="
 												+ ts.muid + " /></td></tr>"
-										s += "<tr><td>店铺名：<select id='murtid' name='murtid'>"
+										s += "<tr><td>店铺名：&nbsp;&nbsp;<select id='murtid' name='murtid'>"
 												+ str + "<select></td></tr>"
-										s += "<tr><td>菜名：<input type='text' id='muname' name='muname' value="
+										s += "<tr><td>菜名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='muname' name='muname' value="
 												+ ts.muname + " onblur='mymuname()'/>&nbsp;&nbsp;<span id='mmuname'></span></td></tr>"
-										s += "<tr><td>价格：<input type='text' id='muprice' name='muprice' value="
+										s += "<tr><td>价格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='muprice' name='muprice' value="
 												+ ts.muprice + " onblur='mymuprice()'/>&nbsp;&nbsp;<span id='mmuprice'></span></td></tr>"
 										s += "<tr><td><input type='hidden' id='pic' name='pic' value="
 												+ ts.mupic + " /></td></tr>"
-										s += "<tr><td>图片：<img src="
+										s += "<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="
 												+ ts.mupic
 												+ " width=50px height:50px/>"
 												+ "<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
-										s += "<tr><td>类型：<input type='text' id='mutype' name='mutype' value="
+										s += "<tr><td>类型：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='mutype' name='mutype' value="
 												+ ts.mutype + " onblur='mymutype()'/>&nbsp;&nbsp;<span id='mmutype'></span></td></tr>"
-										s += "<tr><td>描述：<textarea rows='3' cols='20' id='mudesc' name='mudesc'>"+ ts.mudesc + " </textarea>"
-										s += "<tr><td>销量：<input type='text' id='musale' name='musale' value="
+										s += "<tr><td>描述：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea rows='3' cols='20' id='mudesc' name='mudesc'>"+ ts.mudesc + " </textarea>"
+										s += "<tr><td>销量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='musale' name='musale' value="
 												+ ts.musale + " onblur='mymusale()'/>&nbsp;&nbsp;<span id='mmusale'></span></td></tr>"
 										if (ts.mustatus == 0) {
 											s += "<tr><td>是否售完:<select id='mustatus' name='mustatus'><option value='0' selected='selected'>正在销售</option><option value='1'>已售完</option></td></tr>"
 										} else if (ts.mustatus == 1) {
-											s += "<tr><td>是否售完:<select id='mustatus' name='mustatus'><option value='0' >正在销售</option><option value='1' selected='selected'>已售完</option></select></td></tr>"
+											s += "<tr><td>是否售完:&nbsp;<select id='mustatus' name='mustatus'><option value='0' >正在销售</option><option value='1' selected='selected'>已售完</option></select></td></tr>"
 										}
-										s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+										s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 										s += "</table>"
 										s += "</form>"
 										$("#mydiv").html(s);
@@ -1375,17 +1372,17 @@ function findmenumsgbyid(id) {
 															}
 
 															var s = "<form  action='shwkmenumsg!UpdaMenuMsg.action'  method='post' enctype='multipart/form-data'>";
-															s += "<table align='center'>";
+															s += "<table align='center' style='margin-top: 30px'>";
 															s += "<tr><td><input type='hidden' id='mmid' name='mmid' value="
 																	+ ts.mmid
 																	+ " /></td></tr>"
-															s += "<tr><td>用户：<select id='mmuserid' name='mmuserid'>"
+															s += "<tr><td>用户：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='mmuserid' name='mmuserid'>"
 																	+ str
 																	+ "<select></td></tr>"
-															s += "<tr><td>菜名：<select id='mmmuid' name='mmmuid'>"
+															s += "<tr><td>菜名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='mmmuid' name='mmmuid'>"
 																	+ str2
 																	+ "<select></td></tr>"
-															s += "<tr><td>评论：<textarea rows='3' cols='20' id='mmcontent' name='mmcontent'>"
+															s += "<tr><td>评论：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea rows='3' cols='20' id='mmcontent' name='mmcontent'>"
 																	+ ts.mmcontent
 																	+ "</textarea></td></tr>"
 															if (ts.mmscore == 1) {
@@ -1515,25 +1512,25 @@ function findorderbyid(id) {
 
 																				}
 																				var s = "<form  action='shwkorder!UpdaOrder.action'  method='post' enctype='multipart/form-data'>";
-																				s += "<table align='center'>";
+																				s += "<table align='center' style='margin-top: 30px'>";
 																				s += "<tr><td><input type='hidden' id='oid' name='oid' value="
 																						+ ts.oid
 																						+ " /></td></tr>"
 																				s += "<tr><td>下单用户：<select id='ouserid' name='ouserid'>"
 																						+ str
 																						+ "<select></td></tr>"
-																				s += "<tr><td>店家：<select id='ortid' onchange='ortidchange("
+																				s += "<tr><td>店家：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='ortid' onchange='ortidchange("
 																						+ ts.omuid
 																						+ ")' name='ortid'>"
 																						+ str3
 																						+ "<select></td></tr>"
-																				s += "<tr><td>菜名：<select id='omuid' name='omuid'>"
+																				s += "<tr><td>菜名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='omuid' name='omuid'>"
 																						+ str4
 																						+ "<select></td></tr>"
-																				s += "<tr><td>数量：<input type='text' id='ocount' name='ocount' value="
+																				s += "<tr><td>数量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' style='width:80px' id='ocount' name='ocount' value="
 																						+ ts.ocount
 																						+ " onblur='myocount()'/>&nbsp;&nbsp;<span id='mocount'></span></td></tr>"
-																				s += "<tr><td>配送员：<select id='osender' name='osender'>"
+																				s += "<tr><td>配送员：&nbsp;&nbsp;&nbsp;&nbsp;<select id='osender' name='osender'>"
 																						+ str2
 																						+ "<select></td></tr>"
 																				s += "<tr><td>下单日期：<input type='date' id='odate' name='odate' value="
@@ -1541,20 +1538,20 @@ function findorderbyid(id) {
 																						+ " /></td></tr>"
 																				s += "<tr><td>OUUID："+ts.ouuid+"</td></tr>"
 																				if (ts.osattus == 0) {
-																					s += "<tr><td>订单状态:<select id='ostatus' name='ostatus'><option value='0' selected='selected'>购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option> <option value='5'>订单完成</option></select></td></tr>"
+																					s += "<tr><td>订单状态：<select id='ostatus' name='ostatus'><option value='0' selected='selected'>购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option> <option value='5'>订单完成</option></select></td></tr>"
 																				} else if (ts.osattus == 1) {
-																					s += "<tr><td>订单状态:<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1' selected='selected'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option> <option value='5'>订单完成</option></select></td></tr>"
+																					s += "<tr><td>订单状态：<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1' selected='selected'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option> <option value='5'>订单完成</option></select></td></tr>"
 																				} else if (ts.osattus == 2) {
-																					s += "<tr><td>订单状态:<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2' selected='selected'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option><option value='5'>订单完成</option> </select></td></tr>"
+																					s += "<tr><td>订单状态：<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2' selected='selected'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option><option value='5'>订单完成</option> </select></td></tr>"
 																				} else if (ts.osattus == 3) {
-																					s += "<tr><td>订单状态:<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3' selected='selected'>商家已接单</option><option value='4'>配送中</option><option value='5'>订单完成</option> </select></td></tr>"
+																					s += "<tr><td>订单状态：<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3' selected='selected'>商家已接单</option><option value='4'>配送中</option><option value='5'>订单完成</option> </select></td></tr>"
 																				} else if (ts.osattus == 4) {
-																					s += "<tr><td>订单状态:<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4' selected='selected'>配送中</option><option value='5'>订单完成</option> </select></td></tr>"
+																					s += "<tr><td>订单状态：<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4' selected='selected'>配送中</option><option value='5'>订单完成</option> </select></td></tr>"
 																				} else {
-																					s += "<tr><td>订单状态:<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option> <option value='5' selected='selected'>订单完成</option></select></td></tr>"
+																					s += "<tr><td>订单状态：<select id='ostatus' name='ostatus'><option value='0' >购物车中</option><option value='1'>已下单（未支付）</option><option value='2'>已支付</option><option value='3'>商家已接单</option><option value='4'>配送中</option> <option value='5' selected='selected'>订单完成</option></select></td></tr>"
 																				}
 
-																				s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+																				s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 																				s += "</table>"
 																				s += "</form>"
 																				$(
@@ -1593,7 +1590,7 @@ function findpaybyid(id) {
 				success : function(data) {
 					var ts = data.pay;
 					var s = "<form  action='shwkpay!UpdaPay.action'  method='post' enctype='multipart/form-data'>";
-					s += "<table align='center'>";
+					s += "<table align='center' style='margin-top: 30px'>";
 					s += "<tr><td><input type='hidden' id='pid' name='pid' value="
 							+ ts.pid + " /></td></tr>"
 					s += "<tr><td>订单编号：" + ts.poid + "</td></tr>"
@@ -1604,7 +1601,7 @@ function findpaybyid(id) {
 						s += "<tr><td>评分:<input type='radio' id='ptype' name='ptype' value='余额支付' >余额支付"
 								+ "<input type='radio' id='ptype' name='ptype' value='货到付款' checked='checked'>货到付款</td></tr>"
 					}
-					s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+					s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 					s += "</table>"
 					s += "</form>"
 					$("#mydiv").html(s);
@@ -1630,25 +1627,25 @@ function findgiftbyid(id) {
 				success : function(data) {
 					var ts = data.gift;
 					var s = "<form  action='shwkugift!UpdaGift.action'  method='post' enctype='multipart/form-data'>";
-					s += "<table align='center'>";
+					s += "<table align='center' style='margin-top: 30px'>";
 					s += "<tr><td><input type='hidden' id='gid' name='gid' value="
 							+ ts.gid + " /></td></tr>"
-					s += "<tr><td>礼品名：<input type='text' id='gname' name='gname' value="
+					s += "<tr><td>礼品名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='gname' name='gname' value="
 							+ ts.gname + " onblur='mygname()'/>&nbsp;&nbsp;<span id='mgname'></span></td></tr>"
 					s += "<tr><td><input type='hidden' id='pic' name='pic' value="
 							+ ts.gpic + " /></td></tr>"
-					s += "<tr><td>图片：<img src="
+					s += "<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;<img src="
 							+ ts.gpic
-							+ " width=50px height:50px/><input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
-					s += "<tr><td>所需积分：<input type='text' id='greqscore' name='greqscore' value="
+							+ " width=50px height:50px/>&nbsp;&nbsp;&nbsp;<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>"
+					s += "<tr><td>所需积分：&nbsp;&nbsp;&nbsp;<input type='text' id='greqscore' name='greqscore' value="
 							+ ts.greqscore + " onblur='mygreqscore()'/>&nbsp;&nbsp;<span id='mgreqscore'></span></td></tr>"
 					s += "<tr><td>已兑换数量：<input type='text' id='gcount' name='gcount' value="
 							+ ts.gcount + " onblur='mygcount()'/>&nbsp;&nbsp;<span id='mgcount'></span></td></tr>"
 					s += "<tr><td>总库存数量：<input type='text' id='gsum' name='gsum'value="
 							+ ts.gsum + " onblur='mygsum()'/>&nbsp;&nbsp;<span id='mgsum'></span></td></tr>"
-					s += "<tr><td>公告<textarea rows='3' cols='20' id='gdesc' name='gdesc'>"
+					s += "<tr><td>公告：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea rows='3' cols='20' id='gdesc' name='gdesc'>"
 							+ ts.gdesc + "</textarea></td></tr>"
-					s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+					s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 					s += "</table>"
 					s += "</form>"
 					$("#mydiv").html(s);
@@ -1676,8 +1673,7 @@ function findGiftRecbyid(id) {
 					var ts = data.grec;
 					var str = "";
 					var str2 = "";
-					$.getJSON(
-									"shwkuser!getAllUser.action?v=" + Math.random(),
+					$.getJSON("shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										for ( var i = 0; i < getAllUser.length; i++) {
@@ -1694,10 +1690,7 @@ function findGiftRecbyid(id) {
 													+ "</option>"
 											}
 										}
-										$
-												.getJSON(
-														"shwkugift!getAllGift.action?v="
-																+ Math.random(),
+										$.getJSON("shwkugift!getAllGift.action?v="+ Math.random(),
 														function(data) {
 															var getAllGift = data.rows;
 															for ( var i = 0; i < getAllGift.length; i++) {
@@ -1718,14 +1711,14 @@ function findGiftRecbyid(id) {
 															}
 
 															var s = "<form  action='shwkgiftrec!UpdaGiftRecord.action'  method='post' enctype='multipart/form-data'>";
-															s += "<table align='center'>";
+															s += "<table align='center' style='margin-top: 30px'>";
 															s += "<tr><td><input type='hidden' id='grid' name='grid' value="
 																	+ ts.grid
 																	+ " /></td></tr>"
-															s += "<tr><td>兑换人：<select id='gruserid' name='gruserid'>"
+															s += "<tr><td>兑换人：&nbsp;&nbsp;&nbsp;<select id='gruserid' name='gruserid'>"
 																	+ str
 																	+ "<select></td></tr>"
-															s += "<tr><td>礼物名：<select id='grgid' name='grgid'>"
+															s += "<tr><td>礼物名：&nbsp;&nbsp;&nbsp;<select id='grgid' name='grgid'>"
 																	+ str2
 																	+ "<select></td></tr>"
 															s += "<tr><td>兑换数量：<input type='text' id='grnum' name='grnum' value="
@@ -1735,11 +1728,11 @@ function findGiftRecbyid(id) {
 																	+ ts.grdate
 																	+ " /></td></tr>"
 															if (ts.grstatus == 0) {
-																s += "<tr><td>是否配送:<select id='grstatus' name='grstatus'><option value='0' selected='selected'>未配送</option><option value='1'>已配送</option></select></td></tr>"
+																s += "<tr><td>是否配送:&nbsp;&nbsp;&nbsp;<select id='grstatus' name='grstatus'><option value='0' selected='selected'>未配送</option><option value='1'>已配送</option></select></td></tr>"
 															} else if (ts.grstatus == 1) {
-																s += "<tr><td>是否配送:<select id='grstatus' name='grstatus'><option value='0' >未配送</option><option value='1' selected='selected'>已配送</option></select></td></tr>"
+																s += "<tr><td>是否配送:&nbsp;&nbsp;&nbsp;<select id='grstatus' name='grstatus'><option value='0' >未配送</option><option value='1' selected='selected'>已配送</option></select></td></tr>"
 															}
-															s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
+															s += "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' id='btn' value='取消'/></td></tr>"
 															s += "</table>"
 															s += "</form>"
 															$("#mydiv").html(s);
@@ -2002,8 +1995,8 @@ function inputname() {
 		$("#uname").html(s);
 		$("#username").val("");
 		this.$("#username").focus()
-	} else if (username.length < 6 || username.length > 20) {
-		var s = "<font color='red'>※：</font>用户名长度需在6-20个字符之间"
+	} else if (username.length < 4 || username.length > 12) {
+		var s = "<font color='red'>※：</font>用户名长度需在4-12个字符之间"
 		$("#uname").html(s);
 		$("#username").val("")
 		this.$("#username").focus()
@@ -2021,8 +2014,8 @@ function userpwd() {
 		$("#upwd").html(s);
 		$("#pwd").val("")
 		this.$("#pwd").focus()
-	} else if (pwd.length < 6 || pwd.length > 20) {
-		var s = "<font color='red'>※：</font>密码长度需在6-20个字符之间"
+	} else if (pwd.length < 6 || pwd.length > 16) {
+		var s = "<font color='red'>※：</font>密码长度需在6-16个字符之间"
 		$("#upwd").html(s);
 		$("#pwd").val("")
 		this.$("#pwd").focus()
@@ -2091,8 +2084,8 @@ function userrealname(){
 		$("#urealname").html(s);
 		$("#realname").val("")
 		this.$("#realname").focus()
-	}else if (realname.length < 6 || realname.length > 20) {
-		var s = "<font color='red'>※：</font>真实姓名长度需在6-20个字符之间"
+	}else if (realname.length < 4 || realname.length > 12) {
+		var s = "<font color='red'>※：</font>真实姓名长度需在4-12个字符之间"
 			$("#urealname").html(s);
 			$("#realname").val("")
 			this.$("#realname").focus()
@@ -2144,8 +2137,8 @@ function myrtname(){
 		$("#mrtname").html(s);
 		$("#rtname").val("")
 		this.$("#rtname").focus()
-	}else if (rtname.length < 6 || rtname.length > 20) {
-		var s = "<font color='red'>※：</font>店名长度需在6-20个字符之间"
+	}else if (rtname.length < 4 || rtname.length > 12) {
+		var s = "<font color='red'>※：</font>店名长度需在4-12个字符之间"
 			$("#mrtname").html(s);
 			$("#rtname").val("")
 			this.$("#rtname").focus()

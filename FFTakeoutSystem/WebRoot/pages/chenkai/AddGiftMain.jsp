@@ -34,7 +34,7 @@
   <body>
 <div class="top"></div>
 <div id="header">
-	<div class="logo">订餐后台管理系统</div>
+	<div class="logo"><a href="<%= path %>/pages/chenkai/main.jsp"  style="color:#fff;text-decoration:none" >订餐后台管理系统</a></div>
 	<div class="navigation">
 		<ul>
 		 	<li>欢迎您！</li>
@@ -60,7 +60,7 @@
           <h4 class="M2"><span></span>店家管理</h4>
           <div class="list-item none">
             <a id="findallrest">查询所有店家</a>
-            <a href='#'>查看开店申请</a>
+             <a id="findsomerest">查看开店申请</a>
             <a href='shwkrest!WriteRest.action'>下载所有店家信息</a>   
             <a id='findaddMess'>查询所有店家评论</a>   
            </div>
@@ -103,13 +103,16 @@
 			<div class="right-nav">					
 			</div>
 			<div id="mydiv" class="main">
+				<s:if test="hasActionErrors()">
+					<s:property value="setActionErrors({'请不要重复提交表单'})"/>
+				</s:if>
 				<s:form  action='shwkgift!addGift.action'  method='post' enctype='multipart/form-data'>
-						<table align='center'>
-					    <tr><td>礼品名：<input type='text' id='gname' name='gname'onblur='mygname()'/>&nbsp;&nbsp;<span id='mgname'></span></td></tr>
-						<tr><td>图片：<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>
+						<table align='center' style="margin-top: 30px">
+					    <tr><td>礼品名：&nbsp;&nbsp;<input type='text' id='gname' name='gname'onblur='mygname()'/>&nbsp;&nbsp;<span id='mgname'></span></td></tr>
+						<tr><td>图片：&nbsp;&nbsp;&nbsp;<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>
 						<tr><td>所需积分:<input type='text' id='greqscore' name='greqscore' onblur='mygreqscore()'/>&nbsp;&nbsp;<span id='mgreqscore'></span></td></tr>
 						<tr><td>总库存数:<input type='text' id='gsum' name='gsum' onblur='mygsum()'/>&nbsp;&nbsp;<span id='mgsum'></span></td></tr>
-						<tr><td>描述：<textarea rows='3' cols='20' id='gdesc' name='gdesc'></textarea></td></tr>
+						<tr><td>描述：&nbsp;&nbsp;&nbsp;&nbsp;<textarea rows='3' cols='20' id='gdesc' name='gdesc'></textarea></td></tr>
 						<tr><td><s:token theme='simple'/><s:actionerror theme='simple'/></td></tr>
 						<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='提交' id='submit'/>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
