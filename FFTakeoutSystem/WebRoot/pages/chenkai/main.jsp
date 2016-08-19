@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <h4 class="M2"><span></span>店家管理</h4>
           <div class="list-item none">
             <a id="findallrest">查询所有店家</a>
-            <a href='#'>查看开店申请</a>
+            <a id="findsomerest">查看开店申请</a>
             <a href='shwkrest!WriteRest.action'>下载所有店家信息</a>   
             <a id='findaddMess'>查询所有店家评论</a>   
            </div>

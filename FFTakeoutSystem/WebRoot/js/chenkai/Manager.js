@@ -12,6 +12,13 @@ $(function() {
 				$.getJSON("shwkrest!getRestList.action?v=" + Math.random(),
 						Restrollback)
 			});
+	
+	$("#findsomerest").click(
+			function(){
+				$.getJSON("shwkrest!getSomeRestList.action?v=" + Math.random(),
+						SomeRestrollback)
+			}
+			)
 
 	// 查询所有商家评论
 	$("#findaddMess").click(
@@ -164,14 +171,12 @@ function Restrollback(data) {
 	var getAllRest = data.rows;
 
 	var s = "<table align='center' border='1' width='90%'>";
-	s += "<tr id='title'><th>编号</th><th>店名</th><th>地址</th><th>店主名</th><th>图片</th><th>公告</th><th>开店时间</th><th>营业时间</th><th>营业状态</th><th>操作</th></tr>"
+	s += "<tr id='title'><th>编号</th><th>店名</th><th>地址</th><th>店主名</th><th>图片</th><th>公告</th><th>开店时间</th><th>营业时间</th><th>开店认证</th><th>操作</th></tr>"
 	for ( var i = 0; i < getAllRest.length; i++) {
 		var k = getAllRest[i];
 		var status = "";
 		if (k.rtstatus == 0) {
-			status = "正在营业"
-		} else if (k.rtstatus == 1) {
-			status = "休息中"
+			status = "已通过"
 		}
 		var addr=""
 			if (k.rtaddr.length>4) {
@@ -241,6 +246,100 @@ function Restrollback(data) {
 	$("#mydiv").html(s);
 	TableModel();
 }
+
+//申请开店回调函数
+function SomeRestrollback(data) {
+	var page = data.pages;
+	var sum = data.total;
+	var getAllRest = data.rows
+	if (getAllRest.length!=0) {
+		var s = "<table align='center' border='1' width='90%'>";
+		s += "<tr id='title'><th>编号</th><th>店名</th><th>地址</th><th>店主名</th><th>图片</th><th>公告</th><th>开店时间</th><th>营业时间</th><th>开店认证</th><th>操作</th></tr>"
+		for ( var i = 0; i < getAllRest.length; i++) {
+			var k = getAllRest[i];
+			var status = "";
+			if (k.rtstatus == 1) {
+				status = "<font color='red'>待审核</font>"
+			}
+			var addr=""
+				if (k.rtaddr.length>4) {
+					addr=k.rtaddr.substring(0,4)+"..."	;
+				}else{
+					addr=k.rtaddr;
+				}	
+			var content=""
+				if (k.rtcontent.length>4) {
+					content=k.rtcontent.substring(0,4)+"..."	;
+				}else{
+					content=k.rtcontent;
+				}
+			s += "<tr align='center'>"
+			s += "<td >" + k.rtid + "</td>";
+			s += "<td >" + k.rtname + "</td>";
+			s += "<td class='tdtype' title="+k.rtaddr+">" + addr+ "</td>";
+			s += "<td >" + k.owner + "</td>";
+			s += "<td > <img src=" + k.rtpic
+					+ " width='50px' heigth='50px'/></td>";
+			s += "<td class='tdtype' title="+k.rtcontent+">" + content+ "</td>";
+			s += "<td >" + k.rtdate + "</td>";
+			s += "<td >" + k.rtonbuz + "</td>";
+			s += "<td >" + status + "</td>";
+			s += "<td>";
+			s += "<span onclick='updateRest(" + k.rtid + ","+k.rtowner+")'>同意开店</span>";
+			s += "</td>";
+			s += "</tr>";
+		}
+		s += "</table>";
+		s += "<table align='center' width='90%'>"
+		s += "<tr valign='bottom' align='center' id='last'>"
+		s += "<td colspan='3' width='100%'>"
+		if (page != 1) {
+			s += "<a  onclick='getSomeRestList(1)'><font color='blue'>首页</font></a>"
+
+		} else {
+			s += "<span>首页</span>"
+		}
+		s += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		if (page > 1) {
+			s += "<a  onclick='getSomeRestList(" + (page - 1)
+					+ ")'><font color='blue'>上一页</font></a>"
+		} else {
+			s += "<span>上一页</span>"
+		}
+		s += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		if (page < sum) {
+			s += "<a  onclick='getSomeRestList(" + (page + 1)
+					+ ")'><font color='blue'>下一页</font></a>"
+		} else {
+			s += "<span>下一页</span>"
+		}
+		s += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		if (page != sum) {
+			s += "<a onclick='getSomeRestList(" + (sum)
+					+ ")'><font color='blue'>尾页</font></a>"
+		} else {
+			s += "<span>尾页</span>"
+		}
+		s += "</td>"
+		s += "</tr>"
+		s += "</table>"
+		$("#mydiv").html(s);
+
+		TableModel();
+	}else{
+		$("#mydiv").html("<span style='float:left; padding:10px 20px; font-size:26px;'>暂无用户申请成为店家!</span>");
+	}
+	
+}
+
+function updateRest(rtid,uid){
+	$.getJSON("shwkrest!UpdateRestStatus.action?v=" + Math.random()+"&rtid="+rtid+"&userid="+uid,
+			function(){
+		$.getJSON("shwkrest!getRestList.action?v=" + Math.random(),
+				Restrollback)
+	})
+	
+};
 
 // 商家评论回调函数
 function Messrollback(data) {
@@ -502,13 +601,18 @@ function Orderrollback(data) {
 			}else{
 				content=k.OUUID;
 			}
+		
+		var name=k.OSENDERNAME;
+		if (name==undefined || name=="" || name==null) {
+			name="暂无配送人员";
+		}
 		s += "<tr align='center'>"
 		s += "<td >" + k.OID + "</td>";
 		s += "<td >" + k.OUSERNAME + "</td>";
 		s += "<td >" + k.OMUNAME + "</td>";
 		s += "<td >" + k.ORTNAME + "</td>";
 		s += "<td >" + k.OCOUNT + "</td>";
-		s += "<td >" + k.OSENDERNAME + "</td>";
+		s += "<td >" + name + "</td>";
 		s += "<td >" + k.ODATE + "</td>";
 		s += "<td class='tdtype' title="+k.OUUID+">" + content+ "</td>";
 		
@@ -787,6 +891,19 @@ function getRestList(pages) {
 	})
 }
 
+//分页查询申请开店商家
+function getSomeRestList(pages){
+	$.ajax( {
+		url : "shwkrest!getSomeRestList.action?v=" + Math.random(),
+		type : "post",
+		data : {
+			"page" : pages
+		},
+		dataType : "json",
+		success : SomeRestrollback
+	})
+}
+
 // 分页查询商家评论
 function getMessList(pages) {
 	$.ajax( {
@@ -960,7 +1077,7 @@ function findrestbyid(id) {
 					var ts = data.rest;
 					$
 							.getJSON(
-									"shwkuser!getAllUser.action?v=" + Math.random(),
+									"shwkuser!GetAllOwner.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
 										var str = "";
@@ -1003,9 +1120,9 @@ function findrestbyid(id) {
 										s += "<tr><td>营业时间：<input type='text' id='rtonbuz' name='rtonbuz'value="
 												+ ts.rtonbuz + " onblur='myrtonbuz()'/>&nbsp;&nbsp;<span id='mrtonbuz'></span></td></tr>"
 										if (ts.rtstatus == 0) {
-											s += "<tr><td>营业状态:<select id='rtstatus' name='rtstatus'><option value='0' selected='selected'>正在营业</option><option value='1'>休息中</option> </select></td></tr>"
+											s += "<tr><td>开店认证:<select id='rtstatus' name='rtstatus'><option value='0' selected='selected'>已通过</option><option value='1'>待审核</option> </select></td></tr>"
 										} else if (ts.rtstatus == 1) {
-											s += "<tr><td>营业状态:<select id='rtstatus' name='rtstatus'><option value='0' >正在营业</option><option value='1' selected='selected'>休息中</option> </select></td></tr>"
+											s += "<tr><td>开店认证:<select id='rtstatus' name='rtstatus'><option value='0' >已通过</option><option value='1' selected='selected'>待审核</option> </select></td></tr>"
 										}
 										s += "<tr><td><input type='submit' value='提交'/><input type='button' id='btn' value='取消'/></td></tr>"
 										s += "</table>"
@@ -1341,69 +1458,41 @@ function findorderbyid(id) {
 					var str2 = "";
 					var str3 = "";
 					var str4 = "";
-					$
-							.getJSON(
-									"shwkuser!getAllUser.action?v=" + Math.random(),
-									function(data) {
-										var getAllUser = data.rows;
-
-										for ( var i = 0; i < getAllUser.length; i++) {
-											var k = getAllUser[i]
-											if (ts.ouserid == k.userid) {
-												str += "<option value="
-														+ k.userid
-														+ "  selected='selected'>"
-														+ k.username
-														+ "</option>"
-											} else {
-												str += "<option value="
-														+ k.userid + ">"
-														+ k.username
-														+ "</option>"
-											}
-											if (ts.osender == k.userid) {
-												str2 += "<option value="
-														+ k.userid
-														+ "  selected='selected'>"
-														+ k.username
-														+ "</option>"
-											} else {
-												str2 += "<option value="
-														+ k.userid + ">"
-														+ k.username
-														+ "</option>"
-											}
-
+					$.getJSON("shwkuser!getAllUser.action?v=" + Math.random(),
+							function(data) {
+									var getAllUser = data.rows;
+									for ( var i = 0; i < getAllUser.length; i++) {
+										var k = getAllUser[i]
+										if (ts.ouserid == k.userid) {
+											str += "<option value="+ k.userid+ "  selected='selected'>"+ k.username+ "</option>"
+										} else {
+											str += "<option value="+ k.userid + ">"+ k.username+ "</option>"
 										}
-										$
-												.getJSON(
-														"shwkrest!getAllRest.action?v="
-																+ Math.random(),
-														function(data) {
-															var getAllRest = data.rows;
-															for ( var i = 0; i < getAllRest.length; i++) {
-																var k = getAllRest[i]
-																if (ts.ortid == k.rtid) {
-																	str3 += "<option value="
-																			+ k.rtid
-																			+ "  selected='selected'>"
-																			+ k.rtname
-																			+ "</option>"
-																} else {
-																	str3 += "<option value="
-																			+ k.rtid
-																			+ ">"
-																			+ k.rtname
-																			+ "</option>"
+									}
+					$.getJSON("shwkuser!GetAllSender.action?v=" + Math.random(),
+						   function(data) {
+									var getAllUser = data.rows;
+									for ( var i = 0; i < getAllUser.length; i++) {
+										var k = getAllUser[i]
+										if (ts.osender == k.userid) {
+												str2 += "<option value="+ k.userid+ "  selected='selected'>"+ k.username+ "</option>"
+										} else {
+												str2 += "<option value="+ k.userid + ">"+ k.username+ "</option>"
+										}
+
+									}
+					$.getJSON("shwkrest!getAllRest.action?v="+ Math.random(),
+							function(data) {
+									var getAllRest = data.rows;
+									for ( var i = 0; i < getAllRest.length; i++) {
+										var k = getAllRest[i]
+										if (ts.ortid == k.rtid) {
+												str3 += "<option value="+ k.rtid+ "  selected='selected'>"+ k.rtname+ "</option>"
+										} else {
+												str3 += "<option value="+ k.rtid+ ">"+ k.rtname+ "</option>"
 																}
 															}
-															$
-																	.getJSON(
-																			"shwkmenu!getAllMenuByRest.action?v="
-																					+ Math
-																							.random()
-																					+ "&murtid="
-																					+ ts.ortid,
+															$.getJSON("shwkmenu!getAllMenuByRest.action?v="+ Math.random()+ "&murtid="+ ts.ortid,
 																			function(
 																					data) {
 																				var getAllMenu = data.rows;
@@ -1483,8 +1572,9 @@ function findorderbyid(id) {
 																																	.random(),
 																													Orderrollback)
 																								})
-																			})
+																			});
 														})
+										})
 									})
 				}
 			})
@@ -1586,8 +1676,7 @@ function findGiftRecbyid(id) {
 					var ts = data.grec;
 					var str = "";
 					var str2 = "";
-					$
-							.getJSON(
+					$.getJSON(
 									"shwkuser!getAllUser.action?v=" + Math.random(),
 									function(data) {
 										var getAllUser = data.rows;
@@ -1599,10 +1688,11 @@ function findGiftRecbyid(id) {
 														+ "  selected='selected'>"
 														+ k.username
 														+ "</option>"
-											}
+											}else{
 											str += "<option value=" + k.userid
 													+ ">" + k.username
 													+ "</option>"
+											}
 										}
 										$
 												.getJSON(
@@ -1618,12 +1708,13 @@ function findGiftRecbyid(id) {
 																			+ "  selected='selected'>"
 																			+ k.gname
 																			+ "</option>"
-																}
+																}else{
 																str2 += "<option value="
 																		+ k.gid
 																		+ ">"
 																		+ k.gname
 																		+ "</option>"
+																}
 															}
 
 															var s = "<form  action='shwkgiftrec!UpdaGiftRecord.action'  method='post' enctype='multipart/form-data'>";
@@ -1686,7 +1777,6 @@ function deleUser(id) {
 	}
 
 }
-
 
 // 删除商家
 function deleRest(id) {

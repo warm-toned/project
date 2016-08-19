@@ -13,7 +13,15 @@ public class TsRestaurantDao extends DataDao {
 	//查询所有店家
 	public List<TsRestaurant>  getRestList(Integer nowPage,Integer pageSize){
 		TsRestaurant rest=new TsRestaurant();
-		String sql="select * from (select t.*,rownum rn from(select rtid,rtname,rtaddr,rtowner,(select username from ts_user where ts_user.userid=ts_restaurant.rtowner )as owner,rtpic,rtcontent,rtdate,rtonbuz,rtstatus from ts_restaurant order by rtid)t)where rn between ? and ?";	
+		String sql="select * from (select t.*,rownum rn from(select rtid,rtname,rtaddr,rtowner,(select username from ts_user where ts_user.userid=ts_restaurant.rtowner )as owner,rtpic,rtcontent,rtdate,rtonbuz,rtstatus from ts_restaurant where rtstatus=0 order by rtid)t)where rn between ? and ?";	
+		List<TsRestaurant> list=getEntities(sql,rest,(((nowPage-1)*pageSize)+1),(nowPage*pageSize));
+		return list;
+	}
+	
+	//查询所有申请开店的店家
+	public List<TsRestaurant>  getSomeRestList(Integer nowPage,Integer pageSize){
+		TsRestaurant rest=new TsRestaurant();
+		String sql="select * from (select t.*,rownum rn from(select rtid,rtname,rtaddr,rtowner,(select username from ts_user where ts_user.userid=ts_restaurant.rtowner )as owner,rtpic,rtcontent,rtdate,rtonbuz,rtstatus from ts_restaurant where rtstatus=1 order by rtid)t)where rn between ? and ?";	
 		List<TsRestaurant> list=getEntities(sql,rest,(((nowPage-1)*pageSize)+1),(nowPage*pageSize));
 		return list;
 	}
@@ -64,10 +72,30 @@ public class TsRestaurantDao extends DataDao {
 		Integer i=update(sql, rtname,rtaddr,rtowner,rtpic,rtcontent,rtonbuz,rtstatus,rtid);
 		return i;
 	}
+	
+	//同意开店
+	public Integer updateARest(Integer rtid)
+	{
+		
+		String sql="update ts_restaurant set rtstatus=0 where rtid=? ";
+		Integer i=update(sql, rtid);
+		
+		return i;
+	}
+	
 	//查询所有店家数量
 	public Integer restCount(){
-		String sql="select count(*) as cou from ts_restaurant";
+		String sql="select count(*) as cou from ts_restaurant where rtstatus=0";
 		Integer i=scalarNumber(sql);
 		return i;
 	}
+	
+	//查询所有申请开店的店家
+	public Integer SomeRestCount(){
+		String sql="select count(*) as cou from ts_restaurant where rtstatus=1";
+		Integer i=scalarNumber(sql);
+		return i;
+	}
+	
+	
 }
