@@ -109,6 +109,7 @@
 				</s:if>
 				<s:form action="shwk!addUser.action" method='post' enctype='multipart/form-data' >
 <<<<<<< HEAD
+<<<<<<< HEAD
     			<table align='center' style="margin-top: 30px">				
 					<tr><td>用户名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
 				    <tr><td>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -129,6 +130,8 @@
 					<tr><td>图片：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type='file' id='photo' name='photo' accept='image/gif, image/jpeg, image/png'/></td></tr>		
 =======
+=======
+>>>>>>> 80909bce23246a17c8013d852a550263f6cb5b2c
     			<table align='center' >				
 					<tr><td >姓名：<input type='text' id='username' name='username' onblur='inputname()'/>&nbsp;&nbsp;<span id='uname'></span></td></tr>
 				    <tr><td >密码：<input type='text' id='pwd' name='pwd' onblur='userpwd()'/>&nbsp;&nbsp;<span id='upwd'></span></td></tr>
